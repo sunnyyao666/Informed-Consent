@@ -55,12 +55,12 @@ public class UserController {
             JsonNode root = mapper.readTree(responseEntity.getBody());
 
             if (root.path("errcode").asInt() == 0) {
-                // get openid successfully.
-                String openid = root.path("openid").asText();
-                user_info user = userInfoRepository.findTopByOpenid(openid);
+                // get open_id successfully.
+                String open_id = root.path("open_id").asText();
+                user_info user = userInfoRepository.findTopByOpenid(open_id);
                 if (user == null) {
                     user = new user_info();
-                    user.setOpen_id(openid);  // 注意命名
+                    user.setOpen_id(open_id);  // 注意命名
                     userInfoRepository.save(user);
                     log.info("Add a new user: " + user);
                 }
