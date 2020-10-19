@@ -56,11 +56,11 @@ public class UserController {
 
             if (root.path("errcode").asInt() == 0) {
                 // get open_id successfully.
-                String open_id = root.path("open_id").asText();
-                user_info user = userInfoRepository.findTopByOpenid(open_id);
+                String openId = root.path("openid").asText();
+                user_info user = userInfoRepository.findTopByOpenid(openId);
                 if (user == null) {
                     user = new user_info();
-                    user.setOpen_id(open_id);  // 注意命名
+                    user.setOpenId(openId);
                     userInfoRepository.save(user);
                     log.info("Add a new user: " + user);
                 }
@@ -82,7 +82,7 @@ public class UserController {
         user_info user = userInfoRepository.findTopByOpenid(openid);
         if (user == null) {
             user = new user_info();
-            user.setOpen_id(openid);
+            user.setOpenId(openid);
             userInfoRepository.save(user);
             log.info("Add a new user: " + user);
         }
