@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserInfoRepository extends CrudRepository<user_info, Integer> {
-    user_info findTopByOpenid(String openid);
+    user_info findTopByOpenId(String openId);
 }

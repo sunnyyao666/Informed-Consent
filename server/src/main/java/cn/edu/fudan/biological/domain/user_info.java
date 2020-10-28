@@ -1,7 +1,6 @@
 package cn.edu.fudan.biological.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,77 +16,57 @@ import java.util.Date;
 public class user_info {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer user_id;
+    private Integer userId;
     @Column(unique = true)
-    private String open_id; // WeChat Openid
+    private String openId; // WeChat Openid
 
-    private String tel_number;
-
-    private String user_name;
-
-    private String user_pwd;
+    private String telNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date create_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date update_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateTime;
 
     public Integer getUserId() {
-        return user_id;
+        return userId;
     }
 
-    public void setUserId(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getOpenId() {
-        return open_id;
+        return openId;
     }
 
-    public void setOpenId(String open_id) {
-        this.open_id = open_id;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getTelNumber() {
-        return tel_number;
+        return telNumber;
     }
 
-    public void setTelNumber(String tel_number) {
-        this.tel_number = tel_number;
-    }
-
-    public String getUserName() {
-        return user_name;
-    }
-
-    public void setUserName(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public String getUserPwd() {
-        return user_pwd;
-    }
-
-    public void setUserPwd(String user_pwd) {
-        this.user_pwd = user_pwd;
+    public void setTelNumber(String telNumber) {
+        this.telNumber = telNumber;
     }
 
     public Date getCreateTime() {
-        return create_time;
+        return createTime;
     }
 
-    public void setCreateTime(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {
-        return update_time;
+        return updateTime;
     }
 
-    public void setUpdateTime(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

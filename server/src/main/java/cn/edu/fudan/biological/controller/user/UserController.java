@@ -57,7 +57,7 @@ public class UserController {
             if (root.path("errcode").asInt() == 0) {
                 // get open_id successfully.
                 String openId = root.path("openid").asText();
-                user_info user = userInfoRepository.findTopByOpenid(openId);
+                user_info user = userInfoRepository.findTopByOpenId(openId);
                 if (user == null) {
                     user = new user_info();
                     user.setOpenId(openId);
@@ -79,7 +79,7 @@ public class UserController {
     @GetMapping(path = "/loginBetter")
     public MyResponse login2(@RequestParam final String code) {
         String openid = wxOpenService.getOpenId(code);
-        user_info user = userInfoRepository.findTopByOpenid(openid);
+        user_info user = userInfoRepository.findTopByOpenId(openid);
         if (user == null) {
             user = new user_info();
             user.setOpenId(openid);
