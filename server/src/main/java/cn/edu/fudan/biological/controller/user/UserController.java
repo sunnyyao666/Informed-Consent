@@ -1,7 +1,7 @@
 package cn.edu.fudan.biological.controller.user;
 
 import cn.edu.fudan.biological.config.AppProperties;
-import cn.edu.fudan.biological.domain.user_info;
+import cn.edu.fudan.biological.domain.User_info;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.UserInfoRepository;
 import cn.edu.fudan.biological.service.WXOpenService;
@@ -31,8 +31,8 @@ public class UserController {
     private final WXOpenService wxOpenService;
 
     @Autowired
-    public UserController(UserInfoRepository UserInfoRepository, AppProperties appProperties, WXOpenService wxOpenService) {
-        this.userInfoRepository = UserInfoRepository;
+    public UserController(UserInfoRepository userInfoRepository, AppProperties appProperties, WXOpenService wxOpenService) {
+        this.userInfoRepository = userInfoRepository;
         this.appProperties = appProperties;
         this.wxOpenService = wxOpenService;
     }
@@ -57,9 +57,9 @@ public class UserController {
             if (root.path("errcode").asInt() == 0) {
                 // get open_id successfully.
                 String openId = root.path("openid").asText();
-                user_info user = userInfoRepository.findTopByOpenId(openId);
+                User_info user = userInfoRepository.findTopByOpenId(openId);
                 if (user == null) {
-                    user = new user_info();
+                    user = new User_info();
                     user.setOpenId(openId);
                     userInfoRepository.save(user);
                     log.info("Add a new user: " + user);
@@ -79,9 +79,9 @@ public class UserController {
     @GetMapping(path = "/loginBetter")
     public MyResponse login2(@RequestParam final String code) {
         String openid = wxOpenService.getOpenId(code);
-        user_info user = userInfoRepository.findTopByOpenId(openid);
+        User_info user = userInfoRepository.findTopByOpenId(openid);
         if (user == null) {
-            user = new user_info();
+            user = new User_info();
             user.setOpenId(openid);
             userInfoRepository.save(user);
             log.info("Add a new user: " + user);
