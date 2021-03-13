@@ -23,6 +23,9 @@ public class User_info extends BaseEntity {
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "userInfo")
     private Set<User_star> stars = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "userInfo")
+    private Set<Questionnaire_record> records = new HashSet<>();
+
     public User_info() {
     }
 
@@ -63,4 +66,11 @@ public class User_info extends BaseEntity {
         this.stars = stars;
     }
 
+    public Set<Questionnaire_record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(Set<Questionnaire_record> records) {
+        this.records = records;
+    }
 }
