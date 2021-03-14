@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrganizationInfoRepository extends CrudRepository<Organization_info, Integer> {
     Organization_info findTopById(Integer id);
+    Organization_info findByOrganization(String organizationName);
 }
