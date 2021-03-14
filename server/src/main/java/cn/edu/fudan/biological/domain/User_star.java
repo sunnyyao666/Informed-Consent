@@ -1,5 +1,7 @@
 package cn.edu.fudan.biological.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,10 +14,12 @@ import javax.persistence.ManyToOne;
 @Entity
 public class User_star extends BaseEntity {
     @ManyToOne
+    @JsonIgnore
     private User_info userInfo;
     private Integer userId;
 
     @ManyToOne
+    @JsonIgnore
     private Project_info projectInfo;
     private Integer pid;
 

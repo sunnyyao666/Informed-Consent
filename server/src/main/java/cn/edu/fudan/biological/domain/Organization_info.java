@@ -19,7 +19,7 @@ public class Organization_info extends BaseEntity {
     private String applicantName;
     private String applicantId;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "organizationInfo")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "organizationInfo")
     private Set<Project_info> projects = new HashSet<>();
 
     public Organization_info() {

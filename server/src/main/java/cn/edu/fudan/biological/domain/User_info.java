@@ -20,8 +20,11 @@ public class User_info extends BaseEntity {
     @Column(unique = true)
     private String openId; // WeChat Openid
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "userInfo")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userInfo")
     private Set<User_star> stars = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userInfo")
+    private Set<Agreement_info> agreements = new HashSet<>();
 
     public User_info() {
     }
@@ -70,5 +73,13 @@ public class User_info extends BaseEntity {
 
     public void setStars(Set<User_star> stars) {
         this.stars = stars;
+    }
+
+    public Set<Agreement_info> getAgreements() {
+        return agreements;
+    }
+
+    public void setAgreements(Set<Agreement_info> agreements) {
+        this.agreements = agreements;
     }
 }

@@ -1,6 +1,7 @@
 package cn.edu.fudan.biological.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -35,11 +36,18 @@ public class Project_info extends BaseEntity {
     private String status = "draft"; // pass, unpass, underreview, draft
 
     @ManyToOne
+    @JsonIgnore
     private Organization_info organizationInfo;
     private String organization;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
     private Set<User_star> stars = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Project_data> data = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Agreement_info> agreements = new HashSet<>();
 
     public Project_info() {
     }
@@ -130,6 +138,22 @@ public class Project_info extends BaseEntity {
 
     public void setStars(Set<User_star> stars) {
         this.stars = stars;
+    }
+
+    public Set<Project_data> getData() {
+        return data;
+    }
+
+    public void setData(Set<Project_data> data) {
+        this.data = data;
+    }
+
+    public Set<Agreement_info> getAgreements() {
+        return agreements;
+    }
+
+    public void setAgreements(Set<Agreement_info> agreements) {
+        this.agreements = agreements;
     }
 }
 
