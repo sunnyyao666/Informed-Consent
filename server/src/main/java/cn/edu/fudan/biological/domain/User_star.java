@@ -16,17 +16,17 @@ public class User_star extends BaseEntity {
     private Integer userId;
 
     @ManyToOne
-    private Questionnaire_info questionnaireInfo;
-    private Integer questionnaireId;
+    private Project_info projectInfo;
+    private Integer pid;
 
     public User_star() {
     }
 
-    public User_star(User_info userInfo, Questionnaire_info questionnaireInfo) {
+    public User_star(User_info userInfo, Project_info projectInfo) {
         this.userInfo = userInfo;
         this.userId = userInfo.getId();
-        this.questionnaireInfo = questionnaireInfo;
-        this.questionnaireId = questionnaireInfo.getId();
+        this.projectInfo = projectInfo;
+        this.pid = projectInfo.getPid();
     }
 
     public User_info getUserInfo() {
@@ -46,20 +46,20 @@ public class User_star extends BaseEntity {
         this.userId = userId;
     }
 
-    public Questionnaire_info getQuestionnaireInfo() {
-        return questionnaireInfo;
+    public Project_info getProjectInfo() {
+        return projectInfo;
     }
 
-    public void setQuestionnaireInfo(Questionnaire_info questionnaireInfo) {
-        this.questionnaireInfo = questionnaireInfo;
-        this.questionnaireId = questionnaireInfo.getId();
+    public void setProjectInfo(Project_info projectInfo) {
+        this.projectInfo = projectInfo;
+        this.pid = projectInfo.getId();
     }
 
-    public Integer getQuestionnaireId() {
-        return questionnaireId;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setQuestionnaireId(Integer questionnaireId) {
-        this.questionnaireId = questionnaireId;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 }

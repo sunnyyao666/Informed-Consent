@@ -1,42 +1,51 @@
 package cn.edu.fudan.biological.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @program: biological
- * @description: 组织信息
+ * @description: 单位信息
  * @author: Yao Hongtao
  * @create: 2021-03-13 13:51
  **/
 @Entity
 public class Organization_info extends BaseEntity {
-    private String organizationName;
+    @Column(unique = true)
+    private String organization; // 单位名
+
+    private String password;
     private String applicantName;
     private String applicantId;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "organizationInfo")
-    private Set<Questionnaire_info> questionnaires = new HashSet<>();
+    private Set<Project_info> projects = new HashSet<>();
 
     public Organization_info() {
     }
 
-    public Organization_info(String organizationName, String applicantName, String applicantId) {
-        this.organizationName = organizationName;
+    public Organization_info(String organization, String password, String applicantName, String applicantId) {
+        this.organization = organization;
+        this.password = password;
         this.applicantName = applicantName;
         this.applicantId = applicantId;
     }
 
-    public String getOrganizationName() {
-        return organizationName;
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getApplicantName() {
@@ -55,12 +64,12 @@ public class Organization_info extends BaseEntity {
         this.applicantId = applicantId;
     }
 
-    public Set<Questionnaire_info> getQuestionnaires() {
-        return questionnaires;
+    public Set<Project_info> getProjects() {
+        return projects;
     }
 
-    public void setQuestionnaires(Set<Questionnaire_info> questionnaires) {
-        this.questionnaires = questionnaires;
+    public void setProjects(Set<Project_info> projects) {
+        this.projects = projects;
     }
 }
 
