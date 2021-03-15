@@ -18,6 +18,8 @@ public class Organization_info extends BaseEntity {
     private String password;
     private String applicantName;
     private String applicantId;
+    private String phone;
+    private String email;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "organizationInfo")
     private Set<Project_info> projects = new HashSet<>();
@@ -62,6 +64,22 @@ public class Organization_info extends BaseEntity {
 
     public void setApplicantId(String applicantId) {
         this.applicantId = applicantId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<Project_info> getProjects() {

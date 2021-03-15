@@ -44,6 +44,8 @@ public class Agreement_response extends BaseEntity {
 
     public void setAgreementInfo(Agreement_info agreementInfo) {
         this.agreementInfo = agreementInfo;
+        this.agreementId = agreementInfo.getId();
+        this.pid = agreementInfo.getPid();
     }
 
     public Integer getAgreementId() {
@@ -60,6 +62,7 @@ public class Agreement_response extends BaseEntity {
 
     public void setProjectData(Project_data projectData) {
         this.projectData = projectData;
+        this.dataId = projectData.getDataId();
     }
 
     public Integer getDataId() {

@@ -28,13 +28,14 @@ public class OrganizationAccountController {
     public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository) {
         this.organizationInfoRepository = organizationInfoRepository;
     }
+
     @PostMapping(path = "/register")
-    public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String applicantName,@RequestParam String applicantId, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse register(@RequestParam String organization, @RequestParam String password, @RequestParam String applicantName, @RequestParam String applicantId, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
-        if(organization_info != null){
-            return MyResponse.fail("用户名重复",1101);
-        }else{
-            Organization_info new_organization_info = new Organization_info(organization,password,applicantName,applicantId);
+        if (organization_info != null) {
+            return MyResponse.fail("用户名重复", 1101);
+        } else {
+            Organization_info new_organization_info = new Organization_info(organization, password, applicantName, applicantId);
             organizationInfoRepository.save(new_organization_info);
             return MyResponse.success();
         }
@@ -43,11 +44,11 @@ public class OrganizationAccountController {
     @PostMapping(path = "/companyLogin")
     public MyResponse login(@RequestParam String organization, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
-        if(organization_info == null){
-            return MyResponse.fail("用户名不存在",1102);
-        }else{
-            if (!organization_info.getPassword().equals(password)){
-                return MyResponse.fail("密码错误",1103);
+        if (organization_info == null) {
+            return MyResponse.fail("用户名不存在", 1102);
+        } else {
+            if (!organization_info.getPassword().equals(password)) {
+                return MyResponse.fail("密码错误", 1103);
             }
             return MyResponse.success();
         }
@@ -55,16 +56,17 @@ public class OrganizationAccountController {
 
     //找回密码（发验证码）
     @PostMapping(path = "/passwordCode")
-    public MyResponse passwordCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request){
+    public MyResponse passwordCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
         return MyResponse.success();
     }
+
     //找回密码（修改密码）//使用邮箱链接
     @PostMapping(path = "/password")
-    public MyResponse password(@RequestParam String organization,@RequestParam String newPassword, HttpServletResponse response, HttpServletRequest request){
+    public MyResponse password(@RequestParam String organization, @RequestParam String newPassword, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
-        if(organization_info == null){
-            return MyResponse.fail("用户名不存在",1102);
-        }else{
+        if (organization_info == null) {
+            return MyResponse.fail("用户名不存在", 1102);
+        } else {
             organization_info.setPassword(newPassword);
             organizationInfoRepository.save(organization_info);
             return MyResponse.success();

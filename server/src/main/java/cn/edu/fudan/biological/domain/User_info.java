@@ -15,6 +15,7 @@ public class User_info extends BaseEntity {
     @Column(unique = true)
     private String username; // 手机号
     private String password;
+    private String email;
     private String signature; // 手势密码对应数字序列
 
     @Column(unique = true)
@@ -29,10 +30,10 @@ public class User_info extends BaseEntity {
     public User_info() {
     }
 
-    public User_info(String openId, String username, String password) {
-        this.openId = openId;
+    public User_info(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public String getUsername() {
@@ -49,6 +50,14 @@ public class User_info extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSignature() {

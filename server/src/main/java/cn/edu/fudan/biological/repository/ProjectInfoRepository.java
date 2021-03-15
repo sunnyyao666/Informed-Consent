@@ -11,9 +11,13 @@ import java.util.Set;
 @Repository
 public interface ProjectInfoRepository extends CrudRepository<Project_info, Integer> {
     Project_info findTopByPid(Integer pid);
+
     Set<Project_info> findAllByOrganization(String organization);
+
     Project_info findByName(String name);
-    Project_info findByPid(String id);
+
+    Project_info findByPid(Integer pid);
+
     List<Project_info> findAllByOrganizationAndStatusOrderByName(String organization, String status);
 }
 

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserInfoRepository extends CrudRepository<User_info, Integer> {
     User_info findTopByOpenId(String openId);
+
+    User_info findByUsername(String username);
 }

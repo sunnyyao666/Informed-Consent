@@ -9,5 +9,8 @@ import java.util.Set;
 @Repository
 public interface ProjectDataRepository extends CrudRepository<Project_data, Integer> {
     Set<Project_data> findAllByPidOrderByDataId(Integer pid);
-    void deleteAllByPid(String pid);
+
+    void deleteAllByPid(Integer pid);
+
+    Project_data findByDataId(Integer dataId);
 }

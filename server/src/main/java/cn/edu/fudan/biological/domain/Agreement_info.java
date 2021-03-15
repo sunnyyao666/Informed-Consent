@@ -24,7 +24,7 @@ public class Agreement_info extends BaseEntity {
     private Project_info projectInfo;
     private Integer pid;
 
-    private String status = "completed"; // completed, saved
+    private String status = "saved"; // completed, saved
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "agreementInfo")
     private Set<Agreement_response> responses = new HashSet<>();
@@ -45,6 +45,7 @@ public class Agreement_info extends BaseEntity {
 
     public void setUserInfo(User_info userInfo) {
         this.userInfo = userInfo;
+        this.username = userInfo.getUsername();
     }
 
     public String getUsername() {
@@ -61,6 +62,7 @@ public class Agreement_info extends BaseEntity {
 
     public void setProjectInfo(Project_info projectInfo) {
         this.projectInfo = projectInfo;
+        this.pid = projectInfo.getPid();
     }
 
     public Integer getPid() {

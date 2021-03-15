@@ -122,6 +122,7 @@ public class Project_info extends BaseEntity {
 
     public void setOrganizationInfo(Organization_info organizationInfo) {
         this.organizationInfo = organizationInfo;
+        this.organization = organizationInfo.getOrganization();
     }
 
     public String getOrganization() {

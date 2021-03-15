@@ -12,19 +12,18 @@ import java.util.Date;
  * @create: 2021-03-14 18:47
  **/
 public class DateUtil {
-
     /**
-    * @Description: 将类似2021.1.1的字符串转为日期
-    * @Param: [dateStr]
-    * @return: java.util.Date
-    * @Author: Shen Zhengyu
-    * @Date: 2021/3/14
-    */
+     * @Description: 将类似2021.1.1的字符串转为日期
+     * @Param: [dateStr]
+     * @return: java.util.Date
+     * @Author: Shen Zhengyu
+     * @Date: 2021/3/14
+     */
 
-    public static Date StringToDate(String dateStr){
-        dateStr.replace(".","-");
-        DateFormat dd=new SimpleDateFormat("yyyy-MM-dd");
-        Date date=null;
+    public static Date StringToDate(String dateStr) {
+        dateStr.replace(".", "-");
+        DateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
         try {
             date = dd.parse(dateStr);
         } catch (ParseException e) {

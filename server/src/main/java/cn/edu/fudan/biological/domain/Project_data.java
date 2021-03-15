@@ -50,6 +50,7 @@ public class Project_data extends BaseEntity {
 
     public void setProjectInfo(Project_info projectInfo) {
         this.projectInfo = projectInfo;
+        this.pid = projectInfo.getPid();
     }
 
     public Integer getPid() {

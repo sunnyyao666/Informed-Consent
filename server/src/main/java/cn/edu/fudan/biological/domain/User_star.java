@@ -16,7 +16,7 @@ public class User_star extends BaseEntity {
     @ManyToOne
     @JsonIgnore
     private User_info userInfo;
-    private Integer userId;
+    private String username;
 
     @ManyToOne
     @JsonIgnore
@@ -28,7 +28,7 @@ public class User_star extends BaseEntity {
 
     public User_star(User_info userInfo, Project_info projectInfo) {
         this.userInfo = userInfo;
-        this.userId = userInfo.getId();
+        this.username = userInfo.getUsername();
         this.projectInfo = projectInfo;
         this.pid = projectInfo.getPid();
     }
@@ -39,15 +39,15 @@ public class User_star extends BaseEntity {
 
     public void setUserInfo(User_info userInfo) {
         this.userInfo = userInfo;
-        this.userId = userInfo.getId();
+        this.username = userInfo.getUsername();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Project_info getProjectInfo() {
