@@ -30,12 +30,14 @@ public class OrganizationAccountController {
     }
 
     @PostMapping(path = "/register")
-    public MyResponse register(@RequestParam String organization, @RequestParam String password, @RequestParam String applicantName, @RequestParam String applicantId, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse register(@RequestParam String organization, @RequestParam String password, @RequestParam String applicantName, @RequestParam String applicantId,@RequestParam String phone,@RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
         if (organization_info != null) {
             return MyResponse.fail("用户名重复", 1101);
         } else {
             Organization_info new_organization_info = new Organization_info(organization, password, applicantName, applicantId);
+            new_organization_info.setEmail(email);
+            new_organization_info.setPhone(phone);
             organizationInfoRepository.save(new_organization_info);
             return MyResponse.success();
         }
