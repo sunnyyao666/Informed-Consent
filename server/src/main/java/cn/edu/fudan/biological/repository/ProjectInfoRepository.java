@@ -19,5 +19,9 @@ public interface ProjectInfoRepository extends CrudRepository<Project_info, Inte
     Project_info findByPid(Integer pid);
 
     List<Project_info> findAllByOrganizationAndStatusOrderByName(String organization, String status);
+
+    List<Project_info> findAllByOrderByUpdateTimeDesc();
+
+    List<Project_info> findAllByOrderByHotDesc();
 }
 
