@@ -37,11 +37,14 @@ public class UserProjectController {
         this.agreementResponseRepository = agreementResponseRepository;
     }
 
-    @PostMapping("/savedAgreement")
-    public MyResponse saveAgreement(@RequestBody UserProjectRequest userProjectRequest) {
+    @PostMapping("/agreement")
+    public MyResponse submitAgreement(@RequestBody UserProjectRequest userProjectRequest) {
         String username = userProjectRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
+
+        String signature = userProjectRequest.getSignature();
+        if (!userInfo.getSignature().equals(signature)) return MyResponse.fail("手势密码错误", 1103);
 
         Integer pid = userProjectRequest.getPid();
         Project_info projectInfo = projectInfoRepository.findByPid(pid);
@@ -65,28 +68,7 @@ public class UserProjectController {
             agreementResponseRepository.save(response);
         }
 
-        if ("completed".equals(userProjectRequest.getMethod())) {
-            agreementInfo.setStatus("completed");
-            agreementInfoRepository.save(agreementInfo);
-
-            projectInfo.setHot(projectInfo.getHot() + 1);
-            projectInfoRepository.save(projectInfo);
-        }
-
         return MyResponse.success();
-    }
-
-    @PostMapping("/agreement")
-    public MyResponse submitAgreement(@RequestBody UserProjectRequest userProjectRequest) {
-        String username = userProjectRequest.getUsername();
-        User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
-
-        String signature = userProjectRequest.getSignature();
-        if (!userInfo.getSignature().equals(signature)) return MyResponse.fail("手势密码错误", 1103);
-
-        userProjectRequest.setMethod("completed");
-        return saveAgreement(userProjectRequest);
     }
 
     @GetMapping("/userProjects")
@@ -105,7 +87,7 @@ public class UserProjectController {
                 i++;
             }
         } else {
-            List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameAndStatusOrderByPid(username, userProjectRequest.getMethod());
+            List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
             int i = userProjectRequest.getOffset();
             int n = i + userProjectRequest.getSum();
             while (i < n && i < agreements.size()) {
@@ -116,7 +98,7 @@ public class UserProjectController {
         return MyResponse.success("成功", result);
     }
 
-    @GetMapping("/getAgreement")
+    @GetMapping("/completedAgreements")
     public MyResponse getAgreement(@RequestBody UserProjectRequest userProjectRequest) {
         String username = userProjectRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
