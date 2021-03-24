@@ -13,5 +13,5 @@ public interface AgreementInfoRepository extends CrudRepository<Agreement_info, 
 
     Set<Agreement_info> findAllByPid(Integer pid);
 
-    List<Agreement_info> findAllByUsernameAndStatusOrderByPid(String username, String status);
+    List<Agreement_info> findAllByUsernameOrderByPid(String username);
 }
