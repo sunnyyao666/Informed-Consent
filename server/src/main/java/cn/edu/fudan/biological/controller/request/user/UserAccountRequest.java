@@ -10,7 +10,7 @@ public class UserAccountRequest {
     private String username;
     private String password;
     private String code;
-    private String signature;
+    private int[] gesture;
     private String email;
 
     public UserAccountRequest() {
@@ -40,12 +40,12 @@ public class UserAccountRequest {
         this.code = code;
     }
 
-    public String getSignature() {
-        return signature;
+    public int[] getGesture() {
+        return gesture;
     }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
+    public void setGesture(int[] gesture) {
+        this.gesture = gesture;
     }
 
     public String getEmail() {
