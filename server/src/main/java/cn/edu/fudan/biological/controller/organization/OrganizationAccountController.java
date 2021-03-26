@@ -5,6 +5,8 @@ import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.OrganizationInfoRepository;
 import cn.edu.fudan.biological.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.Jedis;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,23 +25,42 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api/unit")
 public class OrganizationAccountController {
     private final OrganizationInfoRepository organizationInfoRepository;
+  private final Jedis jedis = new Jedis("localhost");
 
     @Autowired
     public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository) {
         this.organizationInfoRepository = organizationInfoRepository;
     }
 
+    @PostMapping(path = "/code")
+    public MyResponse getCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
+      Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
+      if (organization_info != null) {
+        return MyResponse.fail("用户名重复", 1101);
+      } else {
+        String code = "123456";
+        jedis.set(organization, code);
+        jedis.expire(organization, 300);
+        //To do
+        return MyResponse.success();
+      }
+    }
     @PostMapping(path = "/register")
-    public MyResponse register(@RequestParam String organization, @RequestParam String password, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String code, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
         if (organization_info != null) {
             return MyResponse.fail("用户名重复", 1101);
         } else {
-            Organization_info new_organization_info = new Organization_info(organization, password, applicantName, applicantId);
-            new_organization_info.setEmail(email);
-            new_organization_info.setPhone(phone);
-            organizationInfoRepository.save(new_organization_info);
-            return MyResponse.success();
+            if (null != jedis.get(organization) && jedis.get(organization).equals(code)){
+              Organization_info new_organization_info = new Organization_info(organization, password, applicantName, applicantId);
+              new_organization_info.setEmail(email);
+              new_organization_info.setPhone(phone);
+              organizationInfoRepository.save(new_organization_info);
+              return MyResponse.success();
+            }else{
+              return MyResponse.fail("验证码错误",1001);
+            }
+
         }
     }
 
