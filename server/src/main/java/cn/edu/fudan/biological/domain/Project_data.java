@@ -53,7 +53,18 @@ public class Project_data extends BaseEntity {
         this.pid = projectInfo.getPid();
     }
 
-    public Integer getPid() {
+  @Override
+  public String toString() {
+    return "Project_data{" +
+        "dataId=" + dataId +
+        ", projectInfo=" + projectInfo +
+        ", pid=" + pid +
+        ", data='" + data + '\'' +
+        ", responses=" + responses +
+        '}';
+  }
+
+  public Integer getPid() {
         return pid;
     }
 

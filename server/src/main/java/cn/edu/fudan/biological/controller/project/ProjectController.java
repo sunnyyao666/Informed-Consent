@@ -1,5 +1,6 @@
 package cn.edu.fudan.biological.controller.project;
 
+import cn.edu.fudan.biological.controller.organization.OrganizationProjectController;
 import cn.edu.fudan.biological.controller.request.user.UserProjectRequest;
 import cn.edu.fudan.biological.domain.Project_info;
 import cn.edu.fudan.biological.dto.MyResponse;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,30 +33,25 @@ public class ProjectController {
     }
 
     @GetMapping("/allProjects")
-    public MyResponse getAllProjects(@RequestBody UserProjectRequest userProjectRequest) {
-        String method = userProjectRequest.getMethod();
-        Integer offset = userProjectRequest.getOffset();
-        Integer sum = userProjectRequest.getSum();
+    public MyResponse getAllProjects(@RequestParam String method) {
+
         List<Project_info> projects = projectInfoRepository.findAllByOrderByUpdateTimeDesc();
         if ("hot".equals(method)) projects = projectInfoRepository.findAllByOrderByHotDesc();
 
-        List<Project_info> result = new LinkedList<>();
-        int i = offset;
-        int n = offset + sum;
-        while (i < n && i < projects.size()) {
-            result.add(projects.get(i));
-            i++;
-        }
-        return MyResponse.success("成功", result);
+        List<HashMap<String,Object>> content = new LinkedList<>();
+      for (Project_info project : projects) {
+        content.add(OrganizationProjectController.convertData(project));
+      }
+        return MyResponse.success("成功", content);
     }
-
+    
     @GetMapping("/projectDetails")
-    public MyResponse getProjectDetails(@RequestBody UserProjectRequest userProjectRequest) {
-        Integer pid = userProjectRequest.getPid();
-        Project_info projectInfo = projectInfoRepository.findByPid(pid);
+    public MyResponse getProjectDetails(@RequestParam String projectId) {
+        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
         if (projectInfo == null) return MyResponse.fail("pid不存在", 1002);
-
-        return MyResponse.success("成功", projectInfo);
+      List<HashMap<String,Object>> content = new LinkedList<>();
+      content.add(OrganizationProjectController.convertData(projectInfo));
+        return MyResponse.success("成功", content);
     }
 }
 

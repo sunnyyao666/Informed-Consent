@@ -5,9 +5,12 @@ import cn.edu.fudan.biological.domain.*;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.*;
 import cn.edu.fudan.biological.util.DateUtil;
+import cn.edu.fudan.biological.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,7 +82,28 @@ public class OrganizationProjectController {
     }
     newProject.setData(all_project_data);
     projectInfoRepository.save(newProject);
+    log.info(organization + "创建项目:" + newProject.toString());
+    log.info("收集字段:" + data.toString());
     return MyResponse.success();
+  }
+
+  @PostMapping("/projectResult")
+  public MyResponse reviewProjectResult(@RequestParam String projectId){
+    Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(Integer.parseInt(projectId));
+    Set<HashMap<String,String>> data = new HashSet<>();
+    if(agreement_infos == null){
+      return MyResponse.fail("所操作的数据不存在", 1002);
+    }else{
+      for (Agreement_info agreement_info : agreement_infos) {
+        HashMap<String,String> datum = new HashMap<>();
+        datum.put("username",agreement_info.getUsername());
+        for (Agreement_response respons : agreement_info.getResponses()) {
+          datum.put(respons.getProjectData().getData(),respons.getResponse());
+        }
+        data.add(datum);
+      }
+      return MyResponse.success("成功",data);
+    }
   }
 
   @PutMapping("/projectDetail")
@@ -112,6 +136,8 @@ public class OrganizationProjectController {
     }
     newProject.setData(all_project_data);
     projectInfoRepository.save(newProject);
+    log.info(organization + "更改项目:" + newProject.toString());
+    log.info("收集字段:" + data.toString());
     return MyResponse.success();
   }
 
@@ -120,23 +146,39 @@ public class OrganizationProjectController {
       @RequestParam String projectName, @RequestParam String ReleaseTime, @RequestParam String projectGoal, @RequestParam String projectDuration,
       @RequestParam(name = "data", required = false) List<String> data, HttpServletResponse response,
       HttpServletRequest request) {
-    if (null == pid) {
-      return changeProject(organization, pid, projectName, ReleaseTime, projectGoal, projectDuration, data, response, request);
-    } else {
-      Project_info content = projectInfoRepository.findByPid(pid);
-      if (null == content) {
-        return MyResponse.fail("所操作的数据不存在", 1002);
-      } else {
-        return MyResponse.success("成功", content);
-      }
+    Project_info content = projectInfoRepository.findByPid(pid);
+    if(null == content){
+      return MyResponse.fail("所操作的数据不存在", 1002);
+    }else{
+      createProject(organization, projectName, ReleaseTime, projectGoal, projectDuration, data, response, request);
+      return MyResponse.success("成功", content);
     }
-  }
+    }
+
 
   @PostMapping("/projects")
   public MyResponse projects(@RequestParam String organization, HttpServletResponse response,
       HttpServletRequest request) {
     Set<Project_info> project_infos = projectInfoRepository.findAllByOrganization(organization);
-    return MyResponse.success("成功", project_infos);
+    HashSet<HashMap<String,Object>> finishedList = new HashSet<HashMap<String,Object>>();
+    HashSet<HashMap<String,Object>> ongoingList = new HashSet<HashMap<String,Object>>();
+    HashSet<HashMap<String,Object>> draftList = new HashSet<HashMap<String,Object>>();
+    HashSet<HashMap<String,Object>>[] data = new HashSet[3];
+    for (Project_info project_info : project_infos) {
+      if(project_info.getStatus().equals("draft")){
+        draftList.add(convertData(project_info));
+      }else if(project_info.getStatus().equals("ongoing")){
+        ongoingList.add(convertData(project_info));
+      }else if(project_info.getStatus().equals("finished")){
+        finishedList.add(convertData(project_info));
+      }else{
+        break;
+      }
+    }
+    data[0] = finishedList;
+    data[1] = ongoingList;
+    data[2] = draftList;
+    return MyResponse.success("成功", data);
   }
 
   //    @PostMapping("/projects")
@@ -162,13 +204,13 @@ public class OrganizationProjectController {
   @PostMapping("/completedAgreements")
   public MyResponse completedAgreements(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
     Set<Project_info> project_infos = projectInfoRepository.findAllByOrganization(organization);
-    Set<Agreement_response> datas = new HashSet<>();
+    Set<Agreement_response> data = new HashSet<>();
     for (Project_info project_info : project_infos) {
       int pid = project_info.getPid();
       Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(pid);
       for (Agreement_info agreement_info : agreement_infos) {
         Set<Agreement_response> responses = agreement_info.getResponses();
-        datas.addAll(responses);
+        data.addAll(responses);
       }
     }
 //    ArrayList<Agreement_response> datass = new ArrayList<>(datas);
@@ -180,7 +222,7 @@ public class OrganizationProjectController {
 //    });
 //    ArrayList<Agreement_response> data = new ArrayList<>();
 
-    return MyResponse.success("成功", datas);
+    return MyResponse.success("成功", data);
   }
 
   @PostMapping("/projectInfo")
@@ -189,8 +231,23 @@ public class OrganizationProjectController {
     if (projectInfo == null) {
       return MyResponse.fail("pid不存在", 1002);
     }
-
-    return MyResponse.success("成功", projectInfo);
+    return MyResponse.success("成功", convertData(projectInfo));
   }
 
+  public static HashMap<String,Object> convertData(Project_info projectInfo){
+    HashMap<String,Object> data = new HashMap<>();
+    data.put("ProjectId",String.valueOf(projectInfo.getPid()));
+    data.put("ProjectName",projectInfo.getName());
+    data.put("ReleaseTime",projectInfo.getCreateTime());
+    data.put("hot",String.valueOf(projectInfo.getHot()));
+    data.put("ProjectGoal",projectInfo.getPurpose());
+    data.put("organization",projectInfo.getOrganization());
+    data.put("ProjectDuration",projectInfo.getStartTime()+ "-" + projectInfo.getEndTime());
+    HashSet<String> fields = new HashSet<>();
+    for (Project_data datum : projectInfo.getData()) {
+      fields.add(datum.getData());
+    }
+    data.put("data",fields);
+    return data;
+  }
 }

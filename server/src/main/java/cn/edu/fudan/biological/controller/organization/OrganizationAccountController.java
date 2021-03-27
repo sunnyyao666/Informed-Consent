@@ -56,6 +56,7 @@ public class OrganizationAccountController {
               new_organization_info.setEmail(email);
               new_organization_info.setPhone(phone);
               organizationInfoRepository.save(new_organization_info);
+              log.info(organization + "注册成功");
               return MyResponse.success();
             }else{
               return MyResponse.fail("验证码错误",1001);
@@ -73,6 +74,7 @@ public class OrganizationAccountController {
             if (!organization_info.getPassword().equals(password)) {
                 return MyResponse.fail("密码错误", 1103);
             }
+            log.info(organization + "登录成功");
             return MyResponse.success();
         }
     }
