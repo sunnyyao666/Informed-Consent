@@ -204,13 +204,13 @@ public class OrganizationProjectController {
   @PostMapping("/completedAgreements")
   public MyResponse completedAgreements(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
     Set<Project_info> project_infos = projectInfoRepository.findAllByOrganization(organization);
-    Set<Agreement_response> datas = new HashSet<>();
+    Set<Agreement_response> data = new HashSet<>();
     for (Project_info project_info : project_infos) {
       int pid = project_info.getPid();
       Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(pid);
       for (Agreement_info agreement_info : agreement_infos) {
         Set<Agreement_response> responses = agreement_info.getResponses();
-        datas.addAll(responses);
+        data.addAll(responses);
       }
     }
 //    ArrayList<Agreement_response> datass = new ArrayList<>(datas);
@@ -222,7 +222,7 @@ public class OrganizationProjectController {
 //    });
 //    ArrayList<Agreement_response> data = new ArrayList<>();
 
-    return MyResponse.success("成功", datas);
+    return MyResponse.success("成功", data);
   }
 
   @PostMapping("/projectInfo")
@@ -234,7 +234,7 @@ public class OrganizationProjectController {
     return MyResponse.success("成功", convertData(projectInfo));
   }
 
-  private HashMap<String,Object> convertData(Project_info projectInfo){
+  public static HashMap<String,Object> convertData(Project_info projectInfo){
     HashMap<String,Object> data = new HashMap<>();
     data.put("ProjectId",String.valueOf(projectInfo.getPid()));
     data.put("ProjectName",projectInfo.getName());
