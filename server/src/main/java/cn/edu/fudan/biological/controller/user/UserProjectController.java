@@ -43,9 +43,6 @@ public class UserProjectController {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
 
-        String signature = userProjectRequest.getSignature();
-        if (!userInfo.getSignature().equals(signature)) return MyResponse.fail("手势密码错误", 1103);
-
         Integer pid = userProjectRequest.getPid();
         Project_info projectInfo = projectInfoRepository.findByPid(pid);
         if (projectInfo == null) return MyResponse.fail("pid不存在", 1002);
@@ -78,40 +75,11 @@ public class UserProjectController {
         if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
 
         List<Project_info> result = new LinkedList<>();
-        if ("collected".equals(userProjectRequest.getMethod())) {
-            List<User_star> stars = userStarRepository.findAllByUsernameOrderByPid(username);
-            int i = userProjectRequest.getOffset();
-            int n = i + userProjectRequest.getSum();
-            while (i < n && i < stars.size()) {
-                result.add(stars.get(i).getProjectInfo());
-                i++;
-            }
-        } else {
-            List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
-            int i = userProjectRequest.getOffset();
-            int n = i + userProjectRequest.getSum();
-            while (i < n && i < agreements.size()) {
-                result.add(agreements.get(i).getProjectInfo());
-                i++;
-            }
-        }
+
+        List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
+        for (Agreement_info agreement : agreements) result.add(projectInfoRepository.findByPid(agreement.getPid()));
+
         return MyResponse.success("成功", result);
-    }
-
-    @GetMapping("/completedAgreements")
-    public MyResponse getAgreement(@RequestBody UserProjectRequest userProjectRequest) {
-        String username = userProjectRequest.getUsername();
-        User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
-
-        Integer pid = userProjectRequest.getPid();
-        Project_info projectInfo = projectInfoRepository.findByPid(pid);
-        if (projectInfo == null) return MyResponse.fail("pid不存在", 1002);
-
-        Agreement_info agreementInfo = agreementInfoRepository.findByUsernameAndPid(username, pid);
-        if (agreementInfo == null) return MyResponse.fail("未填写当前项目", 1002);
-
-        return MyResponse.success("成功", agreementResponseRepository.findAllByAgreementIdOrderByDataId(agreementInfo.getId()));
     }
 
     @PostMapping("/collectedProject")
