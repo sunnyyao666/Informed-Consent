@@ -157,23 +157,23 @@ public class Project_info extends BaseEntity {
         this.agreements = agreements;
     }
 
-  @Override
-  public String toString() {
-    return "Project_info{" +
-        "pid=" + pid +
-        ", name='" + name + '\'' +
-        ", hot=" + hot +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", purpose='" + purpose + '\'' +
-        ", status='" + status + '\'' +
-        ", organizationInfo=" + organizationInfo +
-        ", organization='" + organization + '\'' +
-        ", stars=" + stars +
-        ", data=" + data +
-        ", agreements=" + agreements +
-        '}';
-  }
+    @Override
+    public String toString() {
+        return "Project_info{" +
+                "pid=" + pid +
+                ", name='" + name + '\'' +
+                ", hot=" + hot +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", purpose='" + purpose + '\'' +
+                ", status='" + status + '\'' +
+                ", organizationInfo=" + organizationInfo +
+                ", organization='" + organization + '\'' +
+                ", stars=" + stars +
+                ", data=" + data +
+                ", agreements=" + agreements +
+                '}';
+    }
 }
 
 
