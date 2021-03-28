@@ -44,7 +44,7 @@ public class ProjectController {
       }
         return MyResponse.success("成功", content);
     }
-    
+
     @GetMapping("/projectDetails")
     public MyResponse getProjectDetails(@RequestParam String projectId) {
         Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
