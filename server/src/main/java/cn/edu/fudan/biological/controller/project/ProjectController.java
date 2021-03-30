@@ -32,6 +32,10 @@ public class ProjectController {
         this.projectInfoRepository = projectInfoRepository;
     }
 
+    @GetMapping("/test")
+    public MyResponse test(@RequestParam String param){
+      return MyResponse.success("成功",param);
+    }
     @GetMapping("/allProjects")
     public MyResponse getAllProjects(@RequestParam String method) {
 
