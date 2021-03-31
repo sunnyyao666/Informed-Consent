@@ -32,6 +32,10 @@ public class ProjectController {
         this.projectInfoRepository = projectInfoRepository;
     }
 
+    @GetMapping("/test")
+    public MyResponse test(@RequestParam String param){
+      return MyResponse.success("成功",param);
+    }
     @GetMapping("/allProjects")
     public MyResponse getAllProjects(@RequestParam String method) {
 
@@ -44,7 +48,7 @@ public class ProjectController {
       }
         return MyResponse.success("成功", content);
     }
-    
+
     @GetMapping("/projectDetails")
     public MyResponse getProjectDetails(@RequestParam String projectId) {
         Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));

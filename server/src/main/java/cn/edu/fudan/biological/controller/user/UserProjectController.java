@@ -7,9 +7,7 @@ import cn.edu.fudan.biological.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @program: biological
@@ -74,11 +72,17 @@ public class UserProjectController {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
 
-        List<Project_info> result = new LinkedList<>();
-
         List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
-        for (Agreement_info agreement : agreements) result.add(projectInfoRepository.findByPid(agreement.getPid()));
-
+        List<Project_info> onGoingList = new LinkedList<>();
+        List<Project_info> finishedList = new LinkedList<>();
+        for (Agreement_info agreement : agreements) {
+            Project_info projectInfo = projectInfoRepository.findByPid(agreement.getPid());
+            if ("ongoing".equals(projectInfo.getStatus())) onGoingList.add(projectInfo);
+            else finishedList.add(projectInfo);
+        }
+        Map<String, List<Project_info>> result = new HashMap<>();
+        result.put("onGoingList", onGoingList);
+        result.put("finishedList", finishedList);
         return MyResponse.success("成功", result);
     }
 
