@@ -22,7 +22,8 @@ public class Project_data extends BaseEntity {
     private Project_info projectInfo;
     private Integer pid;
 
-    private String data; // 字段名
+    // 字段名
+    private String data;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectData")
     private Set<Agreement_response> responses = new HashSet<>();
