@@ -31,6 +31,11 @@ public class UserAccountController {
         this.userInfoRepository = userInfoRepository;
     }
 
+    @GetMapping("/test")
+    public MyResponse test(@RequestParam String param){
+        return MyResponse.success("成功",param+userInfoRepository.findByUsername("root").getEmail());
+    }
+
     //    验证码发送
     @GetMapping("/code")
     public MyResponse userRegisterGetCode(@RequestBody UserAccountRequest userAccountRequest) {
