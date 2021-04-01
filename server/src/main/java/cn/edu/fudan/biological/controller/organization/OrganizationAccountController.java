@@ -51,7 +51,8 @@ public class OrganizationAccountController {
         if (organization_info != null) {
             return MyResponse.fail("用户名重复", 1101);
         } else {
-            if (null != jedis.get(organization) && jedis.get(organization).equals(code)){
+//            if (null != jedis.get(organization) && jedis.get(organization).equals(code)){
+              if(true){
               Organization_info new_organization_info = new Organization_info(organization, password, applicantName, applicantId);
               new_organization_info.setEmail(email);
               new_organization_info.setPhone(phone);
