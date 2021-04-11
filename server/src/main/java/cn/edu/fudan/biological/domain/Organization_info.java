@@ -12,8 +12,9 @@ import java.util.Set;
  **/
 @Entity
 public class Organization_info extends BaseEntity {
+    // 单位名
     @Column(unique = true)
-    private String organization; // 单位名
+    private String organization;
 
     private String password;
     private String applicantName;

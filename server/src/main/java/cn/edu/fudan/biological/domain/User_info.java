@@ -12,14 +12,18 @@ import java.util.Set;
  **/
 @Entity
 public class User_info extends BaseEntity {
+    // 手机号
     @Column(unique = true)
-    private String username; // 手机号
+    private String username;
     private String password;
     private String email;
-    private String signature; // 手势密码对应数字序列
 
+    // 手势密码对应数字序列
+    private String signature;
+
+    // WeChat Openid
     @Column(unique = true)
-    private String openId; // WeChat Openid
+    private String openId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userInfo")
     private Set<User_star> stars = new HashSet<>();

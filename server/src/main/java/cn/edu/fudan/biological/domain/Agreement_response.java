@@ -24,7 +24,8 @@ public class Agreement_response extends BaseEntity {
     private Integer dataId;
     private Integer pid;
 
-    private String response; // yes, no
+    // yes, no
+    private String response;
 
     public Agreement_response() {
     }

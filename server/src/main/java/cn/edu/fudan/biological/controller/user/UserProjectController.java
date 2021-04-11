@@ -39,11 +39,15 @@ public class UserProjectController {
     public MyResponse submitAgreement(@RequestBody UserProjectRequest userProjectRequest) {
         String username = userProjectRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在", 1102);
+        }
 
         Integer pid = userProjectRequest.getPid();
         Project_info projectInfo = projectInfoRepository.findByPid(pid);
-        if (projectInfo == null) return MyResponse.fail("pid不存在", 1002);
+        if (projectInfo == null) {
+            return MyResponse.fail("pid不存在", 1002);
+        }
 
         Agreement_info agreementInfo = agreementInfoRepository.findByUsernameAndPid(username, pid);
         if (agreementInfo == null) {
@@ -55,11 +59,16 @@ public class UserProjectController {
         for (Agreement_response r : data) {
             Integer dataId = r.getDataId();
             Project_data projectData = projectDataRepository.findByDataId(dataId);
-            if (projectData == null) return MyResponse.fail("dataId不存在", 1002);
+            if (projectData == null) {
+                return MyResponse.fail("dataId不存在", 1002);
+            }
 
             Agreement_response response = agreementResponseRepository.findByAgreementIdAndDataId(agreementInfo.getId(), dataId);
-            if (response != null) response.setResponse(r.getResponse());
-            else response = new Agreement_response(agreementInfo, projectData, r.getResponse());
+            if (response != null) {
+                response.setResponse(r.getResponse());
+            } else {
+                response = new Agreement_response(agreementInfo, projectData, r.getResponse());
+            }
             agreementResponseRepository.save(response);
         }
 
@@ -70,17 +79,22 @@ public class UserProjectController {
     public MyResponse getSavedAgreements(@RequestBody UserProjectRequest userProjectRequest) {
         String username = userProjectRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在", 1102);
+        }
 
         List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
         List<Project_info> onGoingList = new LinkedList<>();
         List<Project_info> finishedList = new LinkedList<>();
         for (Agreement_info agreement : agreements) {
             Project_info projectInfo = projectInfoRepository.findByPid(agreement.getPid());
-            if ("ongoing".equals(projectInfo.getStatus())) onGoingList.add(projectInfo);
-            else finishedList.add(projectInfo);
+            if ("ongoing".equals(projectInfo.getStatus())) {
+                onGoingList.add(projectInfo);
+            } else {
+                finishedList.add(projectInfo);
+            }
         }
-        Map<String, List<Project_info>> result = new HashMap<>();
+        Map<String, List<Project_info>> result = new HashMap<>(2);
         result.put("onGoingList", onGoingList);
         result.put("finishedList", finishedList);
         return MyResponse.success("成功", result);
@@ -90,17 +104,23 @@ public class UserProjectController {
     public MyResponse collectProject(@RequestBody UserProjectRequest userProjectRequest) {
         String username = userProjectRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) return MyResponse.fail("用户名不存在", 1102);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在", 1102);
+        }
 
         Integer pid = userProjectRequest.getPid();
         Project_info projectInfo = projectInfoRepository.findByPid(pid);
-        if (projectInfo == null) return MyResponse.fail("pid不存在", 1002);
+        if (projectInfo == null) {
+            return MyResponse.fail("pid不存在", 1002);
+        }
 
         User_star user_star = userStarRepository.findByUsernameAndPid(username, pid);
         if (user_star == null) {
             user_star = new User_star(userInfo, projectInfo);
             userStarRepository.save(user_star);
-        } else userStarRepository.delete(user_star);
+        } else {
+            userStarRepository.delete(user_star);
+        }
         return MyResponse.success();
     }
 }

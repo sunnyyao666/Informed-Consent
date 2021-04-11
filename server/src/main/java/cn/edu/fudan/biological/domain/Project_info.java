@@ -33,7 +33,8 @@ public class Project_info extends BaseEntity {
 
     private String purpose;
 
-    private String status = "draft"; // finished, ongoing, draft
+    // finished, ongoing, draft
+    private String status = "draft";
 
     @ManyToOne
     @JsonIgnore
