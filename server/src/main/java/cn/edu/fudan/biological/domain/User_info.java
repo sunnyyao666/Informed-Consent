@@ -26,9 +26,6 @@ public class User_info extends BaseEntity {
     private String openId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userInfo")
-    private Set<User_star> stars = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userInfo")
     private Set<Agreement_info> agreements = new HashSet<>();
 
     public User_info() {
@@ -78,14 +75,6 @@ public class User_info extends BaseEntity {
 
     public void setOpenId(String openId) {
         this.openId = openId;
-    }
-
-    public Set<User_star> getStars() {
-        return stars;
-    }
-
-    public void setStars(Set<User_star> stars) {
-        this.stars = stars;
     }
 
     public Set<Agreement_info> getAgreements() {

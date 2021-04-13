@@ -42,13 +42,13 @@ public class Project_info extends BaseEntity {
     private String organization;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-    private Set<User_star> stars = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-    private Set<Project_data> data = new HashSet<>();
+    private Set<Project_item> projectItems = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
     private Set<Agreement_info> agreements = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Agreement_item> agreementItems = new HashSet<>();
 
     public Project_info() {
     }
@@ -134,20 +134,12 @@ public class Project_info extends BaseEntity {
         this.organization = organization;
     }
 
-    public Set<User_star> getStars() {
-        return stars;
+    public Set<Project_item> getProjectItems() {
+        return projectItems;
     }
 
-    public void setStars(Set<User_star> stars) {
-        this.stars = stars;
-    }
-
-    public Set<Project_data> getData() {
-        return data;
-    }
-
-    public void setData(Set<Project_data> data) {
-        this.data = data;
+    public void setProjectItems(Set<Project_item> data) {
+        this.projectItems = data;
     }
 
     public Set<Agreement_info> getAgreements() {
@@ -156,6 +148,14 @@ public class Project_info extends BaseEntity {
 
     public void setAgreements(Set<Agreement_info> agreements) {
         this.agreements = agreements;
+    }
+
+    public Set<Agreement_item> getAgreementItems() {
+        return agreementItems;
+    }
+
+    public void setAgreementItems(Set<Agreement_item> agreementItems) {
+        this.agreementItems = agreementItems;
     }
 
     @Override
@@ -170,8 +170,7 @@ public class Project_info extends BaseEntity {
                 ", status='" + status + '\'' +
                 ", organizationInfo=" + organizationInfo +
                 ", organization='" + organization + '\'' +
-                ", stars=" + stars +
-                ", data=" + data +
+                ", data=" + projectItems +
                 ", agreements=" + agreements +
                 '}';
     }

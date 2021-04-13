@@ -1,21 +1,14 @@
 package cn.edu.fudan.biological.controller.organization;
 
-import cn.edu.fudan.biological.controller.request.user.UserProjectRequest;
 import cn.edu.fudan.biological.domain.*;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.*;
 import cn.edu.fudan.biological.util.DateUtil;
-import cn.edu.fudan.biological.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.Jedis;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +33,7 @@ public class OrganizationProjectController {
 
   private final ProjectInfoRepository projectInfoRepository;
 
-  private final ProjectDataRepository projectDataRepository;
+  private final ProjectItemRepository projectItemRepository;
 
   private final AgreementInfoRepository agreementInfoRepository;
 
@@ -48,11 +41,11 @@ public class OrganizationProjectController {
 
   @Autowired
   public OrganizationProjectController(OrganizationInfoRepository organizationInfoRepository,
-      ProjectInfoRepository projectInfoRepository, ProjectDataRepository projectDataRepository,
-      AgreementInfoRepository agreementInfoRepository, AgreementResponseRepository agreementResponseRepository) {
+                                       ProjectInfoRepository projectInfoRepository, ProjectItemRepository projectItemRepository,
+                                       AgreementInfoRepository agreementInfoRepository, AgreementResponseRepository agreementResponseRepository) {
     this.organizationInfoRepository = organizationInfoRepository;
     this.projectInfoRepository = projectInfoRepository;
-    this.projectDataRepository = projectDataRepository;
+    this.projectItemRepository = projectItemRepository;
     this.agreementInfoRepository = agreementInfoRepository;
     this.agreementResponseRepository = agreementResponseRepository;
   }
@@ -74,13 +67,13 @@ public class OrganizationProjectController {
     newProject = new Project_info(startDate, endDate, projectGoal, organization_info);
     newProject.setCreateTime(createDate);
     newProject.setName(projectName);
-    Set<Project_data> all_project_data = new HashSet<>();
+    Set<Project_item> all_project_data = new HashSet<>();
     for (String field : data) {
-      Project_data project_data = new Project_data(newProject, field);
-      all_project_data.add(project_data);
-      projectDataRepository.save(project_data);
+      Project_item project_item = new Project_item(newProject, field);
+      all_project_data.add(project_item);
+      projectItemRepository.save(project_item);
     }
-    newProject.setData(all_project_data);
+    newProject.setProjectItems(all_project_data);
     projectInfoRepository.save(newProject);
     log.info(organization + "创建项目:" + newProject.toString());
     log.info("收集字段:" + data.toString());
@@ -98,7 +91,7 @@ public class OrganizationProjectController {
         HashMap<String,String> datum = new HashMap<>();
         datum.put("username",agreement_info.getUsername());
         for (Agreement_response respons : agreement_info.getResponses()) {
-          datum.put(respons.getProjectData().getData(),respons.getResponse());
+          datum.put(respons.getProjectItem().getName(),respons.getResponse());
         }
         data.add(datum);
       }
@@ -126,15 +119,15 @@ public class OrganizationProjectController {
     newProject.setStartTime(startDate);
     newProject.setEndTime(endDate);
     newProject.setPurpose(projectGoal);
-    Set<Project_data> all_project_data = newProject.getData();
+    Set<Project_item> all_project_data = newProject.getProjectItems();
     all_project_data.clear();
-    projectDataRepository.deleteAllByPid(pid);
+    projectItemRepository.deleteAllByPid(pid);
     for (String field : data) {
-      Project_data project_data = new Project_data(newProject, field);
-      all_project_data.add(project_data);
-      projectDataRepository.save(project_data);
+      Project_item project_item = new Project_item(newProject, field);
+      all_project_data.add(project_item);
+      projectItemRepository.save(project_item);
     }
-    newProject.setData(all_project_data);
+    newProject.setProjectItems(all_project_data);
     projectInfoRepository.save(newProject);
     log.info(organization + "更改项目:" + newProject.toString());
     log.info("收集字段:" + data.toString());
@@ -244,8 +237,8 @@ public class OrganizationProjectController {
     data.put("organization",projectInfo.getOrganization());
     data.put("ProjectDuration",projectInfo.getStartTime()+ "-" + projectInfo.getEndTime());
     HashSet<String> fields = new HashSet<>();
-    for (Project_data datum : projectInfo.getData()) {
-      fields.add(datum.getData());
+    for (Project_item datum : projectInfo.getProjectItems()) {
+      fields.add(datum.getName());
     }
     data.put("data",fields);
     return data;
