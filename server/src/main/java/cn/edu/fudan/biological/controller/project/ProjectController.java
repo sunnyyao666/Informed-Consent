@@ -40,27 +40,27 @@ public class ProjectController {
     @GetMapping("/allProjects")
     public MyResponse getAllProjects(@RequestParam String method) {
 
-        List<Project_info> projects = projectInfoRepository.findAllByOrderByUpdateTimeDesc();
-        if ("hot".equals(method)) {
-            projects = projectInfoRepository.findAllByOrderByHotDesc();
-        }
-
-        List<HashMap<String, Object>> content = new LinkedList<>();
-        for (Project_info project : projects) {
-            content.add(OrganizationProjectController.convertData(project));
-        }
-        return MyResponse.success("成功", content);
+//        List<Project_info> projects = projectInfoRepository.findAllByOrderByUpdateTimeDesc();
+//        if ("hot".equals(method)) {
+//            projects = projectInfoRepository.findAllByOrderByHotDesc();
+//        }
+//
+//        List<HashMap<String, Object>> content = new LinkedList<>();
+//        for (Project_info project : projects) {
+//            content.add(OrganizationProjectController.convertData(project));
+//        }
+        return MyResponse.success("成功");
     }
 
     @GetMapping("/projectDetails")
     public MyResponse getProjectDetails(@RequestParam String projectId) {
-        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
-        if (projectInfo == null) {
-            return MyResponse.fail("pid不存在", 1002);
-        }
-        List<HashMap<String, Object>> content = new LinkedList<>();
-        content.add(OrganizationProjectController.convertData(projectInfo));
-        return MyResponse.success("成功", content);
+//        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
+//        if (projectInfo == null) {
+//            return MyResponse.fail("pid不存在", 1002);
+//        }
+//        List<HashMap<String, Object>> content = new LinkedList<>();
+//        content.add(OrganizationProjectController.convertData(projectInfo));
+        return MyResponse.success("成功");
     }
 }
 

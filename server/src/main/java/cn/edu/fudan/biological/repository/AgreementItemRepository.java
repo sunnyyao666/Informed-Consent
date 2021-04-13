@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AgreementItemRepository extends CrudRepository<Agreement_item,Integer> {
     Agreement_item findByIid(Integer iid);
+    void deleteAllByPid(Integer pid);
 }
