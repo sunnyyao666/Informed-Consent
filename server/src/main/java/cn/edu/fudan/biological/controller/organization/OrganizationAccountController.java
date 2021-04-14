@@ -35,8 +35,7 @@ public class OrganizationAccountController {
   }
 
   @PostMapping(path = "/forgetCode")
-  public MyResponse getCode(@RequestParam String unitname, @RequestParam String code, HttpServletResponse response,
-      HttpServletRequest request) {
+  public MyResponse getCode(@RequestParam String unitname, @RequestParam String code) {
     Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
     if (null != code) {
       if (jedis.get(unitname).equals(code)) {
@@ -97,13 +96,13 @@ public class OrganizationAccountController {
 
     //找回密码（发验证码）
     @PostMapping(path = "/passwordCode")
-    public MyResponse passwordCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse passwordCode(@RequestParam String organization) {
         return MyResponse.success();
     }
 
     //找回密码（修改密码）//使用邮箱链接
     @PostMapping(path = "/newPassword")
-    public MyResponse password(@RequestParam String unitname, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse password(@RequestParam String unitname, @RequestParam String password) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
             return MyResponse.fail("用户名不存在", 1102);

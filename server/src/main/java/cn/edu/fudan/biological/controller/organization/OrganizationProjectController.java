@@ -305,7 +305,7 @@ public class OrganizationProjectController {
 //      return MyResponse.success("成功", content);
 //    }
   @PostMapping("/completedAgreements")
-  public MyResponse completedAgreements(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
+  public MyResponse completedAgreements(@RequestParam String organization) {
     Set<Project_info> project_infos = projectInfoRepository.findAllByOrganization(organization);
     Set<Agreement_response> data = new HashSet<>();
     for (Project_info project_info : project_infos) {
