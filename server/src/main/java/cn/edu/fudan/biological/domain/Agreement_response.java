@@ -20,23 +20,26 @@ public class Agreement_response extends BaseEntity {
 
     @ManyToOne
     @JsonIgnore
-    private Project_data projectData;
-    private Integer dataId;
+    private Project_item projectItem;
+    private Integer aid;
     private Integer pid;
 
-    // yes, no
-    private String response;
+    @ManyToOne
+    @JsonIgnore
+    private Agreement_item agreementItem;
+    private Integer iid;
 
     public Agreement_response() {
     }
 
-    public Agreement_response(Agreement_info agreementInfo, Project_data projectData, String response) {
+    public Agreement_response(Agreement_info agreementInfo, Project_item projectItem, Agreement_item agreementItem) {
         this.agreementInfo = agreementInfo;
         this.agreementId = agreementInfo.getId();
-        this.projectData = projectData;
-        this.dataId = projectData.getDataId();
+        this.projectItem = projectItem;
+        this.aid = projectItem.getAid();
         this.pid = agreementInfo.getPid();
-        this.response = response;
+        this.agreementItem = agreementItem;
+        this.iid = agreementItem.getIid();
     }
 
     public Agreement_info getAgreementInfo() {
@@ -57,21 +60,21 @@ public class Agreement_response extends BaseEntity {
         this.agreementId = agreementId;
     }
 
-    public Project_data getProjectData() {
-        return projectData;
+    public Project_item getProjectItem() {
+        return projectItem;
     }
 
-    public void setProjectData(Project_data projectData) {
-        this.projectData = projectData;
-        this.dataId = projectData.getDataId();
+    public void setProjectItem(Project_item projectItem) {
+        this.projectItem = projectItem;
+        this.aid = projectItem.getAid();
     }
 
-    public Integer getDataId() {
-        return dataId;
+    public Integer getAid() {
+        return aid;
     }
 
-    public void setDataId(Integer dataId) {
-        this.dataId = dataId;
+    public void setAid(Integer aid) {
+        this.aid = aid;
     }
 
     public Integer getPid() {
@@ -82,12 +85,21 @@ public class Agreement_response extends BaseEntity {
         this.pid = pid;
     }
 
-    public String getResponse() {
-        return response;
+    public Agreement_item getAgreementItem() {
+        return agreementItem;
     }
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setAgreementItem(Agreement_item agreementItem) {
+        this.agreementItem = agreementItem;
+        this.iid = agreementItem.getIid();
+    }
+
+    public Integer getIid() {
+        return iid;
+    }
+
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 }
 

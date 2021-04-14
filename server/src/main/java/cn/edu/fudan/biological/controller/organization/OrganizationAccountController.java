@@ -24,27 +24,42 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "/api/unit")
 public class OrganizationAccountController {
-    private final OrganizationInfoRepository organizationInfoRepository;
+
+  private final OrganizationInfoRepository organizationInfoRepository;
+
   private final Jedis jedis = new Jedis("localhost");
 
-    @Autowired
-    public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository) {
-        this.organizationInfoRepository = organizationInfoRepository;
-    }
+  @Autowired
+  public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository) {
+    this.organizationInfoRepository = organizationInfoRepository;
+  }
 
-    @PostMapping(path = "/code")
-    public MyResponse getCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
-      Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
-      if (organization_info != null) {
-        return MyResponse.fail("用户名重复", 1101);
+  @PostMapping(path = "/forgetCode")
+  public MyResponse getCode(@RequestParam String unitname, @RequestParam String code, HttpServletResponse response,
+      HttpServletRequest request) {
+    Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
+    if (null != code) {
+      if (jedis.get(unitname).equals(code)) {
+        //验证成功
+        return MyResponse.success();
       } else {
-        String code = "123456";
-        jedis.set(organization, code);
-        jedis.expire(organization, 300);
+        //验证失败
+        return MyResponse.success();
+
+      }
+    } else {
+      if (organization_info == null) {
+        return MyResponse.fail("用户名不存在", 1101);
+      } else {
+        String yzcode = "123456";
+        jedis.set(unitname, yzcode);
+        jedis.expire(unitname, 300);
         //To do
         return MyResponse.success();
       }
     }
+  }
+
     @PostMapping(path = "/register")
     public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String code, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
@@ -66,16 +81,16 @@ public class OrganizationAccountController {
         }
     }
 
-    @PostMapping(path = "/companyLogin")
-    public MyResponse login(@RequestParam String organization, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
-        Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
+    @PostMapping(path = "/login")
+    public MyResponse login(@RequestParam String unitname, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
+        Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
             return MyResponse.fail("用户名不存在", 1102);
         } else {
             if (!organization_info.getPassword().equals(password)) {
                 return MyResponse.fail("密码错误", 1103);
             }
-            log.info(organization + "登录成功");
+            log.info(unitname + "登录成功");
             return MyResponse.success();
         }
     }
@@ -87,13 +102,13 @@ public class OrganizationAccountController {
     }
 
     //找回密码（修改密码）//使用邮箱链接
-    @PostMapping(path = "/password")
-    public MyResponse password(@RequestParam String organization, @RequestParam String newPassword, HttpServletResponse response, HttpServletRequest request) {
-        Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
+    @PostMapping(path = "/newPassword")
+    public MyResponse password(@RequestParam String unitname, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
+        Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
             return MyResponse.fail("用户名不存在", 1102);
         } else {
-            organization_info.setPassword(newPassword);
+            organization_info.setPassword(password);
             organizationInfoRepository.save(organization_info);
             return MyResponse.success();
         }

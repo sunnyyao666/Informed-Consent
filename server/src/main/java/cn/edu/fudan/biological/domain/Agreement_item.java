@@ -8,41 +8,44 @@ import java.util.Set;
 
 /**
  * @program: biological
- * @description: 项目具体数据字段
+ * @description: 项目字段同意类型
  * @author: Yao Hongtao
- * @create: 2021-03-14 15:30
+ * @create: 2021-04-13 19:59
  **/
 @Entity
-public class Project_data extends BaseEntity {
+public class Agreement_item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer dataId;
+    private Integer iid;
 
     @ManyToOne
     @JsonIgnore
     private Project_info projectInfo;
     private Integer pid;
 
-    // 字段名
-    private String data;
+    private String name;
+    private String value;
+    private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectData")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "agreementItem")
     private Set<Agreement_response> responses = new HashSet<>();
 
-    public Project_data() {
+    public Agreement_item() {
     }
 
-    public Project_data(Project_info projectInfo, String data) {
+    public Agreement_item(Project_info projectInfo, String name, String value, String description) {
         this.projectInfo = projectInfo;
         this.pid = projectInfo.getPid();
-        this.data = data;
+        this.name = name;
+        this.value = value;
+        this.description = description;
     }
 
-    public Integer getDataId() {
-        return dataId;
+    public Integer getIid() {
+        return iid;
     }
 
-    public void setDataId(Integer dataId) {
-        this.dataId = dataId;
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 
     public Project_info getProjectInfo() {
@@ -62,12 +65,28 @@ public class Project_data extends BaseEntity {
         this.pid = pid;
     }
 
-    public String getData() {
-        return data;
+    public String getName() {
+        return name;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<Agreement_response> getResponses() {
@@ -76,17 +95,6 @@ public class Project_data extends BaseEntity {
 
     public void setResponses(Set<Agreement_response> responses) {
         this.responses = responses;
-    }
-
-    @Override
-    public String toString() {
-        return "Project_data{" +
-                "dataId=" + dataId +
-                ", projectInfo=" + projectInfo +
-                ", pid=" + pid +
-                ", data='" + data + '\'' +
-                ", responses=" + responses +
-                '}';
     }
 }
 

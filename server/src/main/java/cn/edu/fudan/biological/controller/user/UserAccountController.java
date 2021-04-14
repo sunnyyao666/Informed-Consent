@@ -9,8 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @program: biological
@@ -35,8 +33,7 @@ public class UserAccountController {
     }
 
     @GetMapping("/code")
-    public MyResponse userRegisterGetCode(@RequestBody UserAccountRequest userAccountRequest) {
-        String username = userAccountRequest.getUsername();
+    public MyResponse userRegisterGetCode(@RequestParam("username") String username) {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo != null) {
             return MyResponse.fail("用户名重复", 1101);
@@ -60,77 +57,68 @@ public class UserAccountController {
         return MyResponse.success();
     }
 
-    @PostMapping("/userLogin")
+    @PostMapping("/login")
     public MyResponse userLogin(@RequestBody UserAccountRequest userAccountRequest) {
         String username = userAccountRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) {
-            return MyResponse.fail("用户名不存在", 1102);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         String password = userAccountRequest.getPassword();
         if (!passwordEncoder.matches(password, userInfo.getPassword())) {
-            return MyResponse.fail("密码错误", 1103);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         return MyResponse.success();
     }
 
-    @PostMapping("/signature")
-    public MyResponse setSignature(@RequestBody UserAccountRequest userAccountRequest) {
-        String username = userAccountRequest.getUsername();
+    @GetMapping("/forgetCode")
+    public MyResponse forgetPasswordGetCode(@RequestParam("username") String username) {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) {
             return MyResponse.fail("用户名不存在", 1102);
         }
 
+        return MyResponse.success();
+    }
+
+    @PostMapping("/forgetCode")
+    public MyResponse forgetPasswordVerifyCode(@RequestBody UserAccountRequest userAccountRequest) {
+        String username = userAccountRequest.getUsername();
+        User_info userInfo = userInfoRepository.findByUsername(username);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在或验证码不正确", 1102);
+        }
+
+        return MyResponse.success();
+    }
+
+    @PostMapping("/newPassword")
+    public MyResponse setNewPassword(@RequestBody UserAccountRequest userAccountRequest) {
+        String username = userAccountRequest.getUsername();
+        User_info userInfo = userInfoRepository.findByUsername(username);
+        if (userInfo == null) {
+            return MyResponse.fail("出错", 1102);
+        }
+
         String password = userAccountRequest.getPassword();
-        if (!passwordEncoder.matches(password, userInfo.getPassword())) {
-            return MyResponse.fail("密码错误", 1103);
-        }
-
-        int[] gesture = userAccountRequest.getGesture();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int value : gesture) {
-            stringBuilder.append(value);
-        }
-        String signature = stringBuilder.toString();
-
-        userInfo.setSignature(signature);
+        userInfo.setPassword(passwordEncoder.encode(password));
         userInfoRepository.save(userInfo);
         return MyResponse.success();
     }
 
-    @GetMapping("/hasSignature")
-    public MyResponse hasSignature(@RequestBody UserAccountRequest userAccountRequest) {
+    @PutMapping("/signature")
+    public MyResponse setSignature(@RequestBody UserAccountRequest userAccountRequest) {
         String username = userAccountRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) {
-            return MyResponse.fail("用户名不存在", 1102);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         String password = userAccountRequest.getPassword();
         if (!passwordEncoder.matches(password, userInfo.getPassword())) {
-            return MyResponse.fail("密码错误", 1103);
-        }
-
-        String signature = userInfo.getSignature();
-        Map<String, Boolean> data = new HashMap<>(1);
-        data.put("hasSignature", !(signature == null || "".equals(signature)));
-        return MyResponse.success("成功", data);
-    }
-
-    @PostMapping("/uncheckedSignature")
-    public MyResponse checkSignature(@RequestBody UserAccountRequest userAccountRequest) {
-        String username = userAccountRequest.getUsername();
-        User_info userInfo = userInfoRepository.findByUsername(username);
-        if (userInfo == null) {
-            return MyResponse.fail("用户名不存在", 1102);
-        }
-
-        String password = userAccountRequest.getPassword();
-        if (!passwordEncoder.matches(password, userInfo.getPassword())) {
-            return MyResponse.fail("密码错误", 1103);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         int[] gesture = userAccountRequest.getGesture();
@@ -139,30 +127,91 @@ public class UserAccountController {
             stringBuilder.append(value);
         }
         String signature = stringBuilder.toString();
+        userInfo.setSignature(signature);
 
-        if (signature.equals(userInfo.getSignature())) {
-            return MyResponse.success();
-        } else {
-            return MyResponse.fail("手势密码错误", 1103);
-        }
+        userInfoRepository.save(userInfo);
+        return MyResponse.success();
     }
 
-    //    验证码发送
-    @GetMapping("/signatureCode")
-    public MyResponse signatureGetCode(@RequestBody UserAccountRequest userAccountRequest) {
+    @PostMapping("/signature")
+    public MyResponse verifySignature(@RequestBody UserAccountRequest userAccountRequest) {
         String username = userAccountRequest.getUsername();
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) {
-            return MyResponse.fail("用户名不存在", 1102);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         String password = userAccountRequest.getPassword();
         if (!passwordEncoder.matches(password, userInfo.getPassword())) {
-            return MyResponse.fail("密码错误", 1103);
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        int[] gesture = userAccountRequest.getGesture();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int value : gesture) {
+            stringBuilder.append(value);
+        }
+        String signature = stringBuilder.toString();
+        if (!signature.equals(userInfo.getSignature())) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
         return MyResponse.success();
     }
 
+    @GetMapping("/gestureCode")
+    public MyResponse getGestureCode(@RequestParam("username") String username, @RequestParam("password") String password) {
+        User_info userInfo = userInfoRepository.findByUsername(username);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        if (!passwordEncoder.matches(password, userInfo.getPassword())) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        return MyResponse.success();
+    }
+
+    @PostMapping("/gestureCode")
+    public MyResponse verifyGestureCode(@RequestBody UserAccountRequest userAccountRequest) {
+        String username = userAccountRequest.getUsername();
+        User_info userInfo = userInfoRepository.findByUsername(username);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        String password = userAccountRequest.getPassword();
+        if (!passwordEncoder.matches(password, userInfo.getPassword())) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        return MyResponse.success();
+    }
+
+    @PutMapping("/forgetSignature")
+    public MyResponse newSignature(@RequestBody UserAccountRequest userAccountRequest) {
+        String username = userAccountRequest.getUsername();
+        User_info userInfo = userInfoRepository.findByUsername(username);
+        if (userInfo == null) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        String password = userAccountRequest.getPassword();
+        if (!passwordEncoder.matches(password, userInfo.getPassword())) {
+            return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        int[] gesture = userAccountRequest.getGesture();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int value : gesture) {
+            stringBuilder.append(value);
+        }
+        String signature = stringBuilder.toString();
+        userInfo.setSignature(signature);
+
+        userInfoRepository.save(userInfo);
+        return MyResponse.success();
+    }
 }
 

@@ -2,9 +2,11 @@ package cn.edu.fudan.biological.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,164 +19,178 @@ import java.util.Set;
  **/
 @Entity
 public class Project_info extends BaseEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer pid;
 
-    private String name;
-    private Integer hot = 0;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer pid;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date startTime;
+  private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date endTime;
+  private Integer hot = 0;
 
-    private String purpose;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date startTime;
 
-    // finished, ongoing, draft
-    private String status = "draft";
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date endTime;
 
-    @ManyToOne
-    @JsonIgnore
-    private Organization_info organizationInfo;
-    private String organization;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date releaseTime;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-    private Set<User_star> stars = new HashSet<>();
+  public Date getReleaseTime() {
+    return releaseTime;
+  }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-    private Set<Project_data> data = new HashSet<>();
+  public void setReleaseTime(Date releaseTime) {
+    this.releaseTime = releaseTime;
+  }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-    private Set<Agreement_info> agreements = new HashSet<>();
+  private String purpose;
 
-    public Project_info() {
-    }
+  // finished, ongoing, draft
+  private String status = "draft";
 
-    public Project_info(Date startTime, Date endTime, String purpose, Organization_info organizationInfo) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.purpose = purpose;
-        this.organizationInfo = organizationInfo;
-        this.organization = organizationInfo.getOrganization();
-    }
+  @ManyToOne
+  @JsonIgnore
+  private Organization_info organizationInfo;
 
-    public Integer getPid() {
-        return pid;
-    }
+  private String organization;
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+  private Set<Project_item> projectItems = new HashSet<>();
 
-    public String getName() {
-        return name;
-    }
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+  private Set<Agreement_info> agreements = new HashSet<>();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+  private Set<Agreement_item> agreementItems = new HashSet<>();
 
-    public Integer getHot() {
-        return hot;
-    }
+  public Project_info() {
+  }
 
-    public void setHot(Integer hot) {
-        this.hot = hot;
-    }
+  public Project_info(Date startTime, Date endTime, String purpose, Organization_info organizationInfo) {
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.purpose = purpose;
+    this.organizationInfo = organizationInfo;
+    this.organization = organizationInfo.getOrganization();
+  }
 
-    public Date getStartTime() {
-        return startTime;
-    }
+  public Integer getPid() {
+    return pid;
+  }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+  public void setPid(Integer pid) {
+    this.pid = pid;
+  }
 
-    public Date getEndTime() {
-        return endTime;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getPurpose() {
-        return purpose;
-    }
+  public Integer getHot() {
+    return hot;
+  }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
+  public void setHot(Integer hot) {
+    this.hot = hot;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public Date getStartTime() {
+    return startTime;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStartTime(Date startTime) {
+    this.startTime = startTime;
+  }
 
-    public Organization_info getOrganizationInfo() {
-        return organizationInfo;
-    }
+  public Date getEndTime() {
+    return endTime;
+  }
 
-    public void setOrganizationInfo(Organization_info organizationInfo) {
-        this.organizationInfo = organizationInfo;
-        this.organization = organizationInfo.getOrganization();
-    }
+  public void setEndTime(Date endTime) {
+    this.endTime = endTime;
+  }
 
-    public String getOrganization() {
-        return organization;
-    }
+  public String getPurpose() {
+    return purpose;
+  }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
+  public void setPurpose(String purpose) {
+    this.purpose = purpose;
+  }
 
-    public Set<User_star> getStars() {
-        return stars;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStars(Set<User_star> stars) {
-        this.stars = stars;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public Set<Project_data> getData() {
-        return data;
-    }
+  public Organization_info getOrganizationInfo() {
+    return organizationInfo;
+  }
 
-    public void setData(Set<Project_data> data) {
-        this.data = data;
-    }
+  public void setOrganizationInfo(Organization_info organizationInfo) {
+    this.organizationInfo = organizationInfo;
+    this.organization = organizationInfo.getOrganization();
+  }
 
-    public Set<Agreement_info> getAgreements() {
-        return agreements;
-    }
+  public String getOrganization() {
+    return organization;
+  }
 
-    public void setAgreements(Set<Agreement_info> agreements) {
-        this.agreements = agreements;
-    }
+  public void setOrganization(String organization) {
+    this.organization = organization;
+  }
 
-    @Override
-    public String toString() {
-        return "Project_info{" +
-                "pid=" + pid +
-                ", name='" + name + '\'' +
-                ", hot=" + hot +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", purpose='" + purpose + '\'' +
-                ", status='" + status + '\'' +
-                ", organizationInfo=" + organizationInfo +
-                ", organization='" + organization + '\'' +
-                ", stars=" + stars +
-                ", data=" + data +
-                ", agreements=" + agreements +
-                '}';
-    }
+  public Set<Project_item> getProjectItems() {
+    return projectItems;
+  }
+
+  public void setProjectItems(Set<Project_item> data) {
+    this.projectItems = data;
+  }
+
+  public Set<Agreement_info> getAgreements() {
+    return agreements;
+  }
+
+  public void setAgreements(Set<Agreement_info> agreements) {
+    this.agreements = agreements;
+  }
+
+  public Set<Agreement_item> getAgreementItems() {
+    return agreementItems;
+  }
+
+  public void setAgreementItems(Set<Agreement_item> agreementItems) {
+    this.agreementItems = agreementItems;
+  }
+
+  @Override
+  public String toString() {
+    return "Project_info{" +
+        "pid=" + pid +
+        ", name='" + name + '\'' +
+        ", hot=" + hot +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        ", purpose='" + purpose + '\'' +
+        ", status='" + status + '\'' +
+        ", organizationInfo=" + organizationInfo +
+        ", organization='" + organization + '\'' +
+        ", data=" + projectItems +
+        ", agreements=" + agreements +
+        '}';
+  }
 }
 
 

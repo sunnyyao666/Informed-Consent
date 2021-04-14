@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface AgreementResponseRepository extends CrudRepository<Agreement_response, Integer> {
-    List<Agreement_response> findAllByAgreementIdOrderByDataId(Integer agreementId);
+    List<Agreement_response> findAllByAgreementIdOrderByAid(Integer aid);
 
-    Agreement_response findByAgreementIdAndDataId(Integer agreementId, Integer dataId);
+    Agreement_response findByAgreementIdAndAid(Integer agreementId, Integer aid);
 }

@@ -10,7 +10,6 @@ import java.util.Set;
 @Repository
 public interface AgreementInfoRepository extends CrudRepository<Agreement_info, Integer> {
     Agreement_info findByUsernameAndPid(String username, Integer pid);
-
     Set<Agreement_info> findAllByPid(Integer pid);
 
     List<Agreement_info> findAllByUsernameOrderByPid(String username);
