@@ -60,7 +60,9 @@ public class OrganizationProjectController {
 
 
   @PostMapping("/projects")
-  public MyResponse getAllProjectsOfUnit(@RequestParam String unitname){
+  public MyResponse getAllProjectsOfUnit(@RequestBody Map<String,String> map){
+
+    String unitname = map.get("unitname");
     Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
     HashMap<Object,Object> data = new HashMap<>();
     HashSet<HashMap<Object,Object>> publishedList = new HashSet<>();
@@ -112,7 +114,9 @@ public class OrganizationProjectController {
 //  }
 
   @PostMapping("/projectResult")
-  public MyResponse reviewProjectResult(@RequestParam String projectId,@RequestParam String search){
+  public MyResponse reviewProjectResult(@RequestBody Map<String,Object> map){
+    String search = (String) map.get("search");
+    String projectId = String.valueOf(map.get("projectId"));
     Project_info project_info = projectInfoRepository.findByPid(Integer.parseInt(projectId));
     if (null == project_info){
       return MyResponse.fail("所操作的数据不存在", 1002);
