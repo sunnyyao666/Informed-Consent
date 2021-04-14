@@ -61,7 +61,7 @@ public class OrganizationAccountController {
   }
 
     @PostMapping(path = "/register")
-    public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String code, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String code, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email) {
         Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
         if (organization_info != null) {
             return MyResponse.fail("用户名重复", 1101);
