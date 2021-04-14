@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -329,7 +330,11 @@ public class OrganizationProjectController {
   }
 
   @PostMapping("/projectInfo")
-  public MyResponse getProjectDetails(@RequestParam Integer projectId ) {
+  public MyResponse getProjectDetails(@RequestBody Map<String, Integer> map ) {
+    if (null == map.get("projectId")){
+      return MyResponse.fail("无效");
+    }
+    Integer projectId = map.get("projectId");
     Project_info projectInfo = projectInfoRepository.findByPid(projectId);
     if (projectInfo == null) {
       return MyResponse.fail("pid不存在", 1002);
