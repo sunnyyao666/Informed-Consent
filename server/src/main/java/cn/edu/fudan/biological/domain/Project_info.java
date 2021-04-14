@@ -19,178 +19,176 @@ import java.util.Set;
  **/
 @Entity
 public class Project_info extends BaseEntity {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer pid;
 
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer pid;
+    private String name;
 
-  private String name;
+    private Integer hot = 0;
 
-  private Integer hot = 0;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date startTime;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-  private Date startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date endTime;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-  private Date endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date releaseTime;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-  private Date releaseTime;
+    private String purpose;
 
-  public Date getReleaseTime() {
-    return releaseTime;
-  }
+    // finished, ongoing, draft
+    private String status = "draft";
 
-  public void setReleaseTime(Date releaseTime) {
-    this.releaseTime = releaseTime;
-  }
+    @ManyToOne
+    @JsonIgnore
+    private Organization_info organizationInfo;
+    private String organization;
 
-  private String purpose;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Project_item> projectItems = new HashSet<>();
 
-  // finished, ongoing, draft
-  private String status = "draft";
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Agreement_info> agreements = new HashSet<>();
 
-  @ManyToOne
-  @JsonIgnore
-  private Organization_info organizationInfo;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
+    private Set<Agreement_item> agreementItems = new HashSet<>();
 
-  private String organization;
+    public Project_info() {
+    }
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-  private Set<Project_item> projectItems = new HashSet<>();
+    public Project_info(Date startTime, Date endTime, String purpose, Organization_info organizationInfo) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.purpose = purpose;
+        this.organizationInfo = organizationInfo;
+        this.organization = organizationInfo.getOrganization();
+    }
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-  private Set<Agreement_info> agreements = new HashSet<>();
+    public Integer getPid() {
+        return pid;
+    }
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectInfo")
-  private Set<Agreement_item> agreementItems = new HashSet<>();
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
 
-  public Project_info() {
-  }
+    public String getName() {
+        return name;
+    }
 
-  public Project_info(Date startTime, Date endTime, String purpose, Organization_info organizationInfo) {
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.purpose = purpose;
-    this.organizationInfo = organizationInfo;
-    this.organization = organizationInfo.getOrganization();
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public Integer getPid() {
-    return pid;
-  }
+    public Integer getHot() {
+        return hot;
+    }
 
-  public void setPid(Integer pid) {
-    this.pid = pid;
-  }
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public Date getStartTime() {
+        return startTime;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-  public Integer getHot() {
-    return hot;
-  }
+    public Date getEndTime() {
+        return endTime;
+    }
 
-  public void setHot(Integer hot) {
-    this.hot = hot;
-  }
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
-  public Date getStartTime() {
-    return startTime;
-  }
+    public Date getReleaseTime() {
+        return releaseTime;
+    }
 
-  public void setStartTime(Date startTime) {
-    this.startTime = startTime;
-  }
+    public void setReleaseTime(Date releaseTime) {
+        this.releaseTime = releaseTime;
+    }
 
-  public Date getEndTime() {
-    return endTime;
-  }
+    public String getPurpose() {
+        return purpose;
+    }
 
-  public void setEndTime(Date endTime) {
-    this.endTime = endTime;
-  }
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
 
-  public String getPurpose() {
-    return purpose;
-  }
+    public String getStatus() {
+        return status;
+    }
 
-  public void setPurpose(String purpose) {
-    this.purpose = purpose;
-  }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-  public String getStatus() {
-    return status;
-  }
+    public Organization_info getOrganizationInfo() {
+        return organizationInfo;
+    }
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
+    public void setOrganizationInfo(Organization_info organizationInfo) {
+        this.organizationInfo = organizationInfo;
+        this.organization = organizationInfo.getOrganization();
+    }
 
-  public Organization_info getOrganizationInfo() {
-    return organizationInfo;
-  }
+    public String getOrganization() {
+        return organization;
+    }
 
-  public void setOrganizationInfo(Organization_info organizationInfo) {
-    this.organizationInfo = organizationInfo;
-    this.organization = organizationInfo.getOrganization();
-  }
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 
-  public String getOrganization() {
-    return organization;
-  }
+    public Set<Project_item> getProjectItems() {
+        return projectItems;
+    }
 
-  public void setOrganization(String organization) {
-    this.organization = organization;
-  }
+    public void setProjectItems(Set<Project_item> data) {
+        this.projectItems = data;
+    }
 
-  public Set<Project_item> getProjectItems() {
-    return projectItems;
-  }
+    public Set<Agreement_info> getAgreements() {
+        return agreements;
+    }
 
-  public void setProjectItems(Set<Project_item> data) {
-    this.projectItems = data;
-  }
+    public void setAgreements(Set<Agreement_info> agreements) {
+        this.agreements = agreements;
+    }
 
-  public Set<Agreement_info> getAgreements() {
-    return agreements;
-  }
+    public Set<Agreement_item> getAgreementItems() {
+        return agreementItems;
+    }
 
-  public void setAgreements(Set<Agreement_info> agreements) {
-    this.agreements = agreements;
-  }
+    public void setAgreementItems(Set<Agreement_item> agreementItems) {
+        this.agreementItems = agreementItems;
+    }
 
-  public Set<Agreement_item> getAgreementItems() {
-    return agreementItems;
-  }
-
-  public void setAgreementItems(Set<Agreement_item> agreementItems) {
-    this.agreementItems = agreementItems;
-  }
-
-  @Override
-  public String toString() {
-    return "Project_info{" +
-        "pid=" + pid +
-        ", name='" + name + '\'' +
-        ", hot=" + hot +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", purpose='" + purpose + '\'' +
-        ", status='" + status + '\'' +
-        ", organizationInfo=" + organizationInfo +
-        ", organization='" + organization + '\'' +
-        ", data=" + projectItems +
-        ", agreements=" + agreements +
-        '}';
-  }
+    @Override
+    public String toString() {
+        return "Project_info{" +
+                "pid=" + pid +
+                ", name='" + name + '\'' +
+                ", hot=" + hot +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", purpose='" + purpose + '\'' +
+                ", status='" + status + '\'' +
+                ", organizationInfo=" + organizationInfo +
+                ", organization='" + organization + '\'' +
+                ", data=" + projectItems +
+                ", agreements=" + agreements +
+                '}';
+    }
 }
 
 

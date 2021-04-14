@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: biological
@@ -32,35 +33,25 @@ public class ProjectController {
         this.projectInfoRepository = projectInfoRepository;
     }
 
-    @GetMapping("/test")
-    public MyResponse test(@RequestParam String param) {
-        return MyResponse.success("成功", param);
-    }
-
     @GetMapping("/allProjects")
-    public MyResponse getAllProjects(@RequestParam String method) {
+    public MyResponse getAllProjects(@RequestParam("method") String method, @RequestParam("begin") String begin, @RequestParam("number") String number) {
+        List<Project_info> projects = projectInfoRepository.findAllByOrderByHotDesc();
+        if ("time".equals(method)) {
+            projects = projectInfoRepository.findAllByOrderByUpdateTimeDesc();
+        }
 
-//        List<Project_info> projects = projectInfoRepository.findAllByOrderByUpdateTimeDesc();
-//        if ("hot".equals(method)) {
-//            projects = projectInfoRepository.findAllByOrderByHotDesc();
-//        }
-//
-//        List<HashMap<String, Object>> content = new LinkedList<>();
-//        for (Project_info project : projects) {
-//            content.add(OrganizationProjectController.convertData(project));
-//        }
-        return MyResponse.success("成功");
+        Map<String, Object> result = new HashMap<>(2);
+        result.put("content", projects);
+        return MyResponse.success("成功", result);
     }
 
-    @GetMapping("/projectDetails")
-    public MyResponse getProjectDetails(@RequestParam String projectId) {
-//        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
-//        if (projectInfo == null) {
-//            return MyResponse.fail("pid不存在", 1002);
-//        }
-//        List<HashMap<String, Object>> content = new LinkedList<>();
-//        content.add(OrganizationProjectController.convertData(projectInfo));
-        return MyResponse.success("成功");
+    @GetMapping("/projectInfo")
+    public MyResponse getProjectDetails(@RequestParam("projectId") String projectId) {
+        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
+        if (projectInfo == null) {
+            return MyResponse.fail("pid不存在", 1002);
+        }
+        return MyResponse.success("成功", projectInfo);
     }
 }
 

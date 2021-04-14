@@ -207,9 +207,8 @@ public class UserAccountController {
         for (int value : gesture) {
             stringBuilder.append(value);
         }
-        String signature = stringBuilder.toString();
-        userInfo.setSignature(signature);
 
+        userInfo.setSignature(stringBuilder.toString());
         userInfoRepository.save(userInfo);
         return MyResponse.success();
     }

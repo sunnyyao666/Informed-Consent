@@ -4,13 +4,13 @@ import cn.edu.fudan.biological.domain.Project_item;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface ProjectItemRepository extends CrudRepository<Project_item, Integer> {
-    Set<Project_item> findAllByPidOrderByAid(Integer pid);
+    List<Project_item> findAllByPidOrderByAid(Integer pid);
 
     void deleteAllByPid(Integer pid);
 
-    Project_item findByAid(Integer aid);
+    Project_item findByPidAndAid(Integer pid, Integer aid);
 }

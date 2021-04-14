@@ -14,7 +14,6 @@ import java.util.Set;
  **/
 @Entity
 public class Agreement_item extends BaseEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer iid;
 
     @ManyToOne

@@ -12,10 +12,10 @@ import java.util.List;
  **/
 public class UserProjectRequest {
     String username;
-    Integer pid;
+    String projectId;
     String signature;
     String method;
-    List<Agreement_response> data;
+    Agreement_response[] data;
     Integer offset;
     Integer sum;
 
@@ -30,12 +30,12 @@ public class UserProjectRequest {
         this.username = username;
     }
 
-    public Integer getPid() {
-        return pid;
+    public Integer getProjectId() {
+        return Integer.parseInt(projectId);
     }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getSignature() {
@@ -54,11 +54,11 @@ public class UserProjectRequest {
         this.method = method;
     }
 
-    public List<Agreement_response> getData() {
+    public Agreement_response[] getData() {
         return data;
     }
 
-    public void setData(List<Agreement_response> data) {
+    public void setData(Agreement_response[] data) {
         this.data = data;
     }
 
