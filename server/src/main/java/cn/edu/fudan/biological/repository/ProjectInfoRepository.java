@@ -10,8 +10,6 @@ import java.util.Set;
 
 @Repository
 public interface ProjectInfoRepository extends CrudRepository<Project_info, Integer> {
-    Project_info findTopByPid(Integer pid);
-
     Set<Project_info> findAllByOrganization(String organization);
 
     Project_info findByName(String name);
@@ -23,5 +21,9 @@ public interface ProjectInfoRepository extends CrudRepository<Project_info, Inte
     List<Project_info> findAllByOrderByUpdateTimeDesc();
 
     List<Project_info> findAllByOrderByHotDesc();
+
+    List<Project_info> findAllByNameContainingOrPurposeContainingOrderByUpdateTimeDesc(String name, String purpose);
+
+    List<Project_info> findAllByNameContainingOrPurposeContainingOrderByHotDesc(String name, String purpose);
 }
 
