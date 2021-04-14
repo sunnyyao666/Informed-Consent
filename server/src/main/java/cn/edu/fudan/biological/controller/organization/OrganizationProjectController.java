@@ -195,7 +195,7 @@ public class OrganizationProjectController {
         agreementItemRepository.deleteAllByPid(project_info.getPid());
         projectItemRepository.deleteAllByPid(project_info.getPid());
       }
-      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization("unitname"));
+      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
       project_info.setName(saveProjectDraftRequest.getProjectName());
       project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
       String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
@@ -247,7 +247,7 @@ public class OrganizationProjectController {
       agreementItemRepository.deleteAllByPid(project_info.getPid());
       projectItemRepository.deleteAllByPid(project_info.getPid());
     }
-      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization("unitname"));
+      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
       project_info.setName(saveProjectDraftRequest.getProjectName());
       project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
       String[] times = saveProjectDraftRequest.getProjectDuration().split("-");

@@ -21,7 +21,7 @@ public class DateUtil {
      */
 
     public static Date StringToDate(String dateStr) {
-        dateStr.replace(".", "-");
+        dateStr = dateStr.replace(".", "-");
         DateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {

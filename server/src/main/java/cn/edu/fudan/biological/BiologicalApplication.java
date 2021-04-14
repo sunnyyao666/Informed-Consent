@@ -16,7 +16,10 @@ import cn.edu.fudan.biological.repository.OrganizationInfoRepository;
 import cn.edu.fudan.biological.repository.ProjectInfoRepository;
 import cn.edu.fudan.biological.repository.ProjectItemRepository;
 import cn.edu.fudan.biological.repository.UserInfoRepository;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
+import org.slf4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,6 +37,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  **/
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableJpaAuditing
+@Slf4j
 public class BiologicalApplication {
 
   public static void main(String[] args) {
@@ -50,43 +54,6 @@ public class BiologicalApplication {
       @Override
       public void run(String... args) throws Exception {
         init(userInfoRepository, organizationInfoRepository);
-        HashSet<HashMap<String, Object>> agreeitems = new HashSet<>();
-        HashMap<String, Object> tmp1 = new HashMap<>();
-        tmp1.put("iid", 1);
-        tmp1.put("name", "always");
-        tmp1.put("value", "总是");
-        tmp1.put("description", "test always");
-        agreeitems.add(tmp1);
-        HashMap<String, Object> tmp2 = new HashMap<>();
-        tmp2.put("iid", 2);
-        tmp2.put("name", "always2");
-        tmp2.put("value", "总是2");
-        tmp2.put("description", "test always2");
-        agreeitems.add(tmp2);
-        HashSet<HashMap<String, Object>> pjitems = new HashSet<>();
-        HashMap<String, Object> tmp3 = new HashMap<>();
-        HashMap<String, Object> tmp4 = new HashMap<>();
-        tmp3.put("aid",1);
-        tmp3.put("name","voice");
-        tmp3.put("description","desvoice");
-        tmp4.put("aid",2);
-        tmp4.put("name","sight");
-        tmp4.put("description","dessight");
-        pjitems.add(tmp3);
-        pjitems.add(tmp4);
-        SaveProjectDraftRequest s = new SaveProjectDraftRequest("testUnit", null, "testProject", "To test robutness",
-            "2017.01.01-2020.03.03",pjitems,agreeitems,true );
-        organizationProjectController.publishProject(s);
-        pjitems.clear();
-        tmp3.put("name","height");
-        pjitems.add(tmp3);
-        SaveProjectDraftRequest s2 = new SaveProjectDraftRequest("testUnit2", null, "testProject2", "To test robutness",
-            "2033.01.01-2044.03.03",pjitems,agreeitems,false );
-
-        Organization_info oi = new Organization_info("testUnit","123456","administrator","310222222222222");
-        organizationInfoRepository.save(oi);
-
-        organizationProjectController.saveProjectDraft(s2);
         HashMap<String,String> unit1 = new HashMap<>();
         unit1.put("organization","testUnit");
         unit1.put("password","123456");
@@ -114,6 +81,45 @@ public class BiologicalApplication {
         unit3.put("phone","123123832832");
         unit3.put("email","111@qq.com");
         organizationAccountController.register(unit3);
+        log.info("注册三个");
+        Thread.sleep(3000);
+        HashSet<HashMap<String, Object>> agreeitems = new HashSet<>();
+        HashMap<String, Object> tmp1 = new HashMap<>();
+        tmp1.put("iid", 1);
+        tmp1.put("name", "always");
+        tmp1.put("value", "总是");
+        tmp1.put("description", "test always");
+        agreeitems.add(tmp1);
+        HashMap<String, Object> tmp2 = new HashMap<>();
+        tmp2.put("iid", 2);
+        tmp2.put("name", "always2");
+        tmp2.put("value", "总是2");
+        tmp2.put("description", "test always2");
+        agreeitems.add(tmp2);
+        HashSet<HashMap<String, Object>> pjitems = new HashSet<>();
+        HashMap<String, Object> tmp3 = new HashMap<>();
+        HashMap<String, Object> tmp4 = new HashMap<>();
+        tmp3.put("aid",1);
+        tmp3.put("name","voice");
+        tmp3.put("description","desvoice");
+        tmp4.put("aid",2);
+        tmp4.put("name","sight");
+        tmp4.put("description","dessight");
+        pjitems.add(tmp3);
+        pjitems.add(tmp4);
+
+        SaveProjectDraftRequest s = new SaveProjectDraftRequest("testUnit", null, "testProject", "To test robutness",
+            "2017.01.01-2020.03.03",pjitems,agreeitems,true );
+        organizationProjectController.publishProject(s);
+        pjitems.clear();
+        tmp3.put("name","height");
+        pjitems.add(tmp3);
+        SaveProjectDraftRequest s2 = new SaveProjectDraftRequest("testUnit2", null, "testProject2", "To test robutness",
+            "2033.01.01-2044.03.03",pjitems,agreeitems,false );
+
+
+        organizationProjectController.saveProjectDraft(s2);
+        log.info("存两个");
 
       }
     };
