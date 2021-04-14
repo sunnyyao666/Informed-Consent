@@ -90,7 +90,7 @@ public class OrganizationAccountController {
         }
     }
 
-    @PostMapping(path = "/login")
+      @PostMapping(path = "/login")
     public MyResponse login(@RequestBody Map<String,String> map ){
       String unitname = map.get("unitname");
 
@@ -98,7 +98,7 @@ public class OrganizationAccountController {
 
       Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
-            return MyResponse.fail("用户名不存在", 1102);
+            return MyResponse.fail("用户名并不存在", 1102);
         } else {
             if (!organization_info.getPassword().equals(password)) {
                 return MyResponse.fail("密码错误", 1103);
