@@ -13037,3 +13037,7 @@ Caused by: java.lang.NullPointerException: null
 2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
 2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2021.04.15
 2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
+2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 756
+2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
+2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : null
+2021-04-15 15:23:30.069  INFO 1704 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
