@@ -177,10 +177,17 @@ public class BiologicalApplication {
         HashMap<Object, Object> h1 = (HashMap<Object, Object>)(organizationProjectController.getAllProjectsOfUnit(h).getData());
         HashSet<HashMap<Object, Object>> publishedList = (HashSet<HashMap<Object, Object>>) h1.get("publishedList");
         for (HashMap<Object, Object> objectObjectHashMap : publishedList) {
+          log.info((String) objectObjectHashMap.getOrDefault("projectId","projectIdNone"));
           log.info((String) objectObjectHashMap.getOrDefault("projectName","projectNameNone"));
           log.info((String) objectObjectHashMap.getOrDefault("releaseTime","releaseTimeNone"));
           log.info((String) objectObjectHashMap.getOrDefault("joinTime","joinTimeNone"));
-
+        }
+        HashSet<HashMap<Object, Object>> draftList = (HashSet<HashMap<Object, Object>>) h1.get("draftList");
+        for (HashMap<Object, Object> objectObjectHashMap : draftList) {
+          log.info((String) objectObjectHashMap.getOrDefault("projectId","projectIdNone"));
+          log.info((String) objectObjectHashMap.getOrDefault("projectName","projectNameNone"));
+          log.info((String) objectObjectHashMap.getOrDefault("releaseTime","releaseTimeNone"));
+          log.info((String) objectObjectHashMap.getOrDefault("joinTime","joinTimeNone"));
         }
       }
     };
