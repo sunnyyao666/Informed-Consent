@@ -190,11 +190,14 @@ public class OrganizationProjectController {
     //只有在数据库存在项目&&是draft，或不存在项目才能发布
     Project_info project_info;
       if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
-        Project_info tmp = projectInfoRepository.findByName(saveProjectDraftRequest.getProjectName());
-        if (null != tmp && !tmp.getStatus().equals("draft")){
-          log.warn("不能发布同名项目");
-          return MyResponse.fail("不能发布同名项目");
+        Set<Project_info> tmps = projectInfoRepository.findAllByName(saveProjectDraftRequest.getProjectName());
+        for (Project_info tmp : tmps) {
+          if (null != tmp && !tmp.getStatus().equals("draft")){
+            log.warn("不能发布同名项目");
+            return MyResponse.fail("不能发布同名项目");
+          }
         }
+
         project_info = new Project_info();
 
       } else {
@@ -263,15 +266,18 @@ public class OrganizationProjectController {
     public MyResponse saveProjectDraft(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest){
       Project_info project_info;
       String tmpName = saveProjectDraftRequest.getProjectName();
-      Project_info tmpProject = projectInfoRepository.findByName(tmpName);
-      if (null != tmpProject && !tmpProject.getStatus().equals("draft")){
-        log.warn("已有同名项目");
-        return MyResponse.fail("已有同名项目");
+      Set<Project_info> tmpProjects = projectInfoRepository.findAllByName(tmpName);
+      for (Project_info tmpProject : tmpProjects) {
+        if (null != tmpProject && !tmpProject.getStatus().equals("draft")){
+          log.warn("已有同名项目");
+          return MyResponse.fail("已有同名项目");
+        }
+        if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
+          log.warn("本单位已有同名项目草稿");
+          return MyResponse.fail("本单位已有同名项目草稿");
+        }
       }
-      if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-        log.warn("本单位已有同名项目草稿");
-        return MyResponse.fail("本单位已有同名项目草稿");
-      }
+
     if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())){
       project_info = new Project_info();
     }else{

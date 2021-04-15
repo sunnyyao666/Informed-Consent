@@ -13,7 +13,8 @@ public interface ProjectInfoRepository extends CrudRepository<Project_info, Inte
     Set<Project_info> findAllByOrganization(String organization);
 
     Project_info findByName(String name);
-
+    Set<Project_info> findAllByName(String name);
+    Project_info findByNameAndStatus(String name,String status);
     Project_info findByPid(Integer pid);
 
     List<Project_info> findAllByOrganizationAndStatusOrderByName(String organization, String status);
