@@ -187,14 +187,31 @@ public class OrganizationProjectController {
 //  }
     @PostMapping("/projectPublish")
     public MyResponse publishProject(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest) {
-      Project_info project_info;
+    //只有在数据库存在项目&&是draft，或不存在项目才能发布
+    Project_info project_info;
       if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
+        Project_info tmp = projectInfoRepository.findByName(saveProjectDraftRequest.getProjectName());
+        if (null != tmp && !tmp.getStatus().equals("draft")){
+          return MyResponse.fail("不能发布同名项目");
+        }
         project_info = new Project_info();
+
       } else {
+        //项目已经存在，它必须是draft，且同一个人
         project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
+        if (null == project_info){
+          return MyResponse.fail("指定的项目草稿不存在");
+        }
+        if (!project_info.getStatus().equals("draft")){
+          return MyResponse.fail("重复发布");
+        }
+        if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
+          return MyResponse.fail("其它用户已存了此草稿");
+        }
         agreementItemRepository.deleteAllByPid(project_info.getPid());
         projectItemRepository.deleteAllByPid(project_info.getPid());
       }
+      project_info.setOrganization(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
       project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
       project_info.setName(saveProjectDraftRequest.getProjectName());
       project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
@@ -244,9 +261,19 @@ public class OrganizationProjectController {
       project_info = new Project_info();
     }else{
        project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
-      agreementItemRepository.deleteAllByPid(project_info.getPid());
+      if (null == project_info){
+        return MyResponse.fail("指定的项目草稿不存在");
+      }
+      if (!project_info.getStatus().equals("draft")){
+        return MyResponse.fail("不能修改已发布的项目");
+      }
+       if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
+        return MyResponse.fail("其它用户已存了此草稿");
+      }
+       agreementItemRepository.deleteAllByPid(project_info.getPid());
       projectItemRepository.deleteAllByPid(project_info.getPid());
     }
+      project_info.setOrganization(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
       project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
       project_info.setName(saveProjectDraftRequest.getProjectName());
       project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
