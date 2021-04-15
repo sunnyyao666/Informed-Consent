@@ -268,6 +268,10 @@ public class OrganizationProjectController {
         log.warn("已有同名项目");
         return MyResponse.fail("已有同名项目");
       }
+      if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
+        log.warn("本单位已有同名项目草稿");
+        return MyResponse.fail("本单位已有同名项目草稿");
+      }
     if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())){
       project_info = new Project_info();
     }else{
