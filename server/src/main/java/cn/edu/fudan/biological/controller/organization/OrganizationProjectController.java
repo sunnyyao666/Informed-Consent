@@ -192,6 +192,7 @@ public class OrganizationProjectController {
       if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
         Project_info tmp = projectInfoRepository.findByName(saveProjectDraftRequest.getProjectName());
         if (null != tmp && !tmp.getStatus().equals("draft")){
+          log.warn("不能发布同名项目");
           return MyResponse.fail("不能发布同名项目");
         }
         project_info = new Project_info();
@@ -200,13 +201,16 @@ public class OrganizationProjectController {
         //项目已经存在，它必须是draft，且同一个人
         project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
         if (null == project_info){
+          log.warn("指定的项目草稿不存在");
           return MyResponse.fail("指定的项目草稿不存在");
         }
         if (!project_info.getStatus().equals("draft")){
+          log.warn("重复发布");
           return MyResponse.fail("重复发布");
         }
         if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-          return MyResponse.fail("其它用户已存了此草稿");
+          log.warn("权限错误");
+          return MyResponse.fail("权限错误");
         }
         agreementItemRepository.deleteAllByPid(project_info.getPid());
         projectItemRepository.deleteAllByPid(project_info.getPid());
@@ -251,24 +255,34 @@ public class OrganizationProjectController {
       project_info.setProjectItems(projectItems);
       project_info.setReleaseTime(new Date());
       projectInfoRepository.save(project_info);
+      log.info(project_info.getName() + "项目发布成功");
       return MyResponse.success("成功");
 
     }
     @PostMapping("/projectDraft")
     public MyResponse saveProjectDraft(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest){
       Project_info project_info;
+      String tmpName = saveProjectDraftRequest.getProjectName();
+      Project_info tmpProject = projectInfoRepository.findByName(tmpName);
+      if (null != tmpProject && !tmpProject.getStatus().equals("draft")){
+        log.warn("已有同名项目");
+        return MyResponse.fail("已有同名项目");
+      }
     if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())){
       project_info = new Project_info();
     }else{
        project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
       if (null == project_info){
+        log.warn("指定的项目草稿不存在");
         return MyResponse.fail("指定的项目草稿不存在");
       }
       if (!project_info.getStatus().equals("draft")){
+        log.warn("不能修改已发布的项目");
         return MyResponse.fail("不能修改已发布的项目");
       }
        if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-        return MyResponse.fail("其它用户已存了此草稿");
+         log.warn("不能修改已发布的项目");
+         return MyResponse.fail("权限错误");
       }
        agreementItemRepository.deleteAllByPid(project_info.getPid());
       projectItemRepository.deleteAllByPid(project_info.getPid());
@@ -312,6 +326,7 @@ public class OrganizationProjectController {
       }
       project_info.setProjectItems(projectItems);
       projectInfoRepository.save(project_info);
+      log.info(project_info.getName() + "项目草稿存储成功");
       return MyResponse.success("成功");
     }
 
