@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -58,9 +59,11 @@ public class OrganizationProjectController {
     this.agreementItemRepository = agreementItemRepository;
 
   }
-
+  SimpleDateFormat pointformat = new SimpleDateFormat("yyyy.MM.dd");
+  SimpleDateFormat hiformat = new SimpleDateFormat("yyyy-MM-dd");
   @PostMapping("/projects")
   public MyResponse getAllProjectsOfUnit(@RequestBody Map<String, String> map) {
+
 
     String unitname = map.get("unitname");
     Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
@@ -71,8 +74,9 @@ public class OrganizationProjectController {
       HashMap<Object, Object> tmp = new HashMap<>();
       tmp.put("projectId", project.getId());
       tmp.put("projectName", project.getName());
-      tmp.put("joinTime", project.getCreateTime());
-      tmp.put("releaseTime", project.getReleaseTime());
+
+      tmp.put("joinTime",hiformat.format(project.getEndTime()).replace("-","."));
+      tmp.put("releaseTime", hiformat.format(project.getReleaseTime()).replace("-","."));
       if (project.getStatus().equals("draft")) {
         draftList.add(tmp);
       } else {
@@ -234,6 +238,7 @@ public class OrganizationProjectController {
     project_info.setName(saveProjectDraftRequest.getProjectName());
     project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
     String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
+    //点字符串 到 杠 日期
     Date startDate = DateUtil.StringToDate(times[0]);
     Date endDate = DateUtil.StringToDate(times[1]);
     Date createDate = new Date();
@@ -416,9 +421,9 @@ public class OrganizationProjectController {
     data.put("projectId", String.valueOf(projectInfo.getId()));
     data.put("projectName", projectInfo.getName());
     data.put("projectGoal", projectInfo.getPurpose());
-    data.put("projectDuration", projectInfo.getStartTime() + "-" + projectInfo.getEndTime());
+    data.put("projectDuration", hiformat.format(projectInfo.getStartTime()).replace("-",".") + "-" + hiformat.format(projectInfo.getEndTime()).replace("-","."));
     data.put("isPublished", projectInfo.getStatus().equals("ongoing") || projectInfo.getStatus().equals("finished"));
-    data.put("releaseTime", projectInfo.getReleaseTime());
+    data.put("releaseTime", hiformat.format(projectInfo.getReleaseTime()).replace("-","."));
     data.put("description", projectInfo.getPurpose());
     HashSet<HashMap<Object, Object>> agreeItems = new HashSet<>();
     for (Agreement_item agreementItem : projectInfo.getAgreementItems()) {
