@@ -71,7 +71,7 @@ public class ProjectController {
         while (i < end && i < projects.size()) {
             Project_info projectInfo = projects.get(i);
             Map<String, Object> map = new HashMap<>(4);
-            map.put("projectId", projectInfo.getPid());
+            map.put("projectId", projectInfo.getId());
             map.put("projectName", projectInfo.getName());
             map.put("releaseTime", projectInfo.getReleaseTime());
             map.put("organization", projectInfo.getOrganization());
@@ -87,7 +87,7 @@ public class ProjectController {
 
     @GetMapping("/projectInfo")
     public MyResponse getProjectDetails(@RequestParam("projectId") String projectId) {
-        Project_info projectInfo = projectInfoRepository.findByPid(Integer.parseInt(projectId));
+        Project_info projectInfo = projectInfoRepository.findById(Integer.parseInt(projectId)).orElse(null);
         if (projectInfo == null) {
             return MyResponse.fail("pid不存在", 1002);
         }

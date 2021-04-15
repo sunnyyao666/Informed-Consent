@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import java.util.*;
 
@@ -46,8 +47,9 @@ public class OrganizationProjectController {
 
   @Autowired
   public OrganizationProjectController(OrganizationInfoRepository organizationInfoRepository,
-                                       ProjectInfoRepository projectInfoRepository, ProjectItemRepository projectItemRepository,
-                                       AgreementInfoRepository agreementInfoRepository, AgreementResponseRepository agreementResponseRepository,AgreementItemRepository agreementItemRepository) {
+      ProjectInfoRepository projectInfoRepository, ProjectItemRepository projectItemRepository,
+      AgreementInfoRepository agreementInfoRepository, AgreementResponseRepository agreementResponseRepository,
+      AgreementItemRepository agreementItemRepository) {
     this.organizationInfoRepository = organizationInfoRepository;
     this.projectInfoRepository = projectInfoRepository;
     this.projectItemRepository = projectItemRepository;
@@ -57,31 +59,29 @@ public class OrganizationProjectController {
 
   }
 
-
-
   @PostMapping("/projects")
-  public MyResponse getAllProjectsOfUnit(@RequestBody Map<String,String> map){
+  public MyResponse getAllProjectsOfUnit(@RequestBody Map<String, String> map) {
 
     String unitname = map.get("unitname");
     Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
-    HashMap<Object,Object> data = new HashMap<>();
-    HashSet<HashMap<Object,Object>> publishedList = new HashSet<>();
-    HashSet<HashMap<Object,Object>> draftList = new HashSet<>();
+    HashMap<Object, Object> data = new HashMap<>();
+    HashSet<HashMap<Object, Object>> publishedList = new HashSet<>();
+    HashSet<HashMap<Object, Object>> draftList = new HashSet<>();
     for (Project_info project : organization_info.getProjects()) {
-      HashMap<Object,Object> tmp = new HashMap<>();
-      tmp.put("projectId",project.getPid());
-      tmp.put("projectName",project.getName());
-      tmp.put("joinTime",project.getCreateTime());
-      tmp.put("releaseTime",project.getReleaseTime());
-      if (project.getStatus().equals("draft")){
+      HashMap<Object, Object> tmp = new HashMap<>();
+      tmp.put("projectId", project.getId());
+      tmp.put("projectName", project.getName());
+      tmp.put("joinTime", project.getCreateTime());
+      tmp.put("releaseTime", project.getReleaseTime());
+      if (project.getStatus().equals("draft")) {
         draftList.add(tmp);
-      }else{
+      } else {
         publishedList.add(tmp);
       }
     }
-    data.put("publishedList",publishedList);
-    data.put("draftList",draftList);
-    return MyResponse.success("成功",data);
+    data.put("publishedList", publishedList);
+    data.put("draftList", draftList);
+    return MyResponse.success("成功", data);
   }
 //  @PostMapping("/project")
 //  public MyResponse createProject(@RequestParam String organization, @RequestParam String projectName,
@@ -114,44 +114,44 @@ public class OrganizationProjectController {
 //  }
 
   @PostMapping("/projectResult")
-  public MyResponse reviewProjectResult(@RequestBody Map<String,Object> map){
+  public MyResponse reviewProjectResult(@RequestBody Map<String, Object> map) {
     String search = (String) map.get("search");
     String projectId = String.valueOf(map.get("projectId"));
-    Project_info project_info = projectInfoRepository.findByPid(Integer.parseInt(projectId));
-    if (null == project_info){
+    Project_info project_info = projectInfoRepository.findById(Integer.parseInt(projectId)).orElse(null);
+    if (null == project_info) {
       return MyResponse.fail("所操作的数据不存在", 1002);
     }
-    if (null == search){
+    if (null == search) {
       search = "";
     }
     Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(Integer.parseInt(projectId));
-    HashMap<Object,Object> data = new HashMap<>();
-    data.put("agreeItems",project_info.getAgreementItems());
-    data.put("projectItems",project_info.getProjectItems());
-    HashSet<HashMap<String,Object>> info = new HashSet<>();
-    if(agreement_infos == null){
+    HashMap<Object, Object> data = new HashMap<>();
+    data.put("agreeItems", project_info.getAgreementItems());
+    data.put("projectItems", project_info.getProjectItems());
+    HashSet<HashMap<String, Object>> info = new HashSet<>();
+    if (agreement_infos == null) {
       return MyResponse.fail("所操作的数据不存在", 1002);
-    }else{
+    } else {
       for (Agreement_info agreement_info : agreement_infos) {
-        if (agreement_info.getUsername().contains(search)){
-          HashMap<String,Object> tmp = new HashMap<>();
-          tmp.put("username",agreement_info.getUsername());
-          HashSet<HashMap<String,Integer>> pairs = new HashSet<>();
+        if (agreement_info.getUsername().contains(search)) {
+          HashMap<String, Object> tmp = new HashMap<>();
+          tmp.put("username", agreement_info.getUsername());
+          HashSet<HashMap<String, Integer>> pairs = new HashSet<>();
           for (Agreement_response respons : agreement_info.getResponses()) {
-            HashMap<String,Integer> tmpRes = new HashMap();
-            tmpRes.put("aid",respons.getAid());
-            tmpRes.put("iid",respons.getIid());
+            HashMap<String, Integer> tmpRes = new HashMap();
+            tmpRes.put("aid", respons.getAid());
+            tmpRes.put("iid", respons.getIid());
             pairs.add(tmpRes);
           }
-          tmp.put("pairs",pairs);
+          tmp.put("pairs", pairs);
           info.add(tmp);
         }
       }
     }
-    return MyResponse.success("成功",data);
+    return MyResponse.success("成功", data);
   }
 
-//  @PutMapping("/projectDetail")
+  //  @PutMapping("/projectDetail")
 //  public MyResponse changeProject(@RequestParam String organization, @RequestParam Integer pid,
 //      @RequestParam String projectName, @RequestParam String ReleaseTime, @RequestParam String projectGoal, @RequestParam String projectDuration,
 //      @RequestParam(name = "data", required = false) List<String> data, HttpServletResponse response,
@@ -185,161 +185,176 @@ public class OrganizationProjectController {
 //    log.info("收集字段:" + data.toString());
 //    return MyResponse.success();
 //  }
-    @PostMapping("/projectPublish")
-    public MyResponse publishProject(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest) {
+  @Transactional
+  @PostMapping("/projectPublish")
+  public MyResponse publishProject(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest) {
     //只有在数据库存在项目&&是draft，或不存在项目才能发布
     Project_info project_info;
-      if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
-        Set<Project_info> tmps = projectInfoRepository.findAllByName(saveProjectDraftRequest.getProjectName());
-        for (Project_info tmp : tmps) {
-          if (null != tmp && !tmp.getStatus().equals("draft")){
-            log.warn("不能发布同名项目");
-            return MyResponse.fail("不能发布同名项目");
-          }
-        }
-
-        project_info = new Project_info();
-
-      } else {
-        //项目已经存在，它必须是draft，且同一个人
-        project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
-        if (null == project_info){
-          log.warn("指定的项目草稿不存在");
-          return MyResponse.fail("指定的项目草稿不存在");
-        }
-        if (!project_info.getStatus().equals("draft")){
-          log.warn("重复发布");
-          return MyResponse.fail("重复发布");
-        }
-        if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-          log.warn("权限错误");
-          return MyResponse.fail("权限错误");
-        }
-        agreementItemRepository.deleteAllByPid(project_info.getPid());
-        projectItemRepository.deleteAllByPid(project_info.getPid());
-      }
-      project_info.setOrganization(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
-      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
-      project_info.setName(saveProjectDraftRequest.getProjectName());
-      project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
-      String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
-      Date startDate = DateUtil.StringToDate(times[0]);
-      Date endDate = DateUtil.StringToDate(times[1]);
-      Date createDate = new Date();
-      project_info.setStartTime(startDate);
-      project_info.setEndTime(endDate);
-      project_info.setCreateTime(createDate);
-      project_info.setStatus("ongoing");
-      projectInfoRepository.save(project_info);
-      Set<Agreement_item> agreementItems = new HashSet<>();
-      for (HashMap<String, Object> agreeItem : saveProjectDraftRequest.getAgreeItems()) {
-        Agreement_item agreementItem = new Agreement_item();
-        agreementItem.setIid((Integer) agreeItem.get("iid"));
-        agreementItem.setName((String) agreeItem.get("name"));
-        agreementItem.setValue((String) agreeItem.get("value"));
-        agreementItem.setDescription((String) agreeItem.get("description"));
-        agreementItem.setPid(project_info.getPid());
-        agreementItem.setProjectInfo(project_info);
-        agreementItemRepository.save(agreementItem);
-        agreementItems.add(agreementItem);
-      }
-      project_info.setAgreementItems(agreementItems);
-      projectInfoRepository.save(project_info);
-      Set<Project_item> projectItems = new HashSet<>();
-      for (HashMap<String, Object> projectItem : saveProjectDraftRequest.getProjectItems()) {
-        Project_item project_item = new Project_item();
-        project_item.setAid((Integer) projectItem.get("aid"));
-        project_item.setName((String) projectItem.get("name"));
-        project_item.setDescription((String) projectItem.get("description"));
-        project_item.setProjectInfo(project_info);
-        projectItemRepository.save(project_item);
-        projectItems.add(project_item);
-      }
-      project_info.setProjectItems(projectItems);
-      project_info.setReleaseTime(new Date());
-      projectInfoRepository.save(project_info);
-      log.info(project_info.getName() + "项目发布成功");
-      return MyResponse.success("成功");
-
-    }
-    @PostMapping("/projectDraft")
-    public MyResponse saveProjectDraft(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest){
-      Project_info project_info;
-      String tmpName = saveProjectDraftRequest.getProjectName();
-      Set<Project_info> tmpProjects = projectInfoRepository.findAllByName(tmpName);
-      for (Project_info tmpProject : tmpProjects) {
-        if (null != tmpProject && !tmpProject.getStatus().equals("draft")){
-          log.warn("已有同名项目");
-          return MyResponse.fail("已有同名项目");
-        }
-        if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-          log.warn("本单位已有同名项目草稿");
-          return MyResponse.fail("本单位已有同名项目草稿");
+    if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
+      Set<Project_info> tmps = projectInfoRepository.findAllByName(saveProjectDraftRequest.getProjectName());
+      for (Project_info tmp : tmps) {
+        if (null != tmp && !tmp.getStatus().equals("draft")) {
+          log.warn("不能发布同名项目");
+          return MyResponse.fail("不能发布同名项目");
         }
       }
 
-    if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())){
       project_info = new Project_info();
-    }else{
-       project_info = projectInfoRepository.findByPid(Integer.parseInt(saveProjectDraftRequest.getProjectId()));
-      if (null == project_info){
+
+    } else {
+      //项目已经存在，它必须是draft，且同一个人
+      project_info = projectInfoRepository.findById(Integer.parseInt(saveProjectDraftRequest.getProjectId())).orElse(null);
+      if (null == project_info) {
         log.warn("指定的项目草稿不存在");
         return MyResponse.fail("指定的项目草稿不存在");
       }
-      if (!project_info.getStatus().equals("draft")){
+      if (!project_info.getStatus().equals("draft")) {
+        log.warn("该PID指定的项目已不是草稿状态");
+        return MyResponse.fail("该PID指定的项目已不是草稿状态");
+      }
+      if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())) {
+        log.warn("指定PID发布:权限错误");
+        return MyResponse.fail("指定PID发布:权限错误");
+      }
+      if (!projectInfoRepository.findAllByNameAndStatus(saveProjectDraftRequest.getProjectName(),"ongoing").isEmpty()){
+        log.warn("已有重名进行中项目");
+        return MyResponse.fail("已有重名进行中项目");
+      }
+      if (!projectInfoRepository.findAllByNameAndStatus(saveProjectDraftRequest.getProjectName(),"finished").isEmpty()){
+        log.warn("已有重名已结束项目");
+        return MyResponse.fail("已有重名已结束项目");
+      }
+      agreementItemRepository.deleteAllByPid(project_info.getId());
+      projectItemRepository.deleteAllByPid(project_info.getId());
+    }
+    project_info.setOrganization(
+        organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
+    project_info
+        .setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
+    project_info.setName(saveProjectDraftRequest.getProjectName());
+    project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
+    String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
+    Date startDate = DateUtil.StringToDate(times[0]);
+    Date endDate = DateUtil.StringToDate(times[1]);
+    Date createDate = new Date();
+    project_info.setStartTime(startDate);
+    project_info.setEndTime(endDate);
+    project_info.setCreateTime(createDate);
+    project_info.setStatus("ongoing");
+    projectInfoRepository.save(project_info);
+    Set<Agreement_item> agreementItems = new HashSet<>();
+    for (HashMap<String, Object> agreeItem : saveProjectDraftRequest.getAgreeItems()) {
+      Agreement_item agreementItem = new Agreement_item();
+      agreementItem.setIid((Integer) agreeItem.get("iid"));
+      agreementItem.setName((String) agreeItem.get("name"));
+      agreementItem.setValue((String) agreeItem.get("value"));
+      agreementItem.setDescription((String) agreeItem.get("description"));
+      agreementItem.setPid(project_info.getId());
+      agreementItem.setProjectInfo(project_info);
+      agreementItemRepository.save(agreementItem);
+      agreementItems.add(agreementItem);
+    }
+    project_info.setAgreementItems(agreementItems);
+    projectInfoRepository.save(project_info);
+    Set<Project_item> projectItems = new HashSet<>();
+    for (HashMap<String, Object> projectItem : saveProjectDraftRequest.getProjectItems()) {
+      Project_item project_item = new Project_item();
+      project_item.setAid((Integer) projectItem.get("aid"));
+      project_item.setName((String) projectItem.get("name"));
+      project_item.setDescription((String) projectItem.get("description"));
+      project_item.setProjectInfo(project_info);
+      projectItemRepository.save(project_item);
+      projectItems.add(project_item);
+    }
+    project_info.setProjectItems(projectItems);
+    project_info.setReleaseTime(new Date());
+    projectInfoRepository.save(project_info);
+    log.info(project_info.getName() + "项目发布成功");
+    return MyResponse.success("成功");
+
+  }
+
+  @Transactional
+  @PostMapping("/projectDraft")
+  public MyResponse saveProjectDraft(@RequestBody SaveProjectDraftRequest saveProjectDraftRequest) {
+    Project_info project_info;
+    String tmpName = saveProjectDraftRequest.getProjectName();
+    Set<Project_info> tmpProjects = projectInfoRepository.findAllByName(tmpName);
+    for (Project_info tmpProject : tmpProjects) {
+      if (null != tmpProject && !tmpProject.getStatus().equals("draft")) {
+        log.warn("已有同名项目");
+        return MyResponse.fail("已有同名项目");
+      }
+      if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization()
+          .equals(saveProjectDraftRequest.getUnitname())) {
+        log.warn("本单位已有同名项目草稿" + tmpProject.getName());
+        return MyResponse.fail("本单位已有同名项目草稿" + tmpProject.getName()) ;
+      }
+    }
+
+    if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
+      project_info = new Project_info();
+    } else {
+      project_info = projectInfoRepository.findById(Integer.parseInt(saveProjectDraftRequest.getProjectId())).orElse(null);
+      if (null == project_info) {
+        log.warn("指定的项目草稿不存在");
+        return MyResponse.fail("指定的项目草稿不存在");
+      }
+      if (!project_info.getStatus().equals("draft")) {
         log.warn("不能修改已发布的项目");
         return MyResponse.fail("不能修改已发布的项目");
       }
-       if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())){
-         log.warn("不能修改已发布的项目");
-         return MyResponse.fail("权限错误");
+      if (!project_info.getOrganization().equals(saveProjectDraftRequest.getUnitname())) {
+        log.warn("指定PID发布:权限错误");
+        return MyResponse.fail("指定PID发布:权限错误");
       }
-       agreementItemRepository.deleteAllByPid(project_info.getPid());
-      projectItemRepository.deleteAllByPid(project_info.getPid());
+      agreementItemRepository.deleteAllByPid(project_info.getId());
+      projectItemRepository.deleteAllByPid(project_info.getId());
     }
-      project_info.setOrganization(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
-      project_info.setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
-      project_info.setName(saveProjectDraftRequest.getProjectName());
-      project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
-      String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
-      Date startDate = DateUtil.StringToDate(times[0]);
-      Date endDate = DateUtil.StringToDate(times[1]);
-      Date createDate = new Date();
-      project_info.setStartTime(startDate);
-      project_info.setEndTime(endDate);
-      project_info.setCreateTime(createDate);
-      project_info.setStatus("draft");
-      projectInfoRepository.save(project_info);
-      Set<Agreement_item> agreementItems = new HashSet<>();
-      for (HashMap<String, Object> agreeItem : saveProjectDraftRequest.getAgreeItems()) {
-        Agreement_item agreementItem = new Agreement_item();
-        agreementItem.setIid((Integer) agreeItem.get("iid"));
-        agreementItem.setName((String)agreeItem.get("name"));
-        agreementItem.setValue((String)agreeItem.get("value"));
-        agreementItem.setDescription((String)agreeItem.get("description"));
-        agreementItem.setPid(project_info.getPid());
-        agreementItem.setProjectInfo(project_info);
-        agreementItemRepository.save(agreementItem);
-        agreementItems.add(agreementItem);
-      }
-      project_info.setAgreementItems(agreementItems);
-      projectInfoRepository.save(project_info);
-      Set<Project_item> projectItems = new HashSet<>();
-      for (HashMap<String, Object> projectItem : saveProjectDraftRequest.getProjectItems()) {
-        Project_item project_item = new Project_item();
-        project_item.setAid((Integer) projectItem.get("aid"));
-        project_item.setName((String) projectItem.get("name"));
-        project_item.setDescription((String) projectItem.get("description"));
-        project_item.setProjectInfo(project_info);
-        projectItemRepository.save(project_item);
-        projectItems.add(project_item);
-      }
-      project_info.setProjectItems(projectItems);
-      projectInfoRepository.save(project_info);
-      log.info(project_info.getName() + "项目草稿存储成功");
-      return MyResponse.success("成功");
+    project_info.setOrganization(
+        organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
+    project_info
+        .setOrganizationInfo(organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()));
+    project_info.setName(saveProjectDraftRequest.getProjectName());
+    project_info.setPurpose(saveProjectDraftRequest.getProjectGoal());
+    String[] times = saveProjectDraftRequest.getProjectDuration().split("-");
+    Date startDate = DateUtil.StringToDate(times[0]);
+    Date endDate = DateUtil.StringToDate(times[1]);
+    Date createDate = new Date();
+    project_info.setStartTime(startDate);
+    project_info.setEndTime(endDate);
+    project_info.setCreateTime(createDate);
+    project_info.setStatus("draft");
+    projectInfoRepository.save(project_info);
+    Set<Agreement_item> agreementItems = new HashSet<>();
+    for (HashMap<String, Object> agreeItem : saveProjectDraftRequest.getAgreeItems()) {
+      Agreement_item agreementItem = new Agreement_item();
+      agreementItem.setIid((Integer) agreeItem.get("iid"));
+      agreementItem.setName((String) agreeItem.get("name"));
+      agreementItem.setValue((String) agreeItem.get("value"));
+      agreementItem.setDescription((String) agreeItem.get("description"));
+      agreementItem.setPid(project_info.getId());
+      agreementItem.setProjectInfo(project_info);
+      agreementItemRepository.save(agreementItem);
+      agreementItems.add(agreementItem);
     }
-
+    project_info.setAgreementItems(agreementItems);
+    projectInfoRepository.save(project_info);
+    Set<Project_item> projectItems = new HashSet<>();
+    for (HashMap<String, Object> projectItem : saveProjectDraftRequest.getProjectItems()) {
+      Project_item project_item = new Project_item();
+      project_item.setAid((Integer) projectItem.get("aid"));
+      project_item.setName((String) projectItem.get("name"));
+      project_item.setDescription((String) projectItem.get("description"));
+      project_item.setProjectInfo(project_info);
+      projectItemRepository.save(project_item);
+      projectItems.add(project_item);
+    }
+    project_info.setProjectItems(projectItems);
+    projectInfoRepository.save(project_info);
+    log.info(project_info.getOrganization() + "单位:" + project_info.getName() + "项目草稿存储成功");
+    return MyResponse.success(project_info.getOrganization() + "单位:" + project_info.getName() + "项目草稿存储成功");
+  }
 
   //    @PostMapping("/projects")
 //    public MyResponse projects(@RequestParam String organization, @RequestParam String method, @RequestParam int number, HttpServletResponse response, HttpServletRequest request) {
@@ -366,7 +381,7 @@ public class OrganizationProjectController {
     Set<Project_info> project_infos = projectInfoRepository.findAllByOrganization(organization);
     Set<Agreement_response> data = new HashSet<>();
     for (Project_info project_info : project_infos) {
-      int pid = project_info.getPid();
+      int pid = project_info.getId();
       Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(pid);
       for (Agreement_info agreement_info : agreement_infos) {
         Set<Agreement_response> responses = agreement_info.getResponses();
@@ -386,44 +401,44 @@ public class OrganizationProjectController {
   }
 
   @PostMapping("/projectInfo")
-  public MyResponse getProjectDetails(@RequestBody Map<String, Integer> map ) {
-    if (null == map.get("projectId")){
+  public MyResponse getProjectDetails(@RequestBody Map<String, Integer> map) {
+    if (null == map.get("projectId")) {
       return MyResponse.fail("无效");
     }
     Integer projectId = map.get("projectId");
-    Project_info projectInfo = projectInfoRepository.findByPid(projectId);
+    Project_info projectInfo = projectInfoRepository.findById(projectId).orElse(null);
     if (projectInfo == null) {
       return MyResponse.fail("pid不存在", 1002);
     }
-    HashMap<Object,Object> data = new HashMap<>();
+    HashMap<Object, Object> data = new HashMap<>();
     HashSet<String> imgUrls = new HashSet<>();
-    data.put("imgUrls",imgUrls);
-    data.put("projectId",String.valueOf(projectInfo.getPid()));
-    data.put("projectName",projectInfo.getName());
-    data.put("projectGoal",projectInfo.getPurpose());
-    data.put("projectDuration",projectInfo.getStartTime()+ "-" + projectInfo.getEndTime());
-    data.put("isPublished",projectInfo.getStatus().equals("ongoing") || projectInfo.getStatus().equals("finished"));
-    data.put("releaseTime",projectInfo.getReleaseTime());
-    data.put("description",projectInfo.getPurpose());
-    HashSet<HashMap<Object,Object>> agreeItems = new HashSet<>();
+    data.put("imgUrls", imgUrls);
+    data.put("projectId", String.valueOf(projectInfo.getId()));
+    data.put("projectName", projectInfo.getName());
+    data.put("projectGoal", projectInfo.getPurpose());
+    data.put("projectDuration", projectInfo.getStartTime() + "-" + projectInfo.getEndTime());
+    data.put("isPublished", projectInfo.getStatus().equals("ongoing") || projectInfo.getStatus().equals("finished"));
+    data.put("releaseTime", projectInfo.getReleaseTime());
+    data.put("description", projectInfo.getPurpose());
+    HashSet<HashMap<Object, Object>> agreeItems = new HashSet<>();
     for (Agreement_item agreementItem : projectInfo.getAgreementItems()) {
-      HashMap<Object,Object> item = new HashMap<>();
-      item.put("iid",agreementItem.getIid());
-      item.put("name",agreementItem.getName());
-      item.put("value",agreementItem.getValue());
-      item.put("description",agreementItem.getDescription());
+      HashMap<Object, Object> item = new HashMap<>();
+      item.put("iid", agreementItem.getIid());
+      item.put("name", agreementItem.getName());
+      item.put("value", agreementItem.getValue());
+      item.put("description", agreementItem.getDescription());
       agreeItems.add(item);
     }
-    data.put("agreeItems",agreeItems);
-    HashSet<HashMap<Object,Object>> projectItems = new HashSet<>();
+    data.put("agreeItems", agreeItems);
+    HashSet<HashMap<Object, Object>> projectItems = new HashSet<>();
     for (Project_item projectItem : projectInfo.getProjectItems()) {
-      HashMap<Object,Object> item = new HashMap<>();
-      item.put("aid",projectItem.getAid());
-      item.put("name",projectItem.getName());
-      item.put("description",projectItem.getDescription());
+      HashMap<Object, Object> item = new HashMap<>();
+      item.put("aid", projectItem.getAid());
+      item.put("name", projectItem.getName());
+      item.put("description", projectItem.getDescription());
       projectItems.add(item);
     }
-    data.put("projectItems",projectItems);
+    data.put("projectItems", projectItems);
 
     return MyResponse.success("成功", data);
   }

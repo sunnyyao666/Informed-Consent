@@ -7,10 +7,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface AgreementInfoRepository extends CrudRepository<Agreement_info, Integer> {
     Agreement_info findByUsernameAndPid(String username, Integer pid);
     Set<Agreement_info> findAllByPid(Integer pid);
+  @Transactional
+  void deleteAllByPid(Integer pid);
 
-    List<Agreement_info> findAllByUsernameOrderByPid(String username);
+  List<Agreement_info> findAllByUsernameOrderByPid(String username);
 }

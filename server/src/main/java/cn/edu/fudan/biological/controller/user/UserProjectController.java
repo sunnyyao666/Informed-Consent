@@ -44,7 +44,7 @@ public class UserProjectController {
         }
 
         Integer pid = userProjectRequest.getProjectId();
-        Project_info projectInfo = projectInfoRepository.findByPid(pid);
+        Project_info projectInfo = projectInfoRepository.findById(pid).orElse(null);
         if (projectInfo == null) {
             return MyResponse.fail("projectId不存在", 1002);
         }
@@ -89,7 +89,7 @@ public class UserProjectController {
         }
 
         int pid = Integer.parseInt(projectId);
-        Project_info projectInfo = projectInfoRepository.findByPid(pid);
+        Project_info projectInfo = projectInfoRepository.findById(pid).orElse(null);
         if (projectInfo == null) {
             return MyResponse.fail("projectId不存在", 1002);
         }
@@ -119,7 +119,7 @@ public class UserProjectController {
         List<Project_info> onGoingProjects = new LinkedList<>();
         List<Project_info> finishedProjects = new LinkedList<>();
         for (Agreement_info agreement : agreements) {
-            Project_info projectInfo = projectInfoRepository.findByPid(agreement.getPid());
+            Project_info projectInfo = projectInfoRepository.findById(agreement.getPid()).orElse(null);
             if ("ongoing".equals(projectInfo.getStatus())) {
                 onGoingProjects.add(projectInfo);
             } else {

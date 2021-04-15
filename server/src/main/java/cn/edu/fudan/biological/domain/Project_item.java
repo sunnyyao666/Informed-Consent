@@ -33,7 +33,7 @@ public class Project_item extends BaseEntity {
 
     public Project_item(Project_info projectInfo, String name, String description) {
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
         this.name = name;
         this.description = description;
     }
@@ -52,7 +52,7 @@ public class Project_item extends BaseEntity {
 
     public void setProjectInfo(Project_info projectInfo) {
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
     }
 
     public Integer getPid() {
@@ -87,15 +87,19 @@ public class Project_item extends BaseEntity {
         this.responses = responses;
     }
 
-    @Override
-    public String toString() {
-        return "Project_data{" +
-                "dataId=" + aid +
-                ", projectInfo=" + projectInfo +
-                ", pid=" + pid +
-                ", name='" + name + '\'' +
-                ", responses=" + responses +
-                '}';
+  @Override
+  public String toString() {
+    if (null == pid){
+      pid = getId();
     }
+    return "Project_item{" +
+        "aid=" + aid +
+        ", projectInfo=" + projectInfo +
+        ", pid=" + pid +
+        ", name='" + name + '\'' +
+        ", description='" + description + '\'' +
+        ", responses=" + responses +
+        '}';
+  }
 }
 
