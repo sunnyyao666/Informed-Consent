@@ -76,7 +76,11 @@ public class OrganizationProjectController {
       tmp.put("projectName", project.getName());
 
       tmp.put("joinTime",hiformat.format(project.getEndTime()).replace("-","."));
-      tmp.put("releaseTime", hiformat.format(project.getReleaseTime()).replace("-","."));
+      if (null != project.getReleaseTime()){
+        tmp.put("releaseTime", hiformat.format(project.getReleaseTime()).replace("-","."));
+      }else{
+        tmp.put("releaseTime",null);
+      }
       if (project.getStatus().equals("draft")) {
         draftList.add(tmp);
       } else {
@@ -423,7 +427,12 @@ public class OrganizationProjectController {
     data.put("projectGoal", projectInfo.getPurpose());
     data.put("projectDuration", hiformat.format(projectInfo.getStartTime()).replace("-",".") + "-" + hiformat.format(projectInfo.getEndTime()).replace("-","."));
     data.put("isPublished", projectInfo.getStatus().equals("ongoing") || projectInfo.getStatus().equals("finished"));
-    data.put("releaseTime", hiformat.format(projectInfo.getReleaseTime()).replace("-","."));
+    if (null != projectInfo.getReleaseTime()){
+      data.put("releaseTime", hiformat.format(projectInfo.getReleaseTime()).replace("-","."));
+
+    }else{
+      data.put("releaseTime",null);
+    }
     data.put("description", projectInfo.getPurpose());
     HashSet<HashMap<Object, Object>> agreeItems = new HashSet<>();
     for (Agreement_item agreementItem : projectInfo.getAgreementItems()) {
