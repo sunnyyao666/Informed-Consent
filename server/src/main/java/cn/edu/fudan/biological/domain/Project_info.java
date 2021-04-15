@@ -61,7 +61,6 @@ public class Project_info extends BaseEntity {
   private Set<Agreement_item> agreementItems = new HashSet<>();
 
   public Project_info() {
-    this.pid = this.getId();
   }
 
   public Project_info(Date startTime, Date endTime, String purpose, Organization_info organizationInfo) {
@@ -70,16 +69,9 @@ public class Project_info extends BaseEntity {
     this.purpose = purpose;
     this.organizationInfo = organizationInfo;
     this.organization = organizationInfo.getOrganization();
-    this.pid = this.getId();
   }
 
-//    public Integer getPid() {
-//        return pid;
-//    }
-//
-//    public void setPid(Integer pid) {
-//        this.pid = pid;
-//    }
+
 
   public String getName() {
     return name;
@@ -180,9 +172,6 @@ public class Project_info extends BaseEntity {
 
   @Override
   public String toString() {
-    if (null == pid){
-      pid = getId();
-    }
     return "Project_info{" +
         "pid=" + pid +
         ", name='" + name + '\'' +

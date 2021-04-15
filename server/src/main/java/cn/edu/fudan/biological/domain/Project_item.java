@@ -89,9 +89,6 @@ public class Project_item extends BaseEntity {
 
   @Override
   public String toString() {
-    if (null == pid){
-      pid = getId();
-    }
     return "Project_item{" +
         "aid=" + aid +
         ", projectInfo=" + projectInfo +

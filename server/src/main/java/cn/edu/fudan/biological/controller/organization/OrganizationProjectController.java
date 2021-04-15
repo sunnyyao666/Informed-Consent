@@ -72,7 +72,7 @@ public class OrganizationProjectController {
     HashSet<HashMap<Object, Object>> draftList = new HashSet<>();
     for (Project_info project : organization_info.getProjects()) {
       HashMap<Object, Object> tmp = new HashMap<>();
-      tmp.put("projectId", project.getId());
+      tmp.put("projectId", String.valueOf(project.getId()));
       tmp.put("projectName", project.getName());
 
       tmp.put("joinTime",hiformat.format(project.getEndTime()).replace("-","."));
