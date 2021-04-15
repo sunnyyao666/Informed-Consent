@@ -1,5 +1,7 @@
 package cn.edu.fudan.biological.controller.user;
 
+import javax.xml.crypto.Data;
+
 import cn.edu.fudan.biological.controller.request.user.UserAccountRequest;
 import cn.edu.fudan.biological.domain.User_info;
 import cn.edu.fudan.biological.dto.MyResponse;
@@ -29,7 +31,7 @@ public class UserAccountController {
 
     @GetMapping("/test")
     public MyResponse test(@RequestParam String param) {
-        return MyResponse.success("成功", param + userInfoRepository.findByUsername("13812345678").getEmail());
+        return MyResponse.success( "4.15+ " + "成功", param + userInfoRepository.findByUsername("13812345678").getEmail());
     }
 
     @GetMapping("/code")
