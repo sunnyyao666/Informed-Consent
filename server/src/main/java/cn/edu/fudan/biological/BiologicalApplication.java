@@ -172,9 +172,8 @@ public class BiologicalApplication {
                 organizationProjectController.saveProjectDraft(s2);
                 organizationProjectController.saveProjectDraft(s2);
                 organizationProjectController.saveProjectDraft(s);
-                HashMap<String, String> h = new HashMap<>();
-                h.put("unitname", "testUnit");
-                HashMap<Object, Object> h1 = (HashMap<Object, Object>) (organizationProjectController.getAllProjectsOfUnit(h).getData());
+
+                HashMap<Object, Object> h1 = (HashMap<Object, Object>) (organizationProjectController.getAllProjectsOfUnit("testUnit").getData());
                 HashSet<HashMap<Object, Object>> publishedList = (HashSet<HashMap<Object, Object>>) h1.get("publishedList");
                 for (HashMap<Object, Object> objectObjectHashMap : publishedList) {
                     log.info((String) objectObjectHashMap.getOrDefault("projectId", "projectIdNone"));
