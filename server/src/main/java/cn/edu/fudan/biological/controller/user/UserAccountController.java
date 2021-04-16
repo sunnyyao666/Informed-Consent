@@ -4,10 +4,13 @@ import cn.edu.fudan.biological.controller.request.user.UserAccountRequest;
 import cn.edu.fudan.biological.domain.User_info;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.UserInfoRepository;
+import cn.edu.fudan.biological.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import redis.clients.jedis.Jedis;
 
 
 /**
@@ -21,23 +24,46 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserAccountController {
     private final UserInfoRepository userInfoRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final Jedis jedis = new Jedis("localhost");
+    private final MailUtil mailUtil;
 
     @Autowired
-    public UserAccountController(UserInfoRepository userInfoRepository) {
+    public UserAccountController(UserInfoRepository userInfoRepository, MailUtil mailUtil) {
         this.userInfoRepository = userInfoRepository;
+        this.mailUtil = mailUtil;
     }
 
     @GetMapping("/test")
     public MyResponse test(@RequestParam String param) {
-        return MyResponse.success("成功", param + userInfoRepository.findByUsername("13812345678").getEmail());
+        jedis.set("1","2");
+        return MyResponse.success("4.15+ " + "成功", param+jedis.get("1"));
+    }
+
+    @GetMapping("/mail")
+    public MyResponse testMail(@RequestParam String param) {
+        try {
+            mailUtil.sendCodeMail("1372439230@qq.com", param);
+            return MyResponse.success();
+        } catch (MailException e) {
+            return MyResponse.fail(e.getMessage(), 1001);
+        }
     }
 
     @GetMapping("/code")
-    public MyResponse userRegisterGetCode(@RequestParam("username") String username) {
+    public MyResponse userRegisterGetCode(@RequestParam("username") String username, @RequestParam("mail") String email) {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo != null) {
             return MyResponse.fail("用户名重复", 1101);
         }
+
+        String code = Integer.toString((int) (Math.random() * 900000 + 100000));
+        try {
+            mailUtil.sendCodeMail(email, code);
+        } catch (MailException e) {
+            return MyResponse.fail("邮件发送失败", 1001);
+        }
+        jedis.set(username, code);
+        jedis.expire(username, 300);
 
         return MyResponse.success();
     }
@@ -51,7 +77,7 @@ public class UserAccountController {
         }
 
         String password = userAccountRequest.getPassword();
-        String email = userAccountRequest.getEmail();
+        String email = userAccountRequest.getMail();
         userInfo = new User_info(username, passwordEncoder.encode(password), email);
         userInfoRepository.save(userInfo);
         return MyResponse.success();
@@ -207,9 +233,8 @@ public class UserAccountController {
         for (int value : gesture) {
             stringBuilder.append(value);
         }
-        String signature = stringBuilder.toString();
-        userInfo.setSignature(signature);
 
+        userInfo.setSignature(stringBuilder.toString());
         userInfoRepository.save(userInfo);
         return MyResponse.success();
     }

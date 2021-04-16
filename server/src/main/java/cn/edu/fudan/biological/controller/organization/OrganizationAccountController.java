@@ -1,5 +1,7 @@
 package cn.edu.fudan.biological.controller.organization;
 
+import java.util.Map;
+
 import cn.edu.fudan.biological.domain.Organization_info;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.OrganizationInfoRepository;
@@ -35,11 +37,10 @@ public class OrganizationAccountController {
   }
 
   @PostMapping(path = "/forgetCode")
-  public MyResponse getCode(@RequestParam String unitname, @RequestParam String code, HttpServletResponse response,
-      HttpServletRequest request) {
-    Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
-    if (null != code) {
-      if (jedis.get(unitname).equals(code)) {
+  public MyResponse getCode(@RequestBody Map<String,String> map)  {
+    Organization_info organization_info = organizationInfoRepository.findByOrganization(map.get("unitname"));
+    if (null != map.get("code")) {
+      if (jedis.get( map.get("unitname")).equals( map.get("code"))) {
         //验证成功
         return MyResponse.success();
       } else {
@@ -52,8 +53,8 @@ public class OrganizationAccountController {
         return MyResponse.fail("用户名不存在", 1101);
       } else {
         String yzcode = "123456";
-        jedis.set(unitname, yzcode);
-        jedis.expire(unitname, 300);
+        jedis.set(map.get("unitname"), yzcode);
+        jedis.expire(map.get("unitname"), 300);
         //To do
         return MyResponse.success();
       }
@@ -61,9 +62,17 @@ public class OrganizationAccountController {
   }
 
     @PostMapping(path = "/register")
-    public MyResponse register(@RequestParam String organization, @RequestParam String password,@RequestParam String code, @RequestParam String applicantName, @RequestParam String applicantId, @RequestParam String phone, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
-        Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
-        if (organization_info != null) {
+    public MyResponse register(@RequestBody Map<String,String> map) {
+      String organization = map.get("organization");
+      Organization_info organization_info = organizationInfoRepository.findByOrganization(organization);
+      String password = map.get("password");
+      String code = map.get("code");
+      String applicantName = map.get("applicantName");
+      String applicantId = map.get("applicantId");
+      String phone = map.get("phone");
+      String email = map.get("email");
+
+      if (organization_info != null) {
             return MyResponse.fail("用户名重复", 1101);
         } else {
 //            if (null != jedis.get(organization) && jedis.get(organization).equals(code)){
@@ -81,11 +90,15 @@ public class OrganizationAccountController {
         }
     }
 
-    @PostMapping(path = "/login")
-    public MyResponse login(@RequestParam String unitname, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
-        Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
+      @PostMapping(path = "/login")
+    public MyResponse login(@RequestBody Map<String,String> map ){
+      String unitname = map.get("unitname");
+
+      String password = map.get("password");
+
+      Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
-            return MyResponse.fail("用户名不存在", 1102);
+            return MyResponse.fail("用户名并不存在", 1102);
         } else {
             if (!organization_info.getPassword().equals(password)) {
                 return MyResponse.fail("密码错误", 1103);
@@ -97,13 +110,16 @@ public class OrganizationAccountController {
 
     //找回密码（发验证码）
     @PostMapping(path = "/passwordCode")
-    public MyResponse passwordCode(@RequestParam String organization, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse passwordCode(@RequestBody Map<String,String> map ) {
         return MyResponse.success();
     }
 
     //找回密码（修改密码）//使用邮箱链接
     @PostMapping(path = "/newPassword")
-    public MyResponse password(@RequestParam String unitname, @RequestParam String password, HttpServletResponse response, HttpServletRequest request) {
+    public MyResponse password(@RequestBody Map<String,String> map) {
+      String unitname = map.get("unitname");
+
+      String password = map.get("password");
         Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
         if (organization_info == null) {
             return MyResponse.fail("用户名不存在", 1102);

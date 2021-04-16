@@ -11,7 +11,7 @@ public class UserAccountRequest {
     private String password;
     private String code;
     private int[] gesture;
-    private String email;
+    private String mail;
 
     public UserAccountRequest() {
     }
@@ -48,12 +48,12 @@ public class UserAccountRequest {
         this.gesture = gesture;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
 

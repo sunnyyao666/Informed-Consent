@@ -14,7 +14,6 @@ import java.util.Set;
  **/
 @Entity
 public class Agreement_item extends BaseEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer iid;
 
     @ManyToOne
@@ -34,7 +33,7 @@ public class Agreement_item extends BaseEntity {
 
     public Agreement_item(Project_info projectInfo, String name, String value, String description) {
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
         this.name = name;
         this.value = value;
         this.description = description;
@@ -54,7 +53,7 @@ public class Agreement_item extends BaseEntity {
 
     public void setProjectInfo(Project_info projectInfo) {
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
     }
 
     public Integer getPid() {

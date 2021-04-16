@@ -34,7 +34,7 @@ public class Agreement_info extends BaseEntity {
         this.userInfo = userInfo;
         this.username = userInfo.getUsername();
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
     }
 
     public User_info getUserInfo() {
@@ -60,7 +60,7 @@ public class Agreement_info extends BaseEntity {
 
     public void setProjectInfo(Project_info projectInfo) {
         this.projectInfo = projectInfo;
-        this.pid = projectInfo.getPid();
+        this.pid = projectInfo.getId();
     }
 
     public Integer getPid() {

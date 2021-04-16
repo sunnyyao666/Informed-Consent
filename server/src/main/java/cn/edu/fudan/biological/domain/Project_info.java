@@ -2,6 +2,7 @@ package cn.edu.fudan.biological.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,14 +40,6 @@ public class Project_info extends BaseEntity {
   @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
   private Date releaseTime;
 
-  public Date getReleaseTime() {
-    return releaseTime;
-  }
-
-  public void setReleaseTime(Date releaseTime) {
-    this.releaseTime = releaseTime;
-  }
-
   private String purpose;
 
   // finished, ongoing, draft
@@ -78,13 +71,7 @@ public class Project_info extends BaseEntity {
     this.organization = organizationInfo.getOrganization();
   }
 
-  public Integer getPid() {
-    return pid;
-  }
 
-  public void setPid(Integer pid) {
-    this.pid = pid;
-  }
 
   public String getName() {
     return name;
@@ -116,6 +103,14 @@ public class Project_info extends BaseEntity {
 
   public void setEndTime(Date endTime) {
     this.endTime = endTime;
+  }
+
+  public Date getReleaseTime() {
+    return releaseTime;
+  }
+
+  public void setReleaseTime(Date releaseTime) {
+    this.releaseTime = releaseTime;
   }
 
   public String getPurpose() {
@@ -183,12 +178,14 @@ public class Project_info extends BaseEntity {
         ", hot=" + hot +
         ", startTime=" + startTime +
         ", endTime=" + endTime +
+        ", releaseTime=" + releaseTime +
         ", purpose='" + purpose + '\'' +
         ", status='" + status + '\'' +
         ", organizationInfo=" + organizationInfo +
         ", organization='" + organization + '\'' +
-        ", data=" + projectItems +
+        ", projectItems=" + projectItems +
         ", agreements=" + agreements +
+        ", agreementItems=" + agreementItems +
         '}';
   }
 }
