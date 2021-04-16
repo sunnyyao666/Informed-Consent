@@ -13764,3 +13764,4 @@ java.net.SocketException: Connection reset by peer: socket write error
 2021-04-16 16:13:29.333  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
 2021-04-16 16:14:18.628  INFO 22164 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-04-16 16:14:18.629  INFO 22164 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-16 16:14:18.639  INFO 22164 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
