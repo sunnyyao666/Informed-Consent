@@ -13711,3 +13711,56 @@ java.net.SocketException: Connection reset by peer: socket write error
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.38.jar:9.0.38]
 	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
 
+2021-04-16 16:13:12.565  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 22164 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
+2021-04-16 16:13:12.569  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
+2021-04-16 16:13:12.697  INFO 22164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-16 16:13:12.698  INFO 22164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-16 16:13:13.680  INFO 22164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-04-16 16:13:13.835  INFO 22164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 146ms. Found 7 JPA repository interfaces.
+2021-04-16 16:13:14.593  INFO 22164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
+2021-04-16 16:13:14.617  INFO 22164 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-16 16:13:14.618  INFO 22164 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-16 16:13:14.827  INFO 22164 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-16 16:13:14.827  INFO 22164 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2129 ms
+2021-04-16 16:13:15.044  INFO 22164 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-16 16:13:15.121  INFO 22164 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-16 16:13:15.194  INFO 22164 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-04-16 16:13:15.378  INFO 22164 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-04-16 16:13:15.494  INFO 22164 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-16 16:13:16.023  INFO 22164 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-16 16:13:16.050  INFO 22164 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-16 16:13:17.371  INFO 22164 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-16 16:13:17.379  INFO 22164 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-16 16:13:17.469  INFO 22164 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-16 16:13:17.512  WARN 22164 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-16 16:13:18.106  INFO 22164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+2021-04-16 16:13:18.108  INFO 22164 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-04-16 16:13:18.648  INFO 22164 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-04-16 16:13:18.656  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 6.915 seconds (JVM running for 9.08)
+2021-04-16 16:13:19.242  WARN 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : [1312, 1297, 1302, 1307]
+2021-04-16 16:13:19.243  WARN 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1312的信息
+2021-04-16 16:13:19.818  WARN 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1297的信息
+2021-04-16 16:13:20.426  WARN 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1302的信息
+2021-04-16 16:13:21.064  WARN 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1307的信息
+2021-04-16 16:13:22.598  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : testUnit注册成功
+2021-04-16 16:13:22.703  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : testUnit2注册成功
+2021-04-16 16:13:22.810  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : autoGeneratedUnitpassword123456注册成功
+2021-04-16 16:13:26.230  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit2单位:testProject项目草稿存储成功
+2021-04-16 16:13:26.681  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit单位:testProject项目草稿存储成功
+2021-04-16 16:13:27.220  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testProject项目发布成功
+2021-04-16 16:13:27.712  WARN 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 已有重名进行中项目
+2021-04-16 16:13:27.903  WARN 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 该PID指定的项目已不是草稿状态
+2021-04-16 16:13:28.194  WARN 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 指定PID发布:权限错误
+2021-04-16 16:13:28.569  INFO 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit2单位:testProject2项目草稿存储成功
+2021-04-16 16:13:28.815  WARN 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 本单位已有同名项目草稿testProject2
+2021-04-16 16:13:29.109  WARN 22164 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 本单位已有同名项目草稿testProject
+2021-04-16 16:13:29.331  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 1329
+2021-04-16 16:13:29.331  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
+2021-04-16 16:13:29.332  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2021.04.16
+2021-04-16 16:13:29.332  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
+2021-04-16 16:13:29.332  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 1324
+2021-04-16 16:13:29.333  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
+2021-04-16 16:13:29.333  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : null
+2021-04-16 16:13:29.333  INFO 22164 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
+2021-04-16 16:14:18.628  INFO 22164 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-16 16:14:18.629  INFO 22164 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
