@@ -35,8 +35,8 @@ public class UserAccountController {
 
     @GetMapping("/test")
     public MyResponse test(@RequestParam String param) {
-        jedis.set("1","2");
-        return MyResponse.success("4.15+ " + "成功", param+jedis.get("1"));
+        jedis.set("1", "2");
+        return MyResponse.success("4.15+ " + "成功", param + jedis.get("1"));
     }
 
     @GetMapping("/mail")
@@ -56,12 +56,13 @@ public class UserAccountController {
             return MyResponse.fail("用户名重复", 1101);
         }
 
-        String code = Integer.toString((int) (Math.random() * 900000 + 100000));
-        try {
-            mailUtil.sendCodeMail(email, code);
-        } catch (MailException e) {
-            return MyResponse.fail("邮件发送失败", 1001);
-        }
+//        String code = Integer.toString((int) (Math.random() * 900000 + 100000));
+//        try {
+//            mailUtil.sendCodeMail(email, code);
+//        } catch (MailException e) {
+//            return MyResponse.fail("邮件发送失败", 1001);
+//        }
+        String code = "123456";
         jedis.set(username, code);
         jedis.expire(username, 300);
 
@@ -74,6 +75,12 @@ public class UserAccountController {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo != null) {
             return MyResponse.fail("用户名重复", 1101);
+        }
+
+        String code = userAccountRequest.getCode();
+        String savedCode = jedis.get(username);
+        if (savedCode == null || !savedCode.equals(code)) {
+            return MyResponse.fail("验证码错误", 1102);
         }
 
         String password = userAccountRequest.getPassword();
@@ -106,6 +113,16 @@ public class UserAccountController {
             return MyResponse.fail("用户名不存在", 1102);
         }
 
+//        String code = Integer.toString((int) (Math.random() * 900000 + 100000));
+//        try {
+//            mailUtil.sendCodeMail(email, code);
+//        } catch (MailException e) {
+//            return MyResponse.fail("邮件发送失败", 1001);
+//        }
+        String code = "123456";
+        jedis.set(username, code);
+        jedis.expire(username, 300);
+
         return MyResponse.success();
     }
 
@@ -115,6 +132,12 @@ public class UserAccountController {
         User_info userInfo = userInfoRepository.findByUsername(username);
         if (userInfo == null) {
             return MyResponse.fail("用户名不存在或验证码不正确", 1102);
+        }
+
+        String code = userAccountRequest.getCode();
+        String savedCode = jedis.get(username);
+        if (savedCode == null || !savedCode.equals(code)) {
+            return MyResponse.fail("验证码错误", 1102);
         }
 
         return MyResponse.success();
@@ -196,6 +219,16 @@ public class UserAccountController {
             return MyResponse.fail("用户名不存在或密码错误", 1102);
         }
 
+//        String code = Integer.toString((int) (Math.random() * 900000 + 100000));
+//        try {
+//            mailUtil.sendCodeMail(email, code);
+//        } catch (MailException e) {
+//            return MyResponse.fail("邮件发送失败", 1001);
+//        }
+        String code = "123456";
+        jedis.set(username, code);
+        jedis.expire(username, 300);
+
         return MyResponse.success();
     }
 
@@ -210,6 +243,12 @@ public class UserAccountController {
         String password = userAccountRequest.getPassword();
         if (!passwordEncoder.matches(password, userInfo.getPassword())) {
             return MyResponse.fail("用户名不存在或密码错误", 1102);
+        }
+
+        String code = userAccountRequest.getCode();
+        String savedCode = jedis.get(username);
+        if (savedCode == null || !savedCode.equals(code)) {
+            return MyResponse.fail("验证码错误", 1102);
         }
 
         return MyResponse.success();

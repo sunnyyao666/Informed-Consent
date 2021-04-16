@@ -19,7 +19,7 @@ public class User_info extends BaseEntity {
     private String email;
 
     // 手势密码对应数字序列
-    private String signature;
+    private String signature = "1478";
 
     // WeChat Openid
     @Column(unique = true)
