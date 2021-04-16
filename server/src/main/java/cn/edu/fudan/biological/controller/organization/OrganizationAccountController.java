@@ -6,7 +6,9 @@ import cn.edu.fudan.biological.domain.Organization_info;
 import cn.edu.fudan.biological.dto.MyResponse;
 import cn.edu.fudan.biological.repository.OrganizationInfoRepository;
 import cn.edu.fudan.biological.util.JWTUtils;
+import cn.edu.fudan.biological.util.MailUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailException;
 import redis.clients.jedis.Jedis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +32,29 @@ public class OrganizationAccountController {
   private final OrganizationInfoRepository organizationInfoRepository;
 
   private final Jedis jedis = new Jedis("localhost");
-
+    private final MailUtil mailUtil;
   @Autowired
-  public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository) {
+  public OrganizationAccountController(OrganizationInfoRepository organizationInfoRepository, MailUtil mailUtil) {
     this.organizationInfoRepository = organizationInfoRepository;
+    this.mailUtil = mailUtil;
   }
 
-  @PostMapping(path = "/forgetCode")
-  public MyResponse getCode(@RequestBody Map<String,String> map)  {
-    Organization_info organization_info = organizationInfoRepository.findByOrganization(map.get("unitname"));
-    if (null != map.get("code")) {
-      if (jedis.get( map.get("unitname")).equals( map.get("code"))) {
-        //验证成功
+  @RequestMapping (path = "/forgetCode",method = RequestMethod.GET)
+  public MyResponse getCode(@RequestParam("unitname") String unitname,@RequestParam("code") String code)  {
+    Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
+    if (null == organization_info){
+        return MyResponse.fail("单位不存在");
+    }
+    String email = organization_info.getEmail();
+    if (null != code && !"".equals(code)) {
+      if (jedis.get( unitname).equals( code)) {
+        //验证成功,发送旧密码
+        try {
+            mailUtil.sendPasswordMail(email, organization_info.getPassword());
+        } catch (MailException e) {
+            return MyResponse.fail("邮件发送失败", 1001);
+        }
+        jedis.del(unitname);
         return MyResponse.success();
       } else {
         //验证失败
@@ -52,14 +65,65 @@ public class OrganizationAccountController {
       if (organization_info == null) {
         return MyResponse.fail("用户名不存在", 1101);
       } else {
-        String yzcode = "123456";
-        jedis.set(map.get("unitname"), yzcode);
-        jedis.expire(map.get("unitname"), 300);
+                  String yzcode = Integer.toString((int) (Math.random() * 900000 + 100000));
+        try {
+            mailUtil.sendCodeMail(email, code);
+        } catch (MailException e) {
+            return MyResponse.fail("邮件发送失败", 1001);
+        }
+        jedis.set(unitname, yzcode);
+        jedis.expire(unitname, 300);
         //To do
         return MyResponse.success();
       }
     }
   }
+
+    @RequestMapping (path = "/forgetCode",method = RequestMethod.POST)
+    public MyResponse verifyCode(@RequestBody Map<String,String> map)  {
+      String unitname = map.get("unitname");
+      String code = map.get("code");
+        Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
+        if (null == organization_info){
+            return MyResponse.fail("单位不存在");
+        }
+        String trueCode = jedis.get(unitname);
+        if (null == trueCode || "".equals(trueCode)){
+            return MyResponse.fail("没有验证码");
+        }
+        String email = organization_info.getEmail();
+        if (null != map.get("code") && !"".equals(code)) {
+            if (jedis.get( unitname).equals( code)) {
+                //验证成功,发送旧密码
+                try {
+                    mailUtil.sendPasswordMail(email, organization_info.getPassword());
+                } catch (MailException e) {
+                    return MyResponse.fail("邮件发送失败", 1001);
+                }
+                jedis.del(unitname);
+                return MyResponse.success();
+            } else {
+                //验证失败
+                return MyResponse.success();
+
+            }
+        } else {
+            if (organization_info == null) {
+                return MyResponse.fail("用户名不存在", 1101);
+            } else {
+                String yzcode = Integer.toString((int) (Math.random() * 900000 + 100000));
+                try {
+                    mailUtil.sendCodeMail(email, code);
+                } catch (MailException e) {
+                    return MyResponse.fail("邮件发送失败", 1001);
+                }
+                jedis.set(unitname, yzcode);
+                jedis.expire(unitname, 300);
+                //To do
+                return MyResponse.success();
+            }
+        }
+    }
 
     @PostMapping(path = "/register")
     public MyResponse register(@RequestBody Map<String,String> map) {

@@ -8,12 +8,7 @@ import cn.edu.fudan.biological.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
@@ -61,11 +56,8 @@ public class OrganizationProjectController {
   }
   SimpleDateFormat pointformat = new SimpleDateFormat("yyyy.MM.dd");
   SimpleDateFormat hiformat = new SimpleDateFormat("yyyy-MM-dd");
-  @PostMapping("/projects")
-  public MyResponse getAllProjectsOfUnit(@RequestBody Map<String, String> map) {
-
-
-    String unitname = map.get("unitname");
+  @GetMapping("/projects")
+  public MyResponse getAllProjectsOfUnit(@RequestParam("unitname") String unitname) {
     Organization_info organization_info = organizationInfoRepository.findByOrganization(unitname);
     HashMap<Object, Object> data = new HashMap<>();
     HashSet<HashMap<Object, Object>> publishedList = new HashSet<>();
@@ -121,18 +113,18 @@ public class OrganizationProjectController {
 //    return MyResponse.success();
 //  }
 
-  @PostMapping("/projectResult")
-  public MyResponse reviewProjectResult(@RequestBody Map<String, Object> map) {
-    String search = (String) map.get("search");
-    String projectId = String.valueOf(map.get("projectId"));
+  @GetMapping("/projectResult")
+  public MyResponse reviewProjectResult(@RequestParam("projectId") String projectId,@RequestParam("search") String search) {
     Project_info project_info = projectInfoRepository.findById(Integer.parseInt(projectId)).orElse(null);
     if (null == project_info) {
       return MyResponse.fail("所操作的数据不存在", 1002);
     }
-    if (null == search) {
-      search = "";
-    }
+
     Set<Agreement_info> agreement_infos = agreementInfoRepository.findAllByPid(Integer.parseInt(projectId));
+    if (null != search && !"".equals(search)){
+      agreement_infos = agreementInfoRepository.findAllByUsernameContainingAndPid(search,Integer.parseInt(projectId));
+    }
+
     HashMap<Object, Object> data = new HashMap<>();
     data.put("agreeItems", project_info.getAgreementItems());
     data.put("projectItems", project_info.getProjectItems());
@@ -141,7 +133,6 @@ public class OrganizationProjectController {
       return MyResponse.fail("所操作的数据不存在", 1002);
     } else {
       for (Agreement_info agreement_info : agreement_infos) {
-        if (agreement_info.getUsername().contains(search)) {
           HashMap<String, Object> tmp = new HashMap<>();
           tmp.put("username", agreement_info.getUsername());
           HashSet<HashMap<String, Integer>> pairs = new HashSet<>();
@@ -153,7 +144,7 @@ public class OrganizationProjectController {
           }
           tmp.put("pairs", pairs);
           info.add(tmp);
-        }
+
       }
     }
     return MyResponse.success("成功", data);
@@ -409,13 +400,12 @@ public class OrganizationProjectController {
     return MyResponse.success("成功", data);
   }
 
-  @PostMapping("/projectInfo")
-  public MyResponse getProjectDetails(@RequestBody Map<String, Integer> map) {
-    if (null == map.get("projectId")) {
+  @GetMapping("/projectInfo")
+  public MyResponse getProjectDetails(@RequestParam String projectId) {
+    if (null == projectId || "".equals(projectId)) {
       return MyResponse.fail("无效");
     }
-    Integer projectId = map.get("projectId");
-    Project_info projectInfo = projectInfoRepository.findById(projectId).orElse(null);
+    Project_info projectInfo = projectInfoRepository.findById(Integer.parseInt(projectId)).orElse(null);
     if (projectInfo == null) {
       return MyResponse.fail("pid不存在", 1002);
     }

@@ -17,4 +17,6 @@ public interface AgreementInfoRepository extends CrudRepository<Agreement_info, 
   void deleteAllByPid(Integer pid);
 
   List<Agreement_info> findAllByUsernameOrderByPid(String username);
+    List<Agreement_info> findAllByUsernameContainingOrPidContaining(String username,Integer pid);
+    Set<Agreement_info> findAllByUsernameContainingAndPid(String username,Integer pid);
 }
