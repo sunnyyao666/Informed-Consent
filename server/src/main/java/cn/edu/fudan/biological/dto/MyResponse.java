@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyResponse implements Serializable {
-    private int status_code = 0;
+    private int statusCode = 0;
     private String status_msg = "";
     private Object data;
 
