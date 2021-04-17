@@ -280,18 +280,20 @@ public class OrganizationProjectController {
     Project_info project_info;
     String tmpName = saveProjectDraftRequest.getProjectName();
     Set<Project_info> tmpProjects = projectInfoRepository.findAllByName(tmpName);
+    //修改旧草稿
     for (Project_info tmpProject : tmpProjects) {
       if (null != tmpProject && !tmpProject.getStatus().equals("draft")) {
         log.warn("已有同名项目");
         return MyResponse.fail("已有同名项目");
       }
       if (null != tmpProject && tmpProject.getStatus().equals("draft") && tmpProject.getOrganization()
-          .equals(saveProjectDraftRequest.getUnitname())) {
+          .equals(saveProjectDraftRequest.getUnitname()) && !String.valueOf(tmpProject.getId()).equals(saveProjectDraftRequest.getProjectId())) {
         log.warn("本单位已有同名项目草稿" + tmpProject.getName());
         return MyResponse.fail("本单位已有同名项目草稿" + tmpProject.getName()) ;
       }
     }
 
+    //创建新草稿
     if (saveProjectDraftRequest.getProjectId() == null || "".equals(saveProjectDraftRequest.getProjectId())) {
       project_info = new Project_info();
     } else {
