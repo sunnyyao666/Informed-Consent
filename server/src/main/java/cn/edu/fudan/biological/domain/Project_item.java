@@ -87,16 +87,16 @@ public class Project_item extends BaseEntity {
         this.responses = responses;
     }
 
-  @Override
-  public String toString() {
-    return "Project_item{" +
-        "aid=" + aid +
-        ", projectInfo=" + projectInfo +
-        ", pid=" + pid +
-        ", name='" + name + '\'' +
-        ", description='" + description + '\'' +
-        ", responses=" + responses +
-        '}';
-  }
+    @Override
+    public String toString() {
+        return "Project_item{" +
+                "aid=" + aid +
+                ", projectInfo=" + projectInfo +
+                ", pid=" + pid +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", responses=" + responses +
+                '}';
+    }
 }
 

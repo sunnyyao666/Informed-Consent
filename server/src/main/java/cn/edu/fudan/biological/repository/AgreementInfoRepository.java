@@ -12,11 +12,13 @@ import javax.transaction.Transactional;
 @Repository
 public interface AgreementInfoRepository extends CrudRepository<Agreement_info, Integer> {
     Agreement_info findByUsernameAndPid(String username, Integer pid);
-    Set<Agreement_info> findAllByPid(Integer pid);
-  @Transactional
-  void deleteAllByPid(Integer pid);
 
-  List<Agreement_info> findAllByUsernameOrderByPid(String username);
-    List<Agreement_info> findAllByUsernameContainingOrPidContaining(String username,Integer pid);
-    Set<Agreement_info> findAllByUsernameContainingAndPid(String username,Integer pid);
+    Set<Agreement_info> findAllByPid(Integer pid);
+
+    @Transactional
+    void deleteAllByPid(Integer pid);
+
+    List<Agreement_info> findAllByUsernameOrderByPid(String username);
+
+    Set<Agreement_info> findAllByUsernameContainingAndPid(String username, Integer pid);
 }

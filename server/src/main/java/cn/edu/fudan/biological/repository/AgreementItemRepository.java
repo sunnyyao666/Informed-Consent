@@ -13,6 +13,7 @@ public interface AgreementItemRepository extends CrudRepository<Agreement_item, 
     Agreement_item findByPidAndIid(Integer pid, Integer iid);
 
     List<Agreement_item> findAllByPidOrderByIid(Integer pid);
-  @Transactional
+
+    @Transactional
     void deleteAllByPid(Integer pid);
 }
