@@ -114,7 +114,7 @@ public class OrganizationProjectController {
 //  }
 
   @GetMapping("/projectResult")
-  public MyResponse reviewProjectResult(@RequestParam("projectId") String projectId,@RequestParam("search") String search) {
+  public MyResponse reviewProjectResult(@RequestParam(value = "projectId") String projectId,@RequestParam(value = "search",required = false) String search) {
     Project_info project_info = projectInfoRepository.findById(Integer.parseInt(projectId)).orElse(null);
     if (null == project_info) {
       return MyResponse.fail("所操作的数据不存在", 1002);
@@ -130,7 +130,8 @@ public class OrganizationProjectController {
     data.put("projectItems", project_info.getProjectItems());
     HashSet<HashMap<String, Object>> info = new HashSet<>();
     if (agreement_infos == null) {
-      return MyResponse.fail("所操作的数据不存在", 1002);
+      data.put("info",new HashSet<HashMap<String, Object>>());
+      return MyResponse.success("暂时无人填写",data);
     } else {
       for (Agreement_info agreement_info : agreement_infos) {
           HashMap<String, Object> tmp = new HashMap<>();
@@ -146,6 +147,7 @@ public class OrganizationProjectController {
           info.add(tmp);
 
       }
+      data.put("info",info);
     }
     return MyResponse.success("成功", data);
   }

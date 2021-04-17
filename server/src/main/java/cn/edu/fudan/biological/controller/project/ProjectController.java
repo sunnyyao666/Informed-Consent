@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: biological
@@ -93,12 +90,18 @@ public class ProjectController {
         }
 
         Map<String, Object> result = new HashMap<>(8);
+        HashSet<String> imgurls = new HashSet<>();
+        imgurls.add("../../images/1.png");
+        imgurls.add("../../images/2.png");
+        imgurls.add("../../images/3.png");
+        result.put("imgUrls",imgurls);
         result.put("projectId", projectId);
         result.put("projectName", projectInfo.getName());
         result.put("projectGoal", projectInfo.getPurpose());
         result.put("projectDuration", projectInfo.getStartTime() + "-" + projectInfo.getEndTime());
         result.put("isPublished", "finished".equals(projectInfo.getStatus()) || "ongoing".equals(projectInfo.getStatus()));
         result.put("releaseTime", projectInfo.getReleaseTime());
+        result.put("description",projectInfo.getPurpose());
         return MyResponse.success("成功", result);
     }
 }
