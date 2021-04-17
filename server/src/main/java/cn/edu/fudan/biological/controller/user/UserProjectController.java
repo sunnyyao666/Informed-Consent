@@ -94,17 +94,19 @@ public class UserProjectController {
             return MyResponse.fail("projectId不存在", 1002);
         }
 
-        Agreement_info agreementInfo = agreementInfoRepository.findByUsernameAndPid(username, pid);
-        if (agreementInfo == null) {
-            return MyResponse.fail("不存在相关填写", 1002);
-        }
 
         Map<String, Object> result = new HashMap<>(8);
         result.put("projectId", projectId);
         result.put("isFinished", "finished".equals(projectInfo.getStatus()));
         result.put("items", agreementItemRepository.findAllByPidOrderByIid(pid));
         result.put("agreements", projectItemRepository.findAllByPidOrderByAid(pid));
-        result.put("pairs", agreementResponseRepository.findAllByAgreementIdOrderByAid(agreementInfo.getId()));
+
+        Agreement_info agreementInfo = agreementInfoRepository.findByUsernameAndPid(username, pid);
+        if (agreementInfo == null) {
+            result.put("pairs", new LinkedList<>());
+        } else {
+            result.put("pairs", agreementResponseRepository.findAllByAgreementIdOrderByAid(agreementInfo.getId()));
+        }
         return MyResponse.success("成功", result);
     }
 
