@@ -49,3 +49,4 @@
 2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
 2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : null
 2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
+2021-04-17 08:54:15.919  WARN 6264 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h20m52s757ms779µs800ns).

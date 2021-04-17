@@ -310,6 +310,9 @@ public class OrganizationProjectController {
         log.warn("指定PID发布:权限错误");
         return MyResponse.fail("指定PID发布:权限错误");
       }
+      project_info.getAgreementItems().clear();
+      project_info.getProjectItems().clear();
+      projectInfoRepository.save(project_info);
       agreementItemRepository.deleteAllByPid(project_info.getId());
       projectItemRepository.deleteAllByPid(project_info.getId());
     }
