@@ -27,7 +27,8 @@ public class AutoChangeProjectStatusTask {
 
     @Autowired
 
-    @Scheduled(cron = "0 0 0 */1 * ?")
+//    @Scheduled(cron = "0 0 0 */1 * ?")
+    @Scheduled(cron = "0 /1 ?")
     public void execute() throws InterruptedException {
         log.info("开始执行周期任务，将过期项目改变状态");
         log.info("线程休眠3秒");
