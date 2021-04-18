@@ -1,437 +1,103 @@
-2021-04-17 00:21:18.987  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-E7MG5IC with PID 6264 (D:\Programming\JAVA_programming\informed_consent\server\target\classes started by 86460 in D:\Programming\JAVA_programming\informed_consent)
-2021-04-17 00:21:19.008  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
-2021-04-17 00:21:19.106  INFO 6264 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-04-17 00:21:19.106  INFO 6264 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-04-17 00:21:19.921  INFO 6264 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2021-04-17 00:21:20.050  INFO 6264 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 122ms. Found 7 JPA repository interfaces.
-2021-04-17 00:21:20.803  INFO 6264 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
-2021-04-17 00:21:20.840  INFO 6264 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-04-17 00:21:20.840  INFO 6264 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-17 00:21:21.013  INFO 6264 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-04-17 00:21:21.013  INFO 6264 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1907 ms
-2021-04-17 00:21:21.184  INFO 6264 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-17 00:21:21.249  INFO 6264 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-04-17 00:21:21.305  INFO 6264 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
-2021-04-17 00:21:21.508  INFO 6264 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-04-17 00:21:21.605  INFO 6264 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-04-17 00:21:21.978  INFO 6264 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-04-17 00:21:21.999  INFO 6264 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-04-17 00:21:23.239  INFO 6264 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-04-17 00:21:23.247  INFO 6264 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-04-17 00:21:23.312  INFO 6264 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2021-04-17 00:21:23.345  WARN 6264 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-17 00:21:25.416  INFO 6264 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
-2021-04-17 00:21:25.417  INFO 6264 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2021-04-17 00:21:25.741  INFO 6264 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2021-04-17 00:21:25.749  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 7.622 seconds (JVM running for 15.535)
-2021-04-17 00:21:26.461  WARN 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : [1507, 1512, 1497, 1502]
-2021-04-17 00:21:26.462  WARN 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1507的信息
-2021-04-17 00:21:27.174  WARN 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1512的信息
-2021-04-17 00:21:27.891  WARN 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1497的信息
-2021-04-17 00:21:28.438  WARN 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 删除项目1502的信息
-2021-04-17 00:21:30.628  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : testUnit注册成功
-2021-04-17 00:21:30.778  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : testUnit2注册成功
-2021-04-17 00:21:30.917  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationAccountController : autoGeneratedUnitpassword123456注册成功
-2021-04-17 00:21:34.448  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit2单位:testProject项目草稿存储成功
-2021-04-17 00:21:35.208  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit单位:testProject项目草稿存储成功
-2021-04-17 00:21:36.023  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testProject项目发布成功
-2021-04-17 00:21:36.754  WARN 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 已有重名进行中项目
-2021-04-17 00:21:36.936  WARN 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 该PID指定的项目已不是草稿状态
-2021-04-17 00:21:37.222  WARN 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 指定PID发布:权限错误
-2021-04-17 00:21:37.705  INFO 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : testUnit2单位:testProject2项目草稿存储成功
-2021-04-17 00:21:37.939  WARN 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 本单位已有同名项目草稿testProject2
-2021-04-17 00:21:38.198  WARN 6264 --- [restartedMain] .e.f.b.c.o.OrganizationProjectController : 本单位已有同名项目草稿testProject
-2021-04-17 00:21:38.438  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 1529
-2021-04-17 00:21:38.439  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
-2021-04-17 00:21:38.439  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2021.04.17
-2021-04-17 00:21:38.439  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
-2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 1524
-2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : testProject
-2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : null
-2021-04-17 00:21:38.440  INFO 6264 --- [restartedMain] c.e.f.biological.BiologicalApplication   : 2020.03.03
-2021-04-17 08:54:15.919  WARN 6264 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h20m52s757ms779µs800ns).
-2021-04-17 22:55:05.361  INFO 13640 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 13640 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
-2021-04-17 22:55:05.368  INFO 13640 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
-2021-04-17 22:55:05.501  INFO 13640 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-04-17 22:55:05.503  INFO 13640 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-04-17 22:55:07.069  INFO 13640 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2021-04-17 22:55:07.273  INFO 13640 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 194ms. Found 7 JPA repository interfaces.
-2021-04-17 22:55:08.775  INFO 13640 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
-2021-04-17 22:55:08.807  INFO 13640 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-04-17 22:55:08.809  INFO 13640 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-17 22:55:09.068  INFO 13640 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-04-17 22:55:09.069  INFO 13640 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3566 ms
-2021-04-17 22:55:09.362  INFO 13640 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-17 22:55:09.441  INFO 13640 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-04-17 22:55:09.519  INFO 13640 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
-2021-04-17 22:55:09.743  INFO 13640 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-04-17 22:55:09.852  INFO 13640 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-04-17 22:55:10.234  INFO 13640 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-04-17 22:55:10.269  INFO 13640 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-04-17 22:55:11.856  INFO 13640 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-04-17 22:55:11.866  INFO 13640 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-04-17 22:55:11.949  INFO 13640 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2021-04-17 22:55:11.990  WARN 13640 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-17 22:55:12.630  INFO 13640 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
-2021-04-17 22:55:12.632  INFO 13640 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2021-04-17 22:55:13.167  INFO 13640 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2021-04-17 22:55:13.179  INFO 13640 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 8.876 seconds (JVM running for 12.111)
-2021-04-17 22:57:30.486  INFO 13640 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-17 22:57:30.487  INFO 13640 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-04-17 22:57:30.500  INFO 13640 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
-2021-04-17 23:12:24.719  WARN 13640 --- [https-jsse-nio-443-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
-2021-04-17 23:13:26.540  WARN 13640 --- [https-jsse-nio-443-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
-2021-04-17 23:14:08.607  WARN 13640 --- [https-jsse-nio-443-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
-2021-04-17 23:30:56.667  WARN 13640 --- [https-jsse-nio-443-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
-2021-04-17 23:31:06.035  WARN 13640 --- [https-jsse-nio-443-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'multipart/form-data;boundary=--------------------------657631373416324371939182;charset=UTF-8' not supported]
-2021-04-17 23:32:15.294  WARN 13640 --- [https-jsse-nio-443-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('-' (code 45)) in numeric value: expected digit (0-9) to follow minus sign, for valid numeric value; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('-' (code 45)) in numeric value: expected digit (0-9) to follow minus sign, for valid numeric value
- at [Source: (PushbackInputStream); line: 1, column: 3]]
-2021-04-17 23:33:09.396  WARN 13640 --- [https-jsse-nio-443-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('u' (code 117)): was expecting double-quote to start field name; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('u' (code 117)): was expecting double-quote to start field name
- at [Source: (PushbackInputStream); line: 1, column: 3]]
-2021-04-17 23:33:36.827  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@59e83287 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:33:41.831  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@482d2c56 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:33:46.837  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@47117eab (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:33:51.841  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@51baaa41 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:33:56.845  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6a0e5eb4 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:34:01.847  WARN 13640 --- [https-jsse-nio-443-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3d59195e (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:34:01.854  WARN 13640 --- [https-jsse-nio-443-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
-2021-04-17 23:34:01.855 ERROR 13640 --- [https-jsse-nio-443-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30041ms.
-2021-04-17 23:34:01.856 ERROR 13640 --- [https-jsse-nio-443-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
-2021-04-17 23:34:01.908 ERROR 13640 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DataAccessResourceFailureException: Unable to acquire JDBC Connection; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection] with root cause
-
-com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:na]
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:488) ~[na:na]
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:1171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:576) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2486) ~[mysql-connector-java-8.0.21.jar:8.0.21]
-	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:560) ~[HikariCP-3.4.5.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.isConnectionAlive(PoolBase.java:173) ~[HikariCP-3.4.5.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186) ~[HikariCP-3.4.5.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162) ~[HikariCP-3.4.5.jar:na]
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128) ~[HikariCP-3.4.5.jar:na]
-	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:38) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:108) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:138) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.connection(StatementPreparerImpl.java:50) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:149) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:176) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:151) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:2141) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2078) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2056) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.doQuery(Loader.java:953) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:350) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.doList(Loader.java:2887) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.doList(Loader.java:2869) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2701) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.Loader.list(Loader.java:2696) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1415) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1581) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getSingleResult(CriteriaQueryTypeQueryAdapter.java:111) ~[hibernate-core-5.4.21.Final.jar:5.4.21.Final]
-	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:196) ~[spring-data-jpa-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:88) ~[spring-data-jpa-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:154) ~[spring-data-jpa-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:142) ~[spring-data-jpa-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor$QueryMethodInvoker.invoke(QueryExecutorMethodInterceptor.java:195) ~[spring-data-commons-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:152) ~[spring-data-commons-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:130) ~[spring-data-commons-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:367) ~[spring-tx-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139) ~[spring-tx-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:149) ~[spring-data-jpa-2.3.4.RELEASE.jar:2.3.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at com.sun.proxy.$Proxy127.findByUsername(Unknown Source) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:205) ~[spring-aop-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at com.sun.proxy.$Proxy85.findByUsername(Unknown Source) ~[na:na]
-	at cn.edu.fudan.biological.controller.user.UserAccountController.userLogin(UserAccountController.java:96) ~[classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:666) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
-
-2021-04-17 23:34:33.121  WARN 13640 --- [https-jsse-nio-443-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4dbe9404 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2021-04-17 23:34:41.645  INFO 6728 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 6728 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
-2021-04-17 23:34:41.652  INFO 6728 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
-2021-04-17 23:34:41.778  INFO 6728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-04-17 23:34:41.779  INFO 6728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-04-17 23:34:42.726  INFO 6728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2021-04-17 23:34:42.892  INFO 6728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 158ms. Found 7 JPA repository interfaces.
-2021-04-17 23:34:43.747  INFO 6728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
-2021-04-17 23:34:43.773  INFO 6728 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-04-17 23:34:43.774  INFO 6728 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-17 23:34:43.979  INFO 6728 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-04-17 23:34:43.980  INFO 6728 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2201 ms
-2021-04-17 23:34:44.280  INFO 6728 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-17 23:34:44.392  INFO 6728 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-04-17 23:34:44.458  INFO 6728 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
-2021-04-17 23:34:44.672  INFO 6728 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-04-17 23:34:44.798  INFO 6728 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-04-17 23:34:45.060  INFO 6728 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-04-17 23:34:45.086  INFO 6728 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-04-17 23:34:46.527  INFO 6728 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-04-17 23:34:46.536  INFO 6728 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-04-17 23:34:46.624  INFO 6728 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2021-04-17 23:34:46.671  WARN 6728 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-17 23:34:47.309  INFO 6728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
-2021-04-17 23:34:47.311  INFO 6728 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2021-04-17 23:34:47.816  INFO 6728 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2021-04-17 23:34:47.827  INFO 6728 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 7.145 seconds (JVM running for 9.828)
-2021-04-17 23:35:01.023  INFO 6728 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-17 23:35:01.024  INFO 6728 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-04-17 23:35:01.030  INFO 6728 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2021-04-17 23:41:02.156  INFO 15316 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 15316 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
-2021-04-17 23:41:02.161  INFO 15316 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
-2021-04-17 23:41:02.243  INFO 15316 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-04-17 23:41:02.243  INFO 15316 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-04-17 23:41:03.257  INFO 15316 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2021-04-17 23:41:03.418  INFO 15316 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 153ms. Found 7 JPA repository interfaces.
-2021-04-17 23:41:04.166  INFO 15316 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
-2021-04-17 23:41:04.187  INFO 15316 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-04-17 23:41:04.188  INFO 15316 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-17 23:41:04.389  INFO 15316 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-04-17 23:41:04.389  INFO 15316 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2145 ms
-2021-04-17 23:41:04.612  INFO 15316 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-17 23:41:04.708  INFO 15316 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-04-17 23:41:04.784  INFO 15316 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
-2021-04-17 23:41:04.965  INFO 15316 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-04-17 23:41:05.090  INFO 15316 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-04-17 23:41:05.392  INFO 15316 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-04-17 23:41:05.419  INFO 15316 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-04-17 23:41:06.826  INFO 15316 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-04-17 23:41:06.835  INFO 15316 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-04-17 23:41:06.905  INFO 15316 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2021-04-17 23:41:06.946  WARN 15316 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-17 23:41:07.542  INFO 15316 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
-2021-04-17 23:41:07.544  INFO 15316 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2021-04-17 23:41:08.049  INFO 15316 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2021-04-17 23:41:08.059  INFO 15316 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 7.061 seconds (JVM running for 10.117)
-2021-04-17 23:41:30.602  INFO 15316 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-17 23:41:30.602  INFO 15316 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-04-17 23:41:30.608  INFO 15316 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2021-04-17 23:41:30.623  WARN 15316 --- [https-jsse-nio-443-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
-2021-04-17 23:41:37.039 ERROR 15316 --- [https-jsse-nio-443-exec-7] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Failed connecting to localhost:6379] with root cause
-
-java.net.ConnectException: Connection refused: connect
-	at java.base/java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[na:na]
-	at java.base/java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85) ~[na:na]
-	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
-	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
-	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
-	at java.base/java.net.PlainSocketImpl.connect(PlainSocketImpl.java:148) ~[na:na]
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
-	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
-	at redis.clients.jedis.DefaultJedisSocketFactory.createSocket(DefaultJedisSocketFactory.java:53) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Connection.connect(Connection.java:163) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.BinaryClient.connect(BinaryClient.java:113) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Connection.sendCommand(Connection.java:119) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.BinaryClient.set(BinaryClient.java:137) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Client.set(Client.java:61) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Jedis.set(Jedis.java:173) ~[jedis-3.5.2.jar:na]
-	at cn.edu.fudan.biological.controller.user.UserAccountController.test(UserAccountController.java:38) ~[classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:666) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
-
-2021-04-17 23:42:21.178 ERROR 15316 --- [https-jsse-nio-443-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Attempting to read from a broken connection] with root cause
-
-redis.clients.jedis.exceptions.JedisConnectionException: Attempting to read from a broken connection
-	at redis.clients.jedis.Connection.readProtocolWithCheckingBroken(Connection.java:279) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Connection.getStatusCodeReply(Connection.java:201) ~[jedis-3.5.2.jar:na]
-	at redis.clients.jedis.Jedis.set(Jedis.java:174) ~[jedis-3.5.2.jar:na]
-	at cn.edu.fudan.biological.controller.user.UserAccountController.test(UserAccountController.java:38) ~[classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.38.jar:4.0.FR]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.9.RELEASE.jar:5.2.9.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:666) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.38.jar:9.0.38]
-	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
-
-2021-04-17 23:42:36.796  INFO 15288 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 15288 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
-2021-04-17 23:42:36.801  INFO 15288 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
-2021-04-17 23:42:36.968  INFO 15288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-04-17 23:42:36.968  INFO 15288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-04-17 23:42:37.813  INFO 15288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2021-04-17 23:42:37.933  INFO 15288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 112ms. Found 7 JPA repository interfaces.
-2021-04-17 23:42:38.599  INFO 15288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
-2021-04-17 23:42:38.618  INFO 15288 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-04-17 23:42:38.619  INFO 15288 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-17 23:42:38.770  INFO 15288 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-04-17 23:42:38.770  INFO 15288 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1802 ms
-2021-04-17 23:42:38.971  INFO 15288 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-17 23:42:39.029  INFO 15288 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-04-17 23:42:39.084  INFO 15288 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
-2021-04-17 23:42:39.227  INFO 15288 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-04-17 23:42:39.321  INFO 15288 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-04-17 23:42:39.575  INFO 15288 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-04-17 23:42:39.595  INFO 15288 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-04-17 23:42:40.856  INFO 15288 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-04-17 23:42:40.863  INFO 15288 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-04-17 23:42:40.928  INFO 15288 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2021-04-17 23:42:40.969  WARN 15288 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-17 23:42:41.501  INFO 15288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
-2021-04-17 23:42:41.502  INFO 15288 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2021-04-17 23:42:41.919  INFO 15288 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2021-04-17 23:42:41.927  INFO 15288 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 5.877 seconds (JVM running for 8.316)
-2021-04-17 23:42:53.150  INFO 15288 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-17 23:42:53.151  INFO 15288 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-04-17 23:42:53.158  INFO 15288 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2021-04-18 11:20:40.397  INFO 15920 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 15920 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
+2021-04-18 11:20:40.407  INFO 15920 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
+2021-04-18 11:20:40.540  INFO 15920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-18 11:20:40.542  INFO 15920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-18 11:20:41.835  INFO 15920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-04-18 11:20:41.983  INFO 15920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 137ms. Found 7 JPA repository interfaces.
+2021-04-18 11:20:42.723  INFO 15920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
+2021-04-18 11:20:42.742  INFO 15920 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 11:20:42.743  INFO 15920 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-18 11:20:42.891  INFO 15920 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 11:20:42.891  INFO 15920 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2349 ms
+2021-04-18 11:20:43.141  INFO 15920 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 11:20:43.151  INFO 15920 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-04-18 11:20:43.226  INFO 15920 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 11:20:43.303  INFO 15920 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-04-18 11:20:43.342  INFO 15920 --- [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation should only be used on methods with parameters: public void cn.edu.fudan.biological.task.AutoChangeProjectStatusTask.execute() throws java.lang.InterruptedException
+2021-04-18 11:20:43.345  INFO 15920 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 开始执行周期任务，将过期项目改变状态
+2021-04-18 11:20:43.346  INFO 15920 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 线程休眠3秒
+2021-04-18 11:20:43.462  INFO 15920 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-04-18 11:20:43.572  INFO 15920 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 11:20:44.110  INFO 15920 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 11:20:44.136  INFO 15920 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 11:20:45.534  INFO 15920 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 11:20:45.541  INFO 15920 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 11:20:50.916  INFO 15920 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-18 11:20:50.963  WARN 15920 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 11:20:51.549  INFO 15920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+2021-04-18 11:20:51.551  INFO 15920 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-04-18 11:20:51.614  INFO 15920 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-04-18 11:20:51.626  INFO 15920 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 11.922 seconds (JVM running for 14.624)
+2021-04-18 11:21:49.054  INFO 15920 --- [https-jsse-nio-443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-18 11:21:49.055  INFO 15920 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-18 11:21:49.063  INFO 15920 --- [https-jsse-nio-443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2021-04-18 11:25:05.805  WARN 15920 --- [https-jsse-nio-443-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'username' is not present]
+2021-04-18 11:28:01.714  WARN 15920 --- [https-jsse-nio-443-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'username' is not present]
+2021-04-18 11:39:37.290  WARN 15920 --- [https-jsse-nio-443-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3274e11a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2021-04-18 11:39:42.293  WARN 15920 --- [https-jsse-nio-443-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2e24111a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2021-04-18 11:39:51.468  INFO 16340 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 16340 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
+2021-04-18 11:39:51.474  INFO 16340 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
+2021-04-18 11:39:51.555  INFO 16340 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-18 11:39:51.556  INFO 16340 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-18 11:39:52.441  INFO 16340 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-04-18 11:39:52.603  INFO 16340 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 153ms. Found 7 JPA repository interfaces.
+2021-04-18 11:39:53.641  INFO 16340 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
+2021-04-18 11:39:53.672  INFO 16340 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 11:39:53.673  INFO 16340 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-18 11:39:53.879  INFO 16340 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 11:39:53.880  INFO 16340 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2323 ms
+2021-04-18 11:39:54.163  INFO 16340 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 11:39:54.174  INFO 16340 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-04-18 11:39:54.276  INFO 16340 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 11:39:54.364  INFO 16340 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-04-18 11:39:54.409  INFO 16340 --- [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation should only be used on methods with parameters: public void cn.edu.fudan.biological.task.AutoChangeProjectStatusTask.execute() throws java.lang.InterruptedException
+2021-04-18 11:39:54.419  INFO 16340 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 开始执行周期任务，将过期项目改变状态
+2021-04-18 11:39:54.420  INFO 16340 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 线程休眠3秒
+2021-04-18 11:39:54.570  INFO 16340 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-04-18 11:39:54.704  INFO 16340 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 11:39:55.017  INFO 16340 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 11:39:55.042  INFO 16340 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 11:39:56.771  INFO 16340 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 11:39:56.779  INFO 16340 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 11:39:58.984  INFO 16340 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-18 11:39:59.063  WARN 16340 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 11:39:59.724  INFO 16340 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+2021-04-18 11:39:59.726  INFO 16340 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-04-18 11:39:59.837  INFO 16340 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-04-18 11:39:59.851  INFO 16340 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 9.109 seconds (JVM running for 11.541)
+2021-04-18 11:40:28.747  INFO 16340 --- [https-jsse-nio-443-exec-8] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-18 11:40:28.747  INFO 16340 --- [https-jsse-nio-443-exec-8] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-18 11:40:28.756  INFO 16340 --- [https-jsse-nio-443-exec-8] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2021-04-18 11:41:37.953  INFO 11412 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Starting BiologicalApplication on DESKTOP-SJ9D7FO with PID 11412 (C:\Users\YaoHongtao\IdeaProjects\informed_consent\server\target\classes started by 姚鸿韬 in C:\Users\YaoHongtao\IdeaProjects\informed_consent)
+2021-04-18 11:41:37.956  INFO 11412 --- [restartedMain] c.e.f.biological.BiologicalApplication   : No active profile set, falling back to default profiles: default
+2021-04-18 11:41:38.060  INFO 11412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-18 11:41:38.060  INFO 11412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-18 11:41:38.949  INFO 11412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-04-18 11:41:39.054  INFO 11412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98ms. Found 7 JPA repository interfaces.
+2021-04-18 11:41:39.690  INFO 11412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https) 8080 (http)
+2021-04-18 11:41:39.706  INFO 11412 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 11:41:39.707  INFO 11412 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-18 11:41:39.841  INFO 11412 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 11:41:39.841  INFO 11412 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1781 ms
+2021-04-18 11:41:40.026  INFO 11412 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 11:41:40.035  INFO 11412 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-04-18 11:41:40.089  INFO 11412 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 11:41:40.136  INFO 11412 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-04-18 11:41:40.178  INFO 11412 --- [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation should only be used on methods with parameters: public void cn.edu.fudan.biological.task.AutoChangeProjectStatusTask.execute() throws java.lang.InterruptedException
+2021-04-18 11:41:40.181  INFO 11412 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 开始执行周期任务，将过期项目改变状态
+2021-04-18 11:41:40.181  INFO 11412 --- [restartedMain] c.e.f.b.t.AutoChangeProjectStatusTask    : 线程休眠3秒
+2021-04-18 11:41:40.257  INFO 11412 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-04-18 11:41:40.342  INFO 11412 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 11:41:40.556  INFO 11412 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 11:41:40.573  INFO 11412 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 11:41:41.597  INFO 11412 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 11:41:41.604  INFO 11412 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 11:41:44.117  INFO 11412 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-18 11:41:44.176  WARN 11412 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 11:41:44.638  INFO 11412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+2021-04-18 11:41:44.640  INFO 11412 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-04-18 11:41:44.711  INFO 11412 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-04-18 11:41:44.721  INFO 11412 --- [restartedMain] c.e.f.biological.BiologicalApplication   : Started BiologicalApplication in 7.385 seconds (JVM running for 9.059)
+2021-04-18 11:41:59.225  INFO 11412 --- [https-jsse-nio-443-exec-8] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-18 11:41:59.226  INFO 11412 --- [https-jsse-nio-443-exec-8] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-18 11:41:59.232  INFO 11412 --- [https-jsse-nio-443-exec-8] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms

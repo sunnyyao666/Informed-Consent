@@ -118,22 +118,22 @@ public class UserProjectController {
         }
 
         List<Agreement_info> agreements = agreementInfoRepository.findAllByUsernameOrderByPid(username);
-        List<Project_info> onGoingProjects = new LinkedList<>();
+        List<Project_info> ongoingProjects = new LinkedList<>();
         List<Project_info> finishedProjects = new LinkedList<>();
         for (Agreement_info agreement : agreements) {
             Project_info projectInfo = projectInfoRepository.findById(agreement.getPid()).orElse(null);
             if ("ongoing".equals(projectInfo.getStatus())) {
-                onGoingProjects.add(projectInfo);
+                ongoingProjects.add(projectInfo);
             } else {
                 finishedProjects.add(projectInfo);
             }
         }
 
         int onPages;
-        if (onGoingProjects.size() % 3 == 0) {
-            onPages = onGoingProjects.size() / 3;
+        if (ongoingProjects.size() % 3 == 0) {
+            onPages = ongoingProjects.size() / 3;
         } else {
-            onPages = onGoingProjects.size() / 3 + 1;
+            onPages = ongoingProjects.size() / 3 + 1;
         }
 
         int finishPages;
@@ -143,10 +143,10 @@ public class UserProjectController {
             finishPages = finishedProjects.size() / 3 + 1;
         }
 
-        List<Project_info> onGoingList = new LinkedList<>();
+        List<Project_info> ongoingList = new LinkedList<>();
         int i = (onpage - 1) * 3;
-        while (i < onGoingProjects.size() && i < onpage * 3) {
-            onGoingList.add(onGoingProjects.get(i));
+        while (i < ongoingProjects.size() && i < onpage * 3) {
+            ongoingList.add(ongoingProjects.get(i));
             i++;
         }
 
@@ -160,7 +160,7 @@ public class UserProjectController {
         Map<String, Object> result = new HashMap<>(4);
         result.put("onPages", onPages);
         result.put("finishedPages", finishPages);
-        result.put("onGoingList", onGoingList);
+        result.put("ongoingList", ongoingList);
         result.put("finishedList", finishedList);
         return MyResponse.success("成功", result);
     }
