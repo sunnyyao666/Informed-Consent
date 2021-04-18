@@ -35,7 +35,7 @@ public class AutoChangeProjectStatusTask {
         Thread.sleep(3000);
         for (Project_info project_info : projectInfoRepository.findAll()) {
             if ("ongoing".equals(project_info.getStatus())){
-                Date finishDate = project_info.getEndTime();
+                Date finishDate = new Date(project_info.getEndTime().getTime()+86400);
                 Date nowDate = new Date();
                 if (nowDate.after(finishDate)){
                     project_info.setStatus("finished");
