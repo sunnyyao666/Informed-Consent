@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrganizationInfoRepository extends CrudRepository<Organization_info, Integer> {
     Organization_info findTopById(Integer id);
+
     @Transactional
     void deleteByOrganization(String name);
+
     Organization_info findByOrganization(String organizationName);
 }

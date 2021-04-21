@@ -36,6 +36,15 @@ public class MailUtil {
         mailSender.send(message);
     }
 
+    public void sendPasswordMail(String to, String password) throws MailException {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("生物知情同意小程序单位密码");
+        String text = "尊敬的用户：\n\r\t您单位密码为" + password;
+        message.setText(text);
 
+        mailSender.send(message);
+    }
 }
 
