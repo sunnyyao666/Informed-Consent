@@ -226,13 +226,14 @@ public class OrganizationProjectController {
         log.warn("已有重名已结束项目");
         return MyResponse.fail("已有重名已结束项目");
       }
-      agreementItemRepository.deleteAllByPid(projectIntegerId);
-      projectItemRepository.deleteAllByPid(projectIntegerId);
       project_info.setAgreementItems(new HashSet<>());
       project_info.setProjectItems(new HashSet<>());
+      projectInfoRepository.save(project_info);
+      agreementItemRepository.deleteAllByPid(projectIntegerId);
+      projectItemRepository.deleteAllByPid(projectIntegerId);
+
     }
     Integer projectIntegerId = project_info.getId();
-    projectInfoRepository.save(project_info);
     project_info.setOrganization(
         organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
     project_info
@@ -262,7 +263,6 @@ public class OrganizationProjectController {
       agreementItems.add(agreementItem);
     }
     project_info.setAgreementItems(agreementItems);
-    projectInfoRepository.save(project_info);
     Set<Project_item> projectItems = new HashSet<>();
     for (HashMap<String, Object> projectItem : saveProjectDraftRequest.getProjectItems()) {
       Project_item project_item = new Project_item();
