@@ -211,7 +211,8 @@ public class OrganizationProjectController {
 
     } else {
       //项目已经存在，它必须是draft，且同一个人
-      project_info = projectInfoRepository.findById(Integer.parseInt(saveProjectDraftRequest.getProjectId())).orElse(null);
+      Integer projectIntegerId = Integer.parseInt(saveProjectDraftRequest.getProjectId());
+      project_info = projectInfoRepository.findById(projectIntegerId).orElse(null);
       if (null == project_info) {
         log.warn("指定的项目草稿不存在");
         return MyResponse.fail("指定的项目草稿不存在");
@@ -232,9 +233,13 @@ public class OrganizationProjectController {
         log.warn("已有重名已结束项目");
         return MyResponse.fail("已有重名已结束项目");
       }
-      agreementItemRepository.deleteAllByPid(project_info.getId());
-      projectItemRepository.deleteAllByPid(project_info.getId());
+      agreementItemRepository.deleteAllByPid(projectIntegerId);
+      projectItemRepository.deleteAllByPid(projectIntegerId);
+      project_info.setAgreementItems(new HashSet<>());
+      project_info.setProjectItems(new HashSet<>());
     }
+    Integer projectIntegerId = project_info.getId();
+    projectInfoRepository.save(project_info);
     project_info.setOrganization(
         organizationInfoRepository.findByOrganization(saveProjectDraftRequest.getUnitname()).getOrganization());
     project_info
@@ -258,7 +263,7 @@ public class OrganizationProjectController {
       agreementItem.setName((String) agreeItem.get("name"));
       agreementItem.setValue((String) agreeItem.get("value"));
       agreementItem.setDescription((String) agreeItem.get("description"));
-      agreementItem.setPid(project_info.getId());
+      agreementItem.setPid(projectIntegerId);
       agreementItem.setProjectInfo(project_info);
       agreementItemRepository.save(agreementItem);
       agreementItems.add(agreementItem);
@@ -272,6 +277,7 @@ public class OrganizationProjectController {
       project_item.setName((String) projectItem.get("name"));
       project_item.setDescription((String) projectItem.get("description"));
       project_item.setProjectInfo(project_info);
+      project_item.setPid(projectIntegerId);
       projectItemRepository.save(project_item);
       projectItems.add(project_item);
     }

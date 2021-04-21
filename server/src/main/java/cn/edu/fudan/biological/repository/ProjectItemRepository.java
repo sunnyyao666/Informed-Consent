@@ -14,7 +14,6 @@ public interface ProjectItemRepository extends CrudRepository<Project_item, Inte
 
   List<Project_item> findAllByPidOrderByAid(Integer pid);
 
-  @Transactional
   void deleteAllByPid(Integer pid);
 
   Project_item findByPidAndAid(Integer pid, Integer aid);
