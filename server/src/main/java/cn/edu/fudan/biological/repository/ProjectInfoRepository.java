@@ -25,13 +25,13 @@ public interface ProjectInfoRepository extends CrudRepository<Project_info, Inte
 
     List<Project_info> findAllByOrganizationAndStatusOrderByName(String organization, String status);
 
-    List<Project_info> findAllByOrderByUpdateTimeDesc();
+    List<Project_info> findAllByStatusOrderByUpdateTimeDesc(String status);
 
-    List<Project_info> findAllByOrderByHotDesc();
+    List<Project_info> findAllByStatusOrderByHotDesc(String status);
 
-    List<Project_info> findAllByNameContainingOrPurposeContainingOrderByUpdateTimeDesc(String name, String purpose);
+    List<Project_info> findAllByStatusAndNameContainingOrPurposeContainingOrderByUpdateTimeDesc(String status, String name, String purpose);
 
-    List<Project_info> findAllByNameContainingOrPurposeContainingOrderByHotDesc(String name, String purpose);
+    List<Project_info> findAllByStatusAndNameContainingOrPurposeContainingOrderByHotDesc(String status, String name, String purpose);
 
     @Transactional
     void deleteAllById(Integer id);
