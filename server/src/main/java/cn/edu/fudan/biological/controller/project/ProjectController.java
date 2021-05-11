@@ -91,9 +91,9 @@ public class ProjectController {
 
         Map<String, Object> result = new HashMap<>(8);
         HashSet<String> imgurls = new HashSet<>();
-        imgurls.add("../../images/1.png");
-        imgurls.add("../../images/2.png");
-        imgurls.add("../../images/3.png");
+//        imgurls.add("../../images/1.png");
+//        imgurls.add("../../images/2.png");
+//        imgurls.add("../../images/3.png");
         result.put("imgUrls", imgurls);
         result.put("projectId", projectId);
         result.put("projectName", projectInfo.getName());
