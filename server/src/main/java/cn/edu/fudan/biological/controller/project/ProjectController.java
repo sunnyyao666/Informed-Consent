@@ -29,7 +29,7 @@ public class ProjectController {
 
     @GetMapping("/test")
     public MyResponse test(@RequestParam String param) {
-        return MyResponse.success("5/11/2021 成功", param);
+        return MyResponse.success("5/13/2021 成功", param);
     }
 
     @GetMapping("/allProjects")
